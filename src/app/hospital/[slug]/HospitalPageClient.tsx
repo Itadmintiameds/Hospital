@@ -1,20 +1,39 @@
-// /app/hospital/[slug]/HospitalPageClient.tsx
-
 'use client';
 
 import { useState } from 'react';
-import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
 
 import Footer from '@/app/component/FooterSection';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-// Import all possible icons that will be used
-import { FaParking, FaProcedures, FaUserMd, FaWifi, FaBed, FaXRay } from 'react-icons/fa';
-import { HiOutlineClock, HiOutlineLocationMarker, HiOutlinePhone, HiOutlineStar } from 'react-icons/hi';
-import { MdLocalHospital, MdOutlineEmergency, MdOutlineLocalHotel } from 'react-icons/md';
+import {
+  FaParking,
+  FaProcedures,
+  FaUserMd,
+  FaWifi,
+  FaBed,
+  FaXRay,
+} from 'react-icons/fa';
+import {
+  HiOutlineClock,
+  HiOutlineLocationMarker,
+  HiOutlinePhone,
+  HiOutlineStar,
+} from 'react-icons/hi';
+import {
+  MdLocalHospital,
+  MdOutlineEmergency,
+  MdOutlineLocalHotel,
+} from 'react-icons/md';
+
+import type { IconType } from 'react-icons';
 import { Hospital } from '@/app/data/Hospital';
+
+/* -------------------------------------------------------------------------- */
+/*                               STATIC DATA                                  */
+/* -------------------------------------------------------------------------- */
 
 const hospitalSlugMap: Record<number, string> = {
   1: 'cureplus-disha-hospital',
@@ -32,23 +51,36 @@ const hospitalSlugMap: Record<number, string> = {
   13: 'cureplus-hospital-halli-mysuru',
 };
 
-
 const hospitalsList = [
-    { id: 1, name: 'CurePlus Disha Hospital', image: '/cureplus/cureplus.png' },
-    { id: 2, name: 'CurePlus Dharani Hospital', image: '/dharni/dharni.png' },
-    { id: 3, name: 'CurePlus Kaveri Hospital', image: '/kaveri/kaveri1.png' },
-    { id: 4, name: 'CurePlus Krishna Hospital', image: '/krishna/krishna1.png' },
-    { id: 5, name: 'CurePlus Narasegowda Memorial Hospital', image: '/narasegowda/narasaregoda1.png' },
-    { id: 6, name: 'CurePlus Hospital Shanivarasanthe', image: '/Shanivarasanthe/shanivarasanthe.png' },
-    { id: 7, name: 'CurePlus Hospital Ramapura', image: '/rampura/rampura.png' },
-    { id: 8, name: 'CurePlus Hospital Terakanambi', image: '/terakanamb/terakanamb.png' },
-    { id: 9, name: 'CurePlus Hospital Bherya', image: '/bheraya/bheraya.png' },
-    { id: 10, name: 'CurePlus Hospital T. Narasipura', image: '/Narasipura/Narasipura.png' },
-    { id: 11, name: 'CurePlus Hospital Handpost', image: '/handPost/handpost1.png' },
-    { id: 12, name: 'CurePlus Hospital Hosur', image: '/hosur/hosur.png' },
-    { id: 13, name: 'CurePlus Hospital Halli Mysore', image: '/halli/halli.png' },
-    
+  { id: 1, name: 'CurePlus Disha Hospital', image: '/cureplus/cureplus.png' },
+  { id: 2, name: 'CurePlus Dharani Hospital', image: '/dharni/dharni.png' },
+  { id: 3, name: 'CurePlus Kaveri Hospital', image: '/kaveri/kaveri1.png' },
+  { id: 4, name: 'CurePlus Krishna Hospital', image: '/krishna/krishna1.png' },
+  { id: 5, name: 'CurePlus Narasegowda Memorial Hospital', image: '/narasegowda/narasaregoda1.png' },
+  { id: 6, name: 'CurePlus Hospital Shanivarasanthe', image: '/Shanivarasanthe/shanivarasanthe.png' },
+  { id: 7, name: 'CurePlus Hospital Ramapura', image: '/rampura/rampura.png' },
+  { id: 8, name: 'CurePlus Hospital Terakanambi', image: '/terakanamb/terakanamb.png' },
+  { id: 9, name: 'CurePlus Hospital Bherya', image: '/bheraya/bheraya.png' },
+  { id: 10, name: 'CurePlus Hospital T. Narasipura', image: '/Narasipura/Narasipura.png' },
+  { id: 11, name: 'CurePlus Hospital Handpost', image: '/handPost/handpost1.png' },
+  { id: 12, name: 'CurePlus Hospital Hosur', image: '/hosur/hosur.png' },
+  { id: 13, name: 'CurePlus Hospital Halli Mysore', image: '/halli/halli.png' },
 ];
+
+/* -------------------------------------------------------------------------- */
+/*                              ICON REGISTRY                                 */
+/* -------------------------------------------------------------------------- */
+
+const facilityIconMap: Record<string, IconType> = {
+  FaWifi,
+  FaParking,
+  FaBed,
+  FaXRay,
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                ANIMATION                                   */
+/* -------------------------------------------------------------------------- */
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -58,6 +90,50 @@ const fadeIn = {
     transition: { delay: i * 0.1 },
   }),
 };
+
+const fadeProps = (i: number) => ({
+  initial: 'hidden' as const,
+  whileInView: 'visible' as const,
+  viewport: { once: true },
+  variants: fadeIn,
+  custom: i,
+});
+
+/* -------------------------------------------------------------------------- */
+/*                            HELPER COMPONENTS                                */
+/* -------------------------------------------------------------------------- */
+
+type NetworkHospitalItemProps = {
+  hosp: { id: number; name: string; image: string };
+  active: boolean;
+};
+
+const NetworkHospitalItem = ({ hosp, active }: NetworkHospitalItemProps) => (
+  <li
+    className={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
+      active ? 'bg-gray-200' : 'hover:bg-gray-100'
+    }`}
+  >
+    <img
+      src={hosp.image}
+      alt={hosp.name}
+      className="w-12 h-12 rounded-md object-cover shadow"
+    />
+    <div>
+      <p className={`text-sm font-medium ${active ? 'text-blue-800' : 'text-gray-800'}`}>
+        {hosp.name}
+      </p>
+      <div className="flex items-center gap-1">
+        <HiOutlineStar className="w-3 h-3 text-yellow-500" />
+        <span className="text-xs text-gray-500">4.8</span>
+      </div>
+    </div>
+  </li>
+);
+
+/* -------------------------------------------------------------------------- */
+/*                              MAIN COMPONENT                                 */
+/* -------------------------------------------------------------------------- */
 
 const HospitalPageClient = ({ hospital }: { hospital: Hospital }) => {
   const [isLightboxOpen, setLightboxOpen] = useState(false);
@@ -71,284 +147,247 @@ const HospitalPageClient = ({ hospital }: { hospital: Hospital }) => {
     );
   }
 
-  // Since the `hospital` object is passed down from the Server Component,
-  // we can get the ID directly from it instead of using the `useParams` hook.
-  // This makes the component simpler and more self-contained.
   const hospitalId = hospital.id;
+  const slides = hospital.gallery.map((img) => ({ src: img }));
+  const altTexts = hospital.seo?.altTexts ?? [];
 
-  const lightboxSlides = hospital.gallery.map((img: string) => ({ src: img }));
-  const galleryAltTexts = hospital.seo?.altTexts || [];
+  const openGallery = (index: number) => {
+    setCurrentImageIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const highlights = [
+    { label: 'Specialists', value: hospital.specialists || '10+', icon: FaUserMd, bg: 'bg-blue-50' },
+    { label: 'Beds', value: hospital.beds || '20+', icon: FaProcedures, bg: 'bg-purple-50' },
+    { label: 'Emergency', value: '24/7', icon: MdOutlineEmergency, bg: 'bg-green-50' },
+    { label: 'Rating', value: '4.8/5', icon: HiOutlineStar, bg: 'bg-orange-50' },
+  ];
 
   return (
     <>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-gray-800 flex flex-col lg:flex-row gap-8">
-        {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 py-10 flex flex-col lg:flex-row gap-8">
+        {/* MAIN CONTENT */}
         <div className="w-full lg:w-3/4">
-          {/* Hospital Header */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="mb-12 relative"
-          >
-            <div className="relative rounded-xl overflow-hidden shadow-lg">
-              <img
-                src={hospital.imageUrl}
-                alt={hospital.seo?.h1 || hospital.name}
-                className="w-full h-64 sm:h-80 md:h-96 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-            </div>
-            <div className="mt-6 flex flex-col sm:flex-row justify-between items-start gap-4">
-              <div className="flex-1">
-                <motion.h1
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-3xl sm:text-4xl font-extrabold text-gray-900"
-                >
+          {/* HEADER */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-12">
+            <img
+              src={hospital.imageUrl}
+              alt={hospital.seo?.h1 || hospital.name}
+              className="w-full h-96 object-cover rounded-xl shadow"
+            />
+
+            <div className="mt-6 flex justify-between items-start gap-4">
+              <div>
+                <h1 className="text-4xl font-bold">
                   {hospital.seo?.h1 || hospital.name}
-                </motion.h1>
+                </h1>
                 <div className="flex items-center gap-2 text-gray-600 mt-2">
-                  <HiOutlineLocationMarker className="text-blue-600 w-5 h-5" />
-                  <span className="text-base sm:text-lg">{hospital.location}</span>
+                  <HiOutlineLocationMarker className="text-blue-600" />
+                  {hospital.location}
                 </div>
               </div>
-              <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-lg w-full sm:w-auto justify-center sm:justify-start">
-                <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
+
+              <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-lg">
+                <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
                 <span className="text-green-800 font-medium">Open Now</span>
               </div>
             </div>
           </motion.div>
 
-          {/* Key Highlights */}
-          <motion.section
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} custom={1}
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-12"
-          >
-            <div className="bg-blue-50 p-3 sm:p-4 rounded-xl flex items-center gap-3">
-              <FaUserMd className="text-purple-600 w-5 h-5 sm:w-6 sm:h-6" />
-              <div>
-                <p className="text-xs sm:text-sm text-purple-600">Specialists</p>
-                <p className="font-bold text-purple-600 text-sm sm:text-base">{hospital.specialists || '10+'}</p>
-              </div>
-            </div>
-            <div className="bg-purple-50 p-3 sm:p-4 rounded-xl flex items-center gap-3">
-              <FaProcedures className="text-purple-600 w-5 h-5 sm:w-6 sm:h-6" />
-              <div>
-                <p className="text-xs sm:text-sm text-purple-600">Beds</p>
-                <p className="font-bold text-purple-600 text-sm sm:text-base">{hospital.beds || '20+'}</p>
-              </div>
-            </div>
-            <div className="bg-green-50 p-3 sm:p-4 rounded-xl flex items-center gap-3">
-              <MdOutlineEmergency className="text-purple-600 w-5 h-5 sm:w-6 sm:h-6" />
-              <div>
-                <p className="text-xs sm:text-sm text-purple-600">Emergency</p>
-                <p className="font-bold text-purple-600 text-sm sm:text-base">24/7</p>
-              </div>
-            </div>
-            <div className="bg-orange-50 p-3 sm:p-4 rounded-xl flex items-center gap-3">
-              <HiOutlineStar className="text-purple-600 w-5 h-5 sm:w-6 sm:h-6" />
-              <div>
-                <p className="text-xs sm:text-sm text-purple-600">Rating</p>
-                <p className="font-bold text-purple-600 text-sm sm:text-base">4.8/5</p>
-              </div>
-            </div>
+          {/* HIGHLIGHTS */}
+          <motion.section {...fadeProps(1)} className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            {highlights.map((h, i) => {
+              const Icon = h.icon;
+              return (
+                <div key={i} className={`${h.bg} p-4 rounded-xl flex gap-3`}>
+                  <Icon className="text-purple-600 w-6 h-6" />
+                  <div>
+                    <p className="text-sm text-purple-600">{h.label}</p>
+                    <p className="font-bold text-purple-600">{h.value}</p>
+                  </div>
+                </div>
+              );
+            })}
           </motion.section>
 
-          {/* About Section */}
-          <div className="mb-12 p-4 sm:p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-200">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-3 border-b pb-2 flex items-center gap-2">
-              <MdLocalHospital className="text-blue-600" />
-              About the Hospital
+          {/* ABOUT */}
+          <section className="mb-12 bg-white p-6 rounded-xl shadow">
+            <h2 className="text-2xl font-semibold flex gap-2 mb-2">
+              <MdLocalHospital /> About the Hospital
             </h2>
-            <p className="text-sm sm:text-base leading-relaxed whitespace-pre-line">{hospital.description}</p>
-          </div>
+            <p className="leading-relaxed whitespace-pre-line">
+              {hospital.description}
+            </p>
+          </section>
 
-          {/* Services & Facilities */}
-          <motion.section
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} custom={2}
-            className="grid md:grid-cols-2 gap-6 sm:gap-10 mb-12"
-          >
+          {/* SERVICES & FACILITIES */}
+          <motion.section {...fadeProps(2)} className="grid md:grid-cols-2 gap-10 mb-12">
             <div>
-              <h2 className="text-xl sm:text-2xl font-semibold mb-3 border-b pb-2 flex items-center gap-2">
-                <FaProcedures className="text-blue-600" /> Services
+              <h2 className="text-2xl font-semibold flex gap-2 mb-4">
+                <FaProcedures /> Services
               </h2>
-              <ul className="space-y-3 sm:space-y-4">
-                {hospital.services.map((service, i) => (
-                  <motion.li key={i} className="flex items-center gap-3 bg-blue-50 p-3 sm:p-4 rounded-xl shadow-md">
-                    <div className="p-1.5 sm:p-2 rounded-lg bg-blue-100 text-blue-600"><MdLocalHospital className="w-4 h-4 sm:w-5 sm:h-5" /></div>
-                    <div><span className="text-gray-700 font-medium text-sm sm:text-base">{service.label}</span></div>
-                  </motion.li>
+              <ul className="space-y-3">
+                {hospital.services.map((s, i) => (
+                  <li key={i} className="flex gap-3 bg-blue-50 p-4 rounded-xl shadow">
+                    <MdLocalHospital className="text-blue-600" />
+                    {s.label}
+                  </li>
                 ))}
               </ul>
             </div>
+
             <div>
-              <h2 className="text-xl sm:text-2xl font-semibold mb-3 border-b pb-2 flex items-center gap-2">
-                <MdOutlineLocalHotel className="text-green-600" /> Facilities
+              <h2 className="text-2xl font-semibold flex gap-2 mb-4">
+                <MdOutlineLocalHotel /> Facilities
               </h2>
-              <ul className="grid grid-cols-2 gap-3 sm:gap-4">
-                {hospital.facilities.map((facility, i) => (
-                  <motion.li key={i} className="flex items-center gap-3 bg-green-50 p-2 sm:p-3 rounded-xl shadow-md">
-                     <div className="p-1 sm:p-1.5 rounded-lg bg-green-100 text-green-600">
-                        {/* Logic to render icons from strings */}
-                        {facility.icon === 'FaWifi' && <FaWifi className="w-3 h-3 sm:w-4 sm:h-4" />}
-                        {facility.icon === 'FaParking' && <FaParking className="w-3 h-3 sm:w-4 sm:h-4" />}
-                        {facility.icon === 'FaBed' && <FaBed className="w-3 h-3 sm:w-4 sm:h-4" />}
-                        {facility.icon === 'FaXRay' && <FaXRay className="w-3 h-3 sm:w-4 sm:h-4" />}
-                     </div>
-                     <span className="text-gray-700 text-xs sm:text-sm font-medium">{facility.label}</span>
-                  </motion.li>
-                ))}
+              <ul className="grid grid-cols-2 gap-3">
+                {hospital.facilities.map((f, i) => {
+                  const Icon = facilityIconMap[f.icon];
+                  return (
+                    <li key={i} className="flex gap-3 bg-green-50 p-3 rounded-xl shadow">
+                      <div className="bg-green-100 p-2 rounded">
+                        {Icon && <Icon className="w-4 h-4 text-green-600" />}
+                      </div>
+                      {f.label}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </motion.section>
 
-          {/* Infrastructure */}
-          <motion.section
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} custom={3}
-            className="mb-12 bg-white p-4 sm:p-6 rounded-xl shadow-md"
-          >
-            <h2 className="text-xl sm:text-2xl font-semibold mb-3 border-b pb-2">Infrastructure</h2>
-            <p className="text-sm sm:text-base leading-relaxed">{hospital.infrastructure}</p>
+          {/* INFRASTRUCTURE */}
+          <motion.section {...fadeProps(3)} className="mb-12 bg-white p-6 rounded-xl shadow">
+            <h2 className="text-2xl font-semibold mb-2">Infrastructure</h2>
+            <p>{hospital.infrastructure}</p>
+
             {hospital.departments && (
-              <div className="mt-4 sm:mt-6">
-                <h3 className="text-lg sm:text-xl font-semibold mb-3">Departments</h3>
-                <div className="flex flex-wrap gap-2 sm:gap-3">
-                  {Array.isArray(hospital.departments) && hospital.departments.map((dept, i) => (
-                    <span key={i} className="bg-blue-50 text-blue-800 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm">
-                      {dept}
+              <>
+                <h3 className="text-xl font-semibold mt-4 mb-2">Departments</h3>
+                <div className="flex flex-wrap gap-2">
+                  {hospital.departments.map((d, i) => (
+                    <span key={i} className="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-sm">
+                      {d}
                     </span>
                   ))}
                 </div>
-              </div>
+              </>
             )}
           </motion.section>
-          
-          {/* Gallery Section */}
-          <motion.section
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} custom={4}
-            className="mb-12"
-          >
-            <h2 className="text-xl sm:text-2xl font-semibold mb-3 border-b pb-2">Gallery</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
-              {hospital.gallery.map((img, idx) => {
-                const altText = galleryAltTexts[idx] || `${hospital.name} gallery image ${idx + 1}`;
-                return (
-                  <motion.div
-                    key={idx}
-                    whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}
-                    className="relative group overflow-hidden rounded-lg shadow-md aspect-square cursor-pointer"
-                    onClick={() => {
-                      setCurrentImageIndex(idx);
-                      setLightboxOpen(true);
-                    }}
-                  >
-                    <img
-                      src={img}
-                      alt={altText}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </motion.div>
-                );
-              })}
+
+          {/* GALLERY */}
+          <motion.section {...fadeProps(4)} className="mb-12">
+            <h2 className="text-2xl font-semibold mb-4">Gallery</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {hospital.gallery.map((img, i) => (
+                <div
+                  key={i}
+                  onClick={() => openGallery(i)}
+                  className="cursor-pointer overflow-hidden rounded-lg shadow"
+                >
+                  <img
+                    src={img}
+                    alt={altTexts[i] || `${hospital.name} image ${i + 1}`}
+                    className="object-cover aspect-square hover:scale-110 transition"
+                  />
+                </div>
+              ))}
             </div>
           </motion.section>
 
-          {/* Contact & Hours */}
-          <motion.section
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} custom={5}
-            className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-12"
-          >
-            <div className="bg-gray-50 p-4 sm:p-6 rounded-xl shadow-md">
-              <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 border-b pb-2">Contact Information</h2>
-              <div className="space-y-3 sm:space-y-4 text-gray-700">
-                <a href={hospital.contact.googleMapUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3">
-                  <HiOutlineLocationMarker className="text-purple-600 w-4 h-4 sm:w-5 sm:h-5 mt-0.5" />
-                  <div><p className='text-purple-600 text-sm sm:text-base underline'>{hospital.contact.address}</p></div>
+          {/* CONTACT & HOURS */}
+          <motion.section {...fadeProps(5)} className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="bg-gray-50 p-6 rounded-xl shadow">
+              <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
+
+              <a
+                href={hospital.contact.googleMapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex gap-2 text-purple-600 underline"
+              >
+                <HiOutlineLocationMarker />
+                {hospital.contact.address}
+              </a>
+
+              <div className="flex gap-2 mt-3">
+                <HiOutlinePhone className="text-purple-600" />
+                <a
+                  href={`tel:${hospital.contact.phone}`}
+                  className="text-purple-600 underline"
+                >
+                  {hospital.contact.phone}
                 </a>
-                <div className="flex items-center gap-3">
-                  <HiOutlinePhone className="text-purple-600 w-4 h-4 sm:w-5 sm:h-5" />
-                  <div><a href={`tel:${hospital.contact.phone}`} className="text-purple-600 underline text-sm sm:text-base">{hospital.contact.phone}</a></div>
-                </div>
               </div>
             </div>
-            <div className="bg-gray-50 p-4 sm:p-6 rounded-xl shadow-md">
-              <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 border-b pb-2 flex items-center gap-2">
-                <HiOutlineClock className="text-orange-500" /> Opening Hours
+
+            <div className="bg-gray-50 p-6 rounded-xl shadow">
+              <h2 className="text-2xl font-semibold flex gap-2 mb-4">
+                <HiOutlineClock /> Opening Hours
               </h2>
-              <div className="space-y-2 sm:space-y-3">
-                <div className="flex justify-between text-sm sm:text-base"><span>Monday - Sunday</span><span className="font-medium">24 Hours</span></div>
-                <div className="pt-2 sm:pt-3 mt-2 sm:mt-3 border-t">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600 text-sm sm:text-base">Emergency Services</span>
-                    <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-xs sm:text-sm font-medium">24/7 Available</span>
-                  </div>
-                </div>
+
+              <div className="flex justify-between">
+                <span>Monday - Sunday</span>
+                <span className="font-medium">24 Hours</span>
+              </div>
+
+              <div className="mt-4 border-t pt-3 flex justify-between">
+                <span>Emergency Services</span>
+                <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">
+                  24/7 Available
+                </span>
               </div>
             </div>
           </motion.section>
         </div>
 
-        {/* Sidebar Section */}
-        <div className="w-full lg:w-1/4 flex flex-col gap-4 lg:sticky lg:top-6 lg:self-start">
-          <div className="p-4 bg-red-50 rounded-xl shadow-md border border-red-100">
-            <h3 className="text-lg font-bold mb-3 text-red-800 flex items-center gap-2"><MdOutlineEmergency className="w-5 h-5" /> Emergency Contact</h3>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <HiOutlinePhone className="w-4 h-8 text-red-600" />
-                <a href="tel:+919035193777" className="text-red-800 font-bold text-2xl sm:text-3xl">
-                    +91 90351 93777
-                </a>
-              </div>
-              <p className="text-xs text-red-700 mt-2">Available 24/7 for emergencies</p>
-            </div>
+        {/* SIDEBAR */}
+        <aside className="w-full lg:w-1/4 sticky top-6 space-y-4">
+          <div className="bg-red-50 p-4 rounded-xl shadow">
+            <h3 className="font-bold flex gap-2 text-red-800">
+              <MdOutlineEmergency /> Emergency Contact
+            </h3>
+            <a href="tel:+919035193777" className="text-3xl font-bold text-red-700">
+              +91 90351 93777
+            </a>
           </div>
-          <div className="p-4 bg-white rounded-xl shadow-md">
-            <h3 className="text-lg sm:text-xl font-bold mb-4 border-b pb-2">Our Network</h3>
-            <ul className="space-y-2 sm:space-y-3 max-h-[500px] overflow-y-auto pr-2">
-              {hospitalsList.map((hosp) => (
-                <Link key={hosp.id} href={`/${hospitalSlugMap[hosp.id]}`}
- className={`block rounded-lg transition-colors duration-200 ${hospitalId === hosp.id ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>
-                  <li className="flex items-center gap-3 p-2 sm:p-3">
-                    <div className="relative"><img src={hosp.image} alt={hosp.name} className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-md shadow"/></div>
-                    <div>
-                      <span className={`text-xs sm:text-sm font-medium ${hospitalId === hosp.id ? 'text-blue-800' : 'text-gray-800'}`}>{hosp.name}</span>
-                      <div className="flex items-center gap-1 mt-0.5">
-                        <HiOutlineStar className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-yellow-500" />
-                        <span className="text-xs text-gray-500">4.8</span>
-                      </div>
-                    </div>
-                  </li>
+
+          <div className="bg-white p-4 rounded-xl shadow">
+            <h3 className="font-bold mb-3">Our Network</h3>
+            <ul className="space-y-2 max-h-[500px] overflow-y-auto">
+              {hospitalsList.map((h) => (
+                <Link key={h.id} href={`/${hospitalSlugMap[h.id]}`}>
+                  <NetworkHospitalItem hosp={h} active={hospitalId === h.id} />
                 </Link>
               ))}
             </ul>
           </div>
-        </div>
+        </aside>
       </div>
-      
-      {/* Embedded Map Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {hospital.contact.embedMapUrl && (
-          <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} custom={6}>
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-center">Our Location</h2>
-            <div className="rounded-lg overflow-hidden shadow-xl">
-              <iframe
-                src={hospital.contact.embedMapUrl}
-                width="100%" height="450" style={{ border: 0 }}
-                allowFullScreen={true} loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-          </motion.section>
-        )}
-      </div>
+
+      {/* MAP */}
+      {hospital.contact.embedMapUrl && (
+        <motion.section {...fadeProps(6)} className="max-w-7xl mx-auto px-4 pb-10">
+          <h2 className="text-3xl font-bold text-center mb-4">Our Location</h2>
+          <div className="rounded-lg overflow-hidden shadow">
+            <iframe
+              src={hospital.contact.embedMapUrl}
+              width="100%"
+              height="450"
+              style={{ border: 0 }}
+              loading="lazy"
+              allowFullScreen
+            />
+          </div>
+        </motion.section>
+      )}
 
       <Footer />
 
       <Lightbox
         open={isLightboxOpen}
         close={() => setLightboxOpen(false)}
-        slides={lightboxSlides}
+        slides={slides}
         index={currentImageIndex}
       />
     </>
