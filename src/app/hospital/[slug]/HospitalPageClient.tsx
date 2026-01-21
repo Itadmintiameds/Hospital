@@ -84,6 +84,13 @@ const FADE_IN = {
   }),
 };
 
+const HIGHLIGHT_COLORS = {
+  specialists: { icon: FaUserMd, bgColor: 'bg-blue-50' },
+  beds: { icon: FaProcedures, bgColor: 'bg-purple-50' },
+  emergency: { icon: MdOutlineEmergency, bgColor: 'bg-green-50' },
+  rating: { icon: HiOutlineStar, bgColor: 'bg-orange-50' },
+} as const;
+
 /* -------------------------------------------------------------------------- */
 /*                               HELPER FUNCTIONS                             */
 /* -------------------------------------------------------------------------- */
@@ -95,6 +102,18 @@ const fadeProps = (i: number) => ({
   variants: FADE_IN,
   custom: i,
 });
+
+const renderCard = (children: React.ReactNode, className = '') => (
+  <div className={`rounded-xl shadow ${className}`}>
+    {children}
+  </div>
+);
+
+const renderIconHeader = (Icon: IconType, text: string) => (
+  <h2 className="text-2xl font-semibold flex items-center gap-2 mb-4">
+    <Icon /> {text}
+  </h2>
+);
 
 /* -------------------------------------------------------------------------- */
 /*                               COMPONENTS                                   */
@@ -111,7 +130,7 @@ const NetworkHospitalItem = ({ hospital, isActive }: NetworkHospitalItemProps) =
       isActive ? 'bg-gray-200' : 'hover:bg-gray-100'
     }`}
   >
-    <div className="relative w-12 h-12 rounded-md overflow-hidden shadow">
+    <div className="relative w-12 h-12 rounded-md overflow-hidden">
       <Image
         src={hospital.image}
         alt={hospital.name}
@@ -135,19 +154,25 @@ const NetworkHospitalItem = ({ hospital, isActive }: NetworkHospitalItemProps) =
 interface HighlightCardProps {
   label: string;
   value: string;
-  icon: IconType;
-  bgColor: string;
+  type: keyof typeof HIGHLIGHT_COLORS;
 }
 
-const HighlightCard = ({ label, value, icon: Icon, bgColor }: HighlightCardProps) => (
-  <div className={`${bgColor} p-4 rounded-xl flex gap-3`}>
-    <Icon className="text-purple-600 w-6 h-6" />
-    <div>
-      <p className="text-sm text-purple-600">{label}</p>
-      <p className="font-bold text-purple-600">{value}</p>
+const HighlightCard = ({ label, value, type }: HighlightCardProps) => {
+  const { icon: Icon, bgColor } = HIGHLIGHT_COLORS[type];
+  const textColor = type === 'emergency' ? 'text-green-600' : 
+                    type === 'rating' ? 'text-orange-600' : 
+                    type === 'beds' ? 'text-purple-600' : 'text-blue-600';
+  
+  return (
+    <div className={`${bgColor} p-4 rounded-xl flex gap-3`}>
+      <Icon className={`${textColor} w-6 h-6`} />
+      <div>
+        <p className={`text-sm ${textColor}`}>{label}</p>
+        <p className={`font-bold ${textColor}`}>{value}</p>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 /* -------------------------------------------------------------------------- */
 /*                               MAIN COMPONENT                               */
@@ -166,8 +191,8 @@ const HospitalPageClient = ({ hospital }: { hospital: Hospital }) => {
   }
 
   const hospitalId = hospital.id;
-  const slides = hospital.gallery.map((img) => ({ src: img }));
-  const altTexts = hospital.seo?.altTexts ?? [];
+  const slides = hospital.gallery?.map((img) => ({ src: img })) || [];
+  const altTexts = hospital.seo?.altTexts || [];
 
   const openGallery = (index: number) => {
     setCurrentImageIndex(index);
@@ -175,11 +200,16 @@ const HospitalPageClient = ({ hospital }: { hospital: Hospital }) => {
   };
 
   const highlights = [
-    { label: 'Specialists', value: hospital.specialists || '10+', icon: FaUserMd, bgColor: 'bg-blue-50' },
-    { label: 'Beds', value: hospital.beds || '20+', icon: FaProcedures, bgColor: 'bg-purple-50' },
-    { label: 'Emergency', value: '24/7', icon: MdOutlineEmergency, bgColor: 'bg-green-50' },
-    { label: 'Rating', value: '4.8/5', icon: HiOutlineStar, bgColor: 'bg-orange-50' },
+    { label: 'Specialists', value: hospital.specialists || '10+', type: 'specialists' as const },
+    { label: 'Beds', value: hospital.beds || '20+', type: 'beds' as const },
+    { label: 'Emergency', value: '24/7', type: 'emergency' as const },
+    { label: 'Rating', value: '4.8/5', type: 'rating' as const },
   ];
+
+  const services = hospital.services || [];
+  const facilities = hospital.facilities || [];
+  const departments = hospital.departments || [];
+  const gallery = hospital.gallery || [];
 
   return (
     <>
@@ -193,14 +223,16 @@ const HospitalPageClient = ({ hospital }: { hospital: Hospital }) => {
             className="mb-12"
           >
             <div className="relative w-full h-96 rounded-xl shadow overflow-hidden">
-              <Image
-                src={hospital.imageUrl}
-                alt={hospital.seo?.h1 || hospital.name}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 1000px"
-                className="object-cover"
-                priority
-              />
+              {hospital.imageUrl && (
+                <Image
+                  src={hospital.imageUrl}
+                  alt={hospital.seo?.h1 || hospital.name || 'Hospital Image'}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 1000px"
+                  className="object-cover"
+                  priority
+                />
+              )}
             </div>
 
             <div className="mt-6 flex flex-col sm:flex-row justify-between items-start gap-4">
@@ -231,136 +263,152 @@ const HospitalPageClient = ({ hospital }: { hospital: Hospital }) => {
           </motion.section>
 
           {/* ABOUT */}
-          <section className="mb-12 bg-white p-6 rounded-xl shadow">
-            <h2 className="text-2xl font-semibold flex items-center gap-2 mb-4">
-              <MdLocalHospital /> About the Hospital
-            </h2>
-            <p className="leading-relaxed whitespace-pre-line">
-              {hospital.description}
-            </p>
+          <section className="mb-12">
+            {renderCard(
+              <>
+                {renderIconHeader(MdLocalHospital, 'About the Hospital')}
+                <p className="leading-relaxed whitespace-pre-line">
+                  {hospital.description}
+                </p>
+              </>,
+              'bg-white p-6'
+            )}
           </section>
 
           {/* SERVICES & FACILITIES */}
           <motion.section {...fadeProps(2)} className="mb-12">
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h2 className="text-2xl font-semibold flex items-center gap-2 mb-4">
-                  <FaProcedures /> Services
-                </h2>
-                <ul className="space-y-3">
-                  {hospital.services.map((service, index) => (
-                    <li 
-                      key={index} 
-                      className="flex items-center gap-3 bg-blue-50 p-4 rounded-xl shadow"
-                    >
-                      <MdLocalHospital className="text-blue-600 flex-shrink-0" />
-                      <span>{service.label}</span>
-                    </li>
-                  ))}
-                </ul>
+                {renderIconHeader(FaProcedures, 'Services')}
+                {services.length > 0 ? (
+                  <ul className="space-y-3">
+                    {services.map((service, index) => (
+                      <li 
+                        key={index} 
+                        className="flex items-center gap-3 bg-blue-50 p-4 rounded-xl shadow"
+                      >
+                        <MdLocalHospital className="text-blue-600 flex-shrink-0" />
+                        <span>{service.label}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-gray-500 italic">No services information available.</p>
+                )}
               </div>
 
               <div>
-                <h2 className="text-2xl font-semibold flex items-center gap-2 mb-4">
-                  <MdOutlineLocalHotel /> Facilities
-                </h2>
-                <ul className="grid grid-cols-2 gap-3">
-                  {hospital.facilities.map((facility, index) => {
-                    const Icon = FACILITY_ICON_MAP[facility.icon];
-                    return (
-                      <li 
-                        key={index} 
-                        className="flex items-center gap-3 bg-green-50 p-3 rounded-xl shadow"
-                      >
-                        <div className="bg-green-100 p-2 rounded flex-shrink-0">
-                          {Icon && <Icon className="w-4 h-4 text-green-600" />}
-                        </div>
-                        <span>{facility.label}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
+                {renderIconHeader(MdOutlineLocalHotel, 'Facilities')}
+                {facilities.length > 0 ? (
+                  <ul className="grid grid-cols-2 gap-3">
+                    {facilities.map((facility, index) => {
+                      const Icon = facility.icon ? FACILITY_ICON_MAP[facility.icon] : null;
+                      return (
+                        <li 
+                          key={index} 
+                          className="flex items-center gap-3 bg-green-50 p-3 rounded-xl shadow"
+                        >
+                          <div className="bg-green-100 p-2 rounded flex-shrink-0">
+                            {Icon ? (
+                              <Icon className="w-4 h-4 text-green-600" />
+                            ) : (
+                              <MdOutlineLocalHotel className="w-4 h-4 text-green-600" />
+                            )}
+                          </div>
+                          <span>{facility.label}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : (
+                  <p className="text-gray-500 italic">No facilities information available.</p>
+                )}
               </div>
             </div>
           </motion.section>
 
           {/* INFRASTRUCTURE */}
           <motion.section {...fadeProps(3)} className="mb-12">
-            <div className="bg-white p-6 rounded-xl shadow">
-              <h2 className="text-2xl font-semibold mb-4">Infrastructure</h2>
-              <p>{hospital.infrastructure}</p>
+            {renderCard(
+              <>
+                <h2 className="text-2xl font-semibold mb-4">Infrastructure</h2>
+                <p>{hospital.infrastructure || 'Infrastructure information not available.'}</p>
 
-              {hospital.departments && hospital.departments.length > 0 && (
-                <>
-                  <h3 className="text-xl font-semibold mt-6 mb-3">Departments</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {hospital.departments.map((department, index) => (
-                      <span 
-                        key={index} 
-                        className="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-sm"
-                      >
-                        {department}
-                      </span>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
+                {departments.length > 0 && (
+                  <>
+                    <h3 className="text-xl font-semibold mt-6 mb-3">Departments</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {departments.map((department, index) => (
+                        <span 
+                          key={index} 
+                          className="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-sm"
+                        >
+                          {department}
+                        </span>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </>,
+              'bg-white p-6'
+            )}
           </motion.section>
 
           {/* GALLERY */}
-          <motion.section {...fadeProps(4)} className="mb-12">
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Gallery</h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {hospital.gallery.map((image, index) => (
-                  <div
-                    key={index}
-                    onClick={() => openGallery(index)}
-                    className="cursor-pointer overflow-hidden rounded-lg shadow relative aspect-square"
-                  >
-                    <Image
-                      src={image}
-                      alt={altTexts[index] || `${hospital.name} image ${index + 1}`}
-                      fill
-                      sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 200px"
-                      className="object-cover hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                ))}
+          {gallery.length > 0 && (
+            <motion.section {...fadeProps(4)} className="mb-12">
+              <div>
+                <h2 className="text-2xl font-semibold mb-4">Gallery</h2>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {gallery.map((image, index) => (
+                    <div
+                      key={index}
+                      onClick={() => openGallery(index)}
+                      className="cursor-pointer overflow-hidden rounded-lg shadow relative aspect-square"
+                    >
+                      <Image
+                        src={image}
+                        alt={altTexts[index] || `${hospital.name || 'Hospital'} image ${index + 1}`}
+                        fill
+                        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 200px"
+                        className="object-cover hover:scale-110 transition-transform duration-300"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          </motion.section>
+            </motion.section>
+          )}
 
           {/* CONTACT & HOURS */}
-          <motion.section {...fadeProps(5)} className="mb-12">
+          <motion.section {...fadeProps(gallery.length > 0 ? 5 : 4)} className="mb-12">
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-gray-50 p-6 rounded-xl shadow">
                 <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
-                <a
-                  href={hospital.contact.googleMapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-purple-600 underline hover:text-purple-800 transition-colors"
-                >
-                  <HiOutlineLocationMarker className="flex-shrink-0" />
-                  <span>{hospital.contact.address}</span>
-                </a>
+                {hospital.contact?.googleMapUrl && (
+                  <a
+                    href={hospital.contact.googleMapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-purple-600 underline hover:text-purple-800 transition-colors"
+                  >
+                    <HiOutlineLocationMarker className="flex-shrink-0" />
+                    <span>{hospital.contact.address || 'Address not available'}</span>
+                  </a>
+                )}
                 <div className="flex items-center gap-2 mt-4">
                   <HiOutlinePhone className="text-purple-600 flex-shrink-0" />
                   <a
-                    href={`tel:${hospital.contact.phone}`}
+                    href={`tel:${hospital.contact?.phone || ''}`}
                     className="text-purple-600 underline hover:text-purple-800 transition-colors"
                   >
-                    {hospital.contact.phone}
+                    {hospital.contact?.phone || 'Phone number not available'}
                   </a>
                 </div>
               </div>
 
               <div className="bg-gray-50 p-6 rounded-xl shadow">
-                <h2 className="text-2xl font-semibold flex items-center gap-2 mb-4">
-                  <HiOutlineClock /> Opening Hours
-                </h2>
+                {renderIconHeader(HiOutlineClock, 'Opening Hours')}
                 <div className="flex justify-between mb-3">
                   <span>Monday - Sunday</span>
                   <span className="font-medium">24 Hours</span>
@@ -378,40 +426,49 @@ const HospitalPageClient = ({ hospital }: { hospital: Hospital }) => {
 
         {/* SIDEBAR */}
         <aside className="w-full lg:w-1/4 space-y-6">
-          <div className="bg-red-50 p-4 rounded-xl shadow">
-            <h3 className="font-bold flex items-center gap-2 text-red-800 mb-2">
-              <MdOutlineEmergency /> Emergency Contact
-            </h3>
-            <a 
-              href="tel:+919035193777" 
-              className="text-2xl sm:text-3xl font-bold text-red-700 hover:text-red-800 transition-colors block"
-            >
-              +91 90351 93777
-            </a>
-          </div>
+          {renderCard(
+            <>
+              <h3 className="font-bold flex items-center gap-2 text-red-800 mb-2">
+                <MdOutlineEmergency /> Emergency Contact
+              </h3>
+              <a 
+                href="tel:+919035193777" 
+                className="text-2xl sm:text-3xl font-bold text-red-700 hover:text-red-800 transition-colors block"
+              >
+                +91 90351 93777
+              </a>
+            </>,
+            'bg-red-50 p-4'
+          )}
 
-          <div className="bg-white p-4 rounded-xl shadow">
-            <h3 className="font-bold mb-3">Our Network</h3>
-            <ul className="space-y-2 max-h-[500px] overflow-y-auto">
-              {HOSPITALS_LIST.map((hosp) => (
-                <Link 
-                  key={hosp.id} 
-                  href={`/${HOSPITAL_SLUG_MAP[hosp.id]}`}
-                >
-                  <NetworkHospitalItem 
-                    hospital={hosp} 
-                    isActive={hospitalId === hosp.id} 
-                  />
-                </Link>
-              ))}
-            </ul>
-          </div>
+          {renderCard(
+            <>
+              <h3 className="font-bold mb-3">Our Network</h3>
+              <ul className="space-y-2 max-h-[500px] overflow-y-auto">
+                {HOSPITALS_LIST.map((hosp) => (
+                  <Link 
+                    key={hosp.id} 
+                    href={`/${HOSPITAL_SLUG_MAP[hosp.id] || '#'}`}
+                  >
+                    <NetworkHospitalItem 
+                      hospital={hosp} 
+                      isActive={hospitalId === hosp.id} 
+                    />
+                  </Link>
+                ))}
+              </ul>
+            </>,
+            'bg-white p-4'
+          )}
         </aside>
       </div>
 
       {/* MAP */}
-      {hospital.contact.embedMapUrl && (
-        <motion.section {...fadeProps(6)} className="max-w-7xl mx-auto px-4 pb-10">
+      {hospital.contact?.embedMapUrl && (
+        <motion.section 
+          {...fadeProps(gallery.length > 0 ? 6 : 5)} 
+          className="max-w-7xl mx-auto px-4 pb-10"
+        >
           <h2 className="text-3xl font-bold text-center mb-6">Our Location</h2>
           <div className="rounded-lg overflow-hidden shadow">
             <iframe
@@ -421,7 +478,7 @@ const HospitalPageClient = ({ hospital }: { hospital: Hospital }) => {
               style={{ border: 0 }}
               loading="lazy"
               allowFullScreen
-              title={`Location of ${hospital.name}`}
+              title={`Location of ${hospital.name || 'Hospital'}`}
             />
           </div>
         </motion.section>

@@ -120,6 +120,27 @@ const fadeProps = (i: number) => ({
 /*                               COMPONENTS                                   */
 /* -------------------------------------------------------------------------- */
 
+interface BaseCardProps {
+  index: number;
+  children: React.ReactNode;
+  className?: string;
+  link?: string;
+}
+
+const BaseCard = ({ index, children, className = '', link }: BaseCardProps) => {
+  const cardContent = (
+    <motion.div
+      {...fadeProps(index)}
+      whileHover={{ y: -5 }}
+      className={`rounded-xl shadow-md hover:shadow-lg transition-all ${className}`}
+    >
+      {children}
+    </motion.div>
+  );
+
+  return link ? <Link href={link}>{cardContent}</Link> : cardContent;
+};
+
 interface ContentCardProps {
   title: string;
   description: string;
@@ -139,10 +160,9 @@ const ContentCard = ({
   showIconBackground = false,
   isVisionCard = false,
 }: ContentCardProps) => (
-  <motion.div
-    {...fadeProps(index)}
-    whileHover={{ y: -5 }}
-    className={`${bgColor} p-6 rounded-xl shadow-md hover:shadow-lg transition-all ${isVisionCard ? '' : 'border'}`}
+  <BaseCard
+    index={index}
+    className={`${bgColor} p-6 ${isVisionCard ? '' : 'border'}`}
   >
     <div className="flex items-center gap-4 mb-3">
       {showIconBackground ? (
@@ -159,7 +179,7 @@ const ContentCard = ({
     <p className={`${isVisionCard ? 'text-gray-700' : 'text-gray-600 text-sm'}`}>
       {description}
     </p>
-  </motion.div>
+  </BaseCard>
 );
 
 interface HospitalCardProps {
@@ -172,12 +192,12 @@ interface HospitalCardProps {
 }
 
 const HospitalCard = ({ hospital, index }: HospitalCardProps) => (
-  <Link href={`/${HOSPITAL_SLUG_MAP[hospital.id]}`}>
-    <motion.div
-      {...fadeProps(index)}
-      whileHover={{ y: -5 }}
-      className="group rounded-xl bg-white shadow-md hover:shadow-lg border overflow-hidden"
-    >
+  <BaseCard
+    index={index}
+    className="bg-white border overflow-hidden"
+    link={`/${HOSPITAL_SLUG_MAP[hospital.id]}`}
+  >
+    <div className="group">
       <div className="relative h-48 overflow-hidden">
         <Image
           src={hospital.image}
@@ -196,8 +216,39 @@ const HospitalCard = ({ hospital, index }: HospitalCardProps) => (
           {hospital.name}
         </h3>
       </div>
-    </motion.div>
-  </Link>
+    </div>
+  </BaseCard>
+);
+
+/* -------------------------------------------------------------------------- */
+/*                               SECTION COMPONENTS                           */
+/* -------------------------------------------------------------------------- */
+
+const SectionHeader = ({ title, description }: { title: string; description?: string }) => (
+  <div className="text-center mb-8">
+    <h2 className="text-2xl md:text-3xl font-bold text-purple-700 mb-2">{title}</h2>
+    {description && <p className="text-gray-600">{description}</p>}
+  </div>
+);
+
+const CTASection = () => (
+  <motion.div
+    {...fadeProps(23)}
+    className="text-center py-12 bg-gradient-to-r from-purple-700 to-purple-600 rounded-xl shadow-lg"
+  >
+    <h3 className="text-xl md:text-2xl font-semibold text-white mb-4">
+      Join Us In Building A Healthier Future
+    </h3>
+    <Link href="/careers">
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="inline-flex items-center gap-2 px-6 md:px-8 py-3 bg-white text-purple-800 font-medium rounded-full shadow hover:bg-gray-50 transition-colors"
+      >
+        Explore Careers <FiArrowRight className="w-5 h-5" />
+      </motion.button>
+    </Link>
+  </motion.div>
 );
 
 /* -------------------------------------------------------------------------- */
@@ -259,14 +310,11 @@ const AboutPage = () => {
         </div>
 
         {/* HOSPITAL NETWORK */}
-        <motion.div {...fadeProps(9)} className="mb-16 md:mb-20">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-purple-700 mb-2">
-              Hospitals Under SHPL
-            </h2>
-            <p className="text-gray-600">Our growing network of healthcare facilities</p>
-          </div>
-
+        <div className="mb-16 md:mb-20">
+          <SectionHeader 
+            title="Hospitals Under SHPL"
+            description="Our growing network of healthcare facilities"
+          />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {HOSPITALS_LIST.map((hospital, i) => (
               <HospitalCard
@@ -276,26 +324,10 @@ const AboutPage = () => {
               />
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* CTA */}
-        <motion.div
-          {...fadeProps(23)}
-          className="text-center py-12 bg-gradient-to-r from-purple-700 to-purple-600 rounded-xl shadow-lg"
-        >
-          <h3 className="text-xl md:text-2xl font-semibold text-white mb-4">
-            Join Us In Building A Healthier Future
-          </h3>
-          <Link href="/careers">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 px-6 md:px-8 py-3 bg-white text-purple-800 font-medium rounded-full shadow hover:bg-gray-50 transition-colors"
-            >
-              Explore Careers <FiArrowRight className="w-5 h-5" />
-            </motion.button>
-          </Link>
-        </motion.div>
+        <CTASection />
       </div>
 
       <Footer />
