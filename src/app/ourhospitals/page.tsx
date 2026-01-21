@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import React from 'react';
@@ -9,6 +7,23 @@ import { FaHospital, FaClinicMedical, FaMapMarkerAlt } from 'react-icons/fa';
 // 1. ADDED Variants to the import
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import Link from 'next/link';
+
+const hospitalSlugMap: Record<number, string> = {
+  1: 'cureplus-disha-hospital',
+  2: 'cureplus-dharani-hospital',
+  3: 'cureplus-kaveri-hospital',
+  4: 'cureplus-krishna-hospital',
+  5: 'cureplus-narasegowda-memorial-hospital',
+  6: 'cureplus-hospital-shanivarasanthe',
+  7: 'cureplus-hospital-ramapura',
+  8: 'cureplus-hospital-terakanambi',
+  9: 'cureplus-hospital-bherya',
+  10: 'cureplus-hospital-t-narasipura',
+  11: 'cureplus-hospital-handpost',
+  12: 'cureplus-hospital-hosuru',
+  13: 'cureplus-hospital-halli-mysuru',
+};
+
 
 // Enhanced animations
 // 2. ADDED the ': Variants' type here
@@ -213,7 +228,7 @@ const HospitalsPage = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             <AnimatePresence>
               {hospitals.map((hospital, index) => (
-                <Link href={`/hospital/${hospital.id}`} key={index} passHref>
+                <Link href={`/${hospitalSlugMap[hospital.id]}`}key={index}>
                   <motion.div
                     className="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all border border-gray-100 group"
                     variants={fadeUp}

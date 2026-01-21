@@ -16,6 +16,23 @@ import { HiOutlineClock, HiOutlineLocationMarker, HiOutlinePhone, HiOutlineStar 
 import { MdLocalHospital, MdOutlineEmergency, MdOutlineLocalHotel } from 'react-icons/md';
 import { Hospital } from '@/app/data/Hospital';
 
+const hospitalSlugMap: Record<number, string> = {
+  1: 'cureplus-disha-hospital',
+  2: 'cureplus-dharani-hospital',
+  3: 'cureplus-kaveri-hospital',
+  4: 'cureplus-krishna-hospital',
+  5: 'cureplus-narasegowda-memorial-hospital',
+  6: 'cureplus-hospital-shanivarasanthe',
+  7: 'cureplus-hospital-ramapura',
+  8: 'cureplus-hospital-terakanambi',
+  9: 'cureplus-hospital-bherya',
+  10: 'cureplus-hospital-t-narasipura',
+  11: 'cureplus-hospital-handpost',
+  12: 'cureplus-hospital-hosuru',
+  13: 'cureplus-hospital-halli-mysuru',
+};
+
+
 const hospitalsList = [
     { id: 1, name: 'CurePlus Disha Hospital', image: '/cureplus/cureplus.png' },
     { id: 2, name: 'CurePlus Dharani Hospital', image: '/dharni/dharni.png' },
@@ -291,7 +308,8 @@ const HospitalPageClient = ({ hospital }: { hospital: Hospital }) => {
             <h3 className="text-lg sm:text-xl font-bold mb-4 border-b pb-2">Our Network</h3>
             <ul className="space-y-2 sm:space-y-3 max-h-[500px] overflow-y-auto pr-2">
               {hospitalsList.map((hosp) => (
-                <Link key={hosp.id} href={`/hospital/${hosp.id}`} className={`block rounded-lg transition-colors duration-200 ${hospitalId === hosp.id ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>
+                <Link key={hosp.id} href={`/${hospitalSlugMap[hosp.id]}`}
+ className={`block rounded-lg transition-colors duration-200 ${hospitalId === hosp.id ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>
                   <li className="flex items-center gap-3 p-2 sm:p-3">
                     <div className="relative"><img src={hosp.image} alt={hosp.name} className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-md shadow"/></div>
                     <div>
