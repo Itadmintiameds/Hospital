@@ -6,6 +6,22 @@ import { useState } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { MdLocalHospital } from 'react-icons/md';
 
+const hospitalSlugMap: Record<number, string> = {
+  1: 'cureplus-disha-hospital',
+  2: 'cureplus-dharani-hospital',
+  3: 'cureplus-kaveri-hospital',
+  4: 'cureplus-krishna-hospital',
+  5: 'cureplus-narasegowda-memorial-hospital',
+  6: 'cureplus-hospital-shanivarasanthe',
+  7: 'cureplus-hospital-ramapura',
+  8: 'cureplus-hospital-terakanambi',
+  9: 'cureplus-hospital-bherya',
+  10: 'cureplus-hospital-t-narasipura',
+  11: 'cureplus-hospital-handpost',
+  12: 'cureplus-hospital-hosuru',
+  13: 'cureplus-hospital-halli-mysuru',
+};
+
 const hospitals = [
   { id: 1, name: 'CurePlus  Disha Hospital', location: 'Mysore', tags: ['24x7', 'General Surgery', 'Orthopedics', 'Gynecology', 'Pediatrics'] },
   { id: 2, name: 'CurePlus  Dharani Hospital', location: 'Yelandur Taluk,Chamarajanagara', tags: ['24x7', 'General Surgery', 'Orthopedics', 'Gynecology', 'Pediatrics'] },
@@ -92,7 +108,7 @@ const HospitalsWithMap = () => {
                 transition={{ duration: 0.3 }}
                 className="rounded-xl bg-white border border-gray-100 shadow-md hover:shadow-lg transition p-4 cursor-pointer"
               >
-                <Link href={`/hospital/${hospital.id}`}>
+                <Link href={`/${hospitalSlugMap[hospital.id]}`} >
                   <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-3">
                       <MdLocalHospital className="text-purple-600 text-xl" />
