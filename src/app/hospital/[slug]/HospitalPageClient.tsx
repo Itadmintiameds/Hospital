@@ -62,6 +62,21 @@ const ANIMATION_CONFIG = {
   }),
 } as const;
 
+// FIXED: Accessibility + Stable Keys
+interface HighlightItem {
+  id: string;
+  label: string;
+  value: string;
+  type: keyof typeof HIGHLIGHT_CONFIG;
+}
+
+const HIGHLIGHT_CONFIG: Record<string, { icon: IconType; bg: string; text: string }> = {
+  specialists: { icon: FaUserMd, bg: 'bg-blue-50', text: 'text-blue-600' },
+  beds: { icon: FaProcedures, bg: 'bg-purple-50', text: 'text-purple-600' },
+  emergency: { icon: MdOutlineEmergency, bg: 'bg-green-50', text: 'text-green-600' },
+  rating: { icon: HiOutlineStar, bg: 'bg-orange-50', text: 'text-orange-600' },
+};
+
 // Reusable Components
 interface IconProps {
   Icon: IconType;
@@ -78,19 +93,6 @@ const IconElement = ({ Icon, children, href, className = '' }: IconProps) => {
   ) : (
     <div className={classes}>{content}</div>
   );
-};
-
-interface HighlightConfig {
-  icon: IconType;
-  bg: string;
-  text: string;
-}
-
-const HIGHLIGHT_CONFIG: Record<string, HighlightConfig> = {
-  specialists: { icon: FaUserMd, bg: 'bg-blue-50', text: 'text-blue-600' },
-  beds: { icon: FaProcedures, bg: 'bg-purple-50', text: 'text-purple-600' },
-  emergency: { icon: MdOutlineEmergency, bg: 'bg-green-50', text: 'text-green-600' },
-  rating: { icon: HiOutlineStar, bg: 'bg-orange-50', text: 'text-orange-600' },
 };
 
 interface HighlightCardProps {
@@ -160,8 +162,22 @@ const Section = ({ children, index, className = '' }: SectionProps) => (
   </motion.section>
 );
 
+// FIXED L164: Accessibility + Keyboard Support
 const GalleryImage = ({ src, alt, onClick }: { src: string; alt: string; onClick: () => void }) => (
-  <div onClick={onClick} className="cursor-pointer overflow-hidden rounded-lg shadow relative aspect-square">
+  <button
+    type="button"
+    tabIndex={0}
+    onClick={onClick}
+    onKeyDown={(e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        onClick();
+      }
+    }}
+    className="cursor-pointer overflow-hidden rounded-lg shadow relative aspect-square border-0 p-0 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hover:ring-1 hover:ring-blue-300"
+    aria-label={`View ${alt}`}
+    role="button"
+  >
     <Image
       src={src}
       alt={alt}
@@ -169,14 +185,11 @@ const GalleryImage = ({ src, alt, onClick }: { src: string; alt: string; onClick
       sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 200px"
       className="object-cover hover:scale-110 transition-transform duration-300"
     />
-  </div>
+  </button>
 );
 
 const FACILITY_ICON_MAP: Record<string, IconType> = { 
-  FaWifi, 
-  FaParking, 
-  FaBed, 
-  FaXRay 
+  FaWifi, FaParking, FaBed, FaXRay 
 };
 
 // Main Component
@@ -196,13 +209,28 @@ const HospitalPageClient = ({ hospital }: HospitalPageClientProps) => {
     );
   }
 
-  const { id, gallery = [], services = [], facilities = [], departments = [], contact, seo, name, location, description, infrastructure, specialists, beds } = hospital;
+  const { 
+    id, 
+    gallery = [], 
+    services = [], 
+    facilities = [], 
+    departments = [], 
+    contact, 
+    seo, 
+    name, 
+    location, 
+    description, 
+    infrastructure, 
+    specialists, 
+    beds 
+  } = hospital;
   
-  const highlights = [
-    { label: 'Specialists', value: specialists || '10+', type: 'specialists' as const },
-    { label: 'Beds', value: beds || '20+', type: 'beds' as const },
-    { label: 'Emergency', value: '24/7', type: 'emergency' as const },
-    { label: 'Rating', value: '4.8/5', type: 'rating' as const },
+  // FIXED L243: Stable keys with IDs
+  const highlights: HighlightItem[] = [
+    { id: 'specialists', label: 'Specialists', value: specialists || '10+', type: 'specialists' as const },
+    { id: 'beds', label: 'Beds', value: beds || '20+', type: 'beds' as const },
+    { id: 'emergency', label: 'Emergency', value: '24/7', type: 'emergency' as const },
+    { id: 'rating', label: 'Rating', value: '4.8/5', type: 'rating' as const },
   ];
 
   return (
@@ -237,10 +265,10 @@ const HospitalPageClient = ({ hospital }: HospitalPageClientProps) => {
             </div>
           </motion.div>
 
-          {/* Highlights */}
+          {/* Highlights - FIXED L243,268 */}
           <Section index={1} className="mb-12">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {highlights.map((h, i) => <HighlightCard key={i} {...h} />)}
+              {highlights.map((h) => <HighlightCard key={h.id} {...h} />)}
             </div>
           </Section>
 
@@ -254,7 +282,7 @@ const HospitalPageClient = ({ hospital }: HospitalPageClientProps) => {
             </div>
           </section>
 
-          {/* Services & Facilities */}
+          {/* Services & Facilities - FIXED L288,314 */}
           <Section index={2} className="mb-12">
             <div className="grid md:grid-cols-2 gap-8">
               <div>
@@ -263,9 +291,9 @@ const HospitalPageClient = ({ hospital }: HospitalPageClientProps) => {
                 </h2>
                 {services.length > 0 ? (
                   <ul className="space-y-3">
-                    {services.map((s, i) => (
+                    {services.map((s, index) => (
                       <ListItem 
-                        key={i} 
+                        key={s.label || `service-${index}`}
                         Icon={MdLocalHospital} 
                         label={s.label} 
                         bg="bg-blue-50" 
@@ -283,9 +311,9 @@ const HospitalPageClient = ({ hospital }: HospitalPageClientProps) => {
                 </h2>
                 {facilities.length > 0 ? (
                   <ul className="grid grid-cols-2 gap-3">
-                    {facilities.map((f, i) => (
+                    {facilities.map((f, index) => (
                       <ListItem 
-                        key={i} 
+                        key={f.label || `facility-${index}`}
                         Icon={f.icon ? FACILITY_ICON_MAP[f.icon] : MdOutlineLocalHotel} 
                         label={f.label} 
                         bg="bg-green-50" 
@@ -301,7 +329,7 @@ const HospitalPageClient = ({ hospital }: HospitalPageClientProps) => {
             </div>
           </Section>
 
-          {/* Infrastructure */}
+          {/* Infrastructure - FIXED L268 */}
           <Section index={3} className="mb-12">
             <div className={STYLES.cardBg}>
               <h2 className="text-2xl font-semibold mb-4">Infrastructure</h2>
@@ -310,8 +338,8 @@ const HospitalPageClient = ({ hospital }: HospitalPageClientProps) => {
                 <>
                   <h3 className="text-xl font-semibold mt-6 mb-3">Departments</h3>
                   <div className="flex flex-wrap gap-2">
-                    {departments.map((d, i) => (
-                      <span key={i} className="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-sm">
+                    {departments.map((d, index) => (
+                      <span key={d || `dept-${index}`} className="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-sm">
                         {d}
                       </span>
                     ))}
@@ -321,14 +349,14 @@ const HospitalPageClient = ({ hospital }: HospitalPageClientProps) => {
             </div>
           </Section>
 
-          {/* Gallery */}
+          {/* Gallery - FIXED L164 */}
           {gallery.length > 0 && (
             <Section index={4} className="mb-12">
               <h2 className="text-2xl font-semibold mb-4">Gallery</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {gallery.map((img, i) => (
                   <GalleryImage 
-                    key={i} 
+                    key={img || `gallery-${i}`}
                     src={img} 
                     alt={seo?.altTexts?.[i] || `${name || 'Hospital'} image ${i + 1}`}
                     onClick={() => { 
@@ -383,6 +411,7 @@ const HospitalPageClient = ({ hospital }: HospitalPageClientProps) => {
             <a 
               href="tel:+919035193777" 
               className="text-2xl sm:text-3xl font-bold text-red-700 hover:text-red-800 transition-colors block"
+              aria-label="Emergency contact number"
             >
               +91 90351 93777
             </a>
