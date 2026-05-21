@@ -71,8 +71,9 @@ const HospitalsPage = () => {
   ];
 
   const locations = [
-    "T. Narasipura", "Bherya", "Hand Post (H.D. Kote)",
-    "Halli Mysuru", "Hosur", "Ramapura", "Terakanambi"
+    "Mysuru city", "T. Narasipura", "Bherya", "Bettadapura", "Hand Post (H.D. Kote)", 
+    "Halli Mysuru", "Udayagiri", "Ramapura", "Terakanambi", "Talakadu", "Arkere", "Huliyurdurga", 
+    "Yelandur", "Chinakurali", "Santhemaralli", "Martalli", "Kushalnagar", "Shanivarasanthe", "Hosur"
   ];
 
   return (
