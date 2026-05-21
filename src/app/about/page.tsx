@@ -28,6 +28,7 @@ const HOSPITALS_LIST = [
   { id: 16, name: 'CurePlus Hospital Udayagiri', image: '/hospital/udayagiri.jpeg' },
   { id: 17, name: 'CurePlus Hospital Talakadu', image: '/hospital/talkakadu.jpeg' },
   { id: 18, name: 'CurePlus Hospital Yelandur', image: '/hospital/yelandur.jpeg' },
+  { id: 19, name: 'CurePlus Hospital Martalli', image: '/hospital/martalli.jpeg' },
 ];
 
 // UNIQUE DATA - No duplication

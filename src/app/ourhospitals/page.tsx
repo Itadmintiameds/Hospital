@@ -78,6 +78,7 @@ const HospitalsPage = () => {
     { id: 16, name: 'CurePlus Hospital Udayagiri', image: '/hospital/udayagiri.jpeg' ,phone:'08212454979' },
     { id: 17, name: 'CurePlus Hospital Talakadu', image: '/hospital/talkakadu.jpeg' ,phone:'' },
     { id: 18, name: 'CurePlus Hospital Yelandur', image: '/hospital/yelandur.jpeg' ,phone:'+918226200522' },
+    { id: 19, name: 'CurePlus Hospital Martalli', image: '/hospital/martalli.jpeg' ,phone:'+918226200522' },
   ];
 
   const locations = [
