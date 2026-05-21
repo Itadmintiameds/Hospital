@@ -67,7 +67,7 @@ import {
 } from 'react-icons/fa';
 
 const stats = [
-  { icon: <FaHospital />, label: '18+ Hospitals Across Karnataka' },
+  { icon: <FaHospital />, label: '19+ Hospitals Across Karnataka' },
   { icon: <FaAmbulance />, label: '24/7 Emergency Services' },
   { icon: <FaUserMd />, label: '100+ Doctors & Specialists' },
   { icon: <FaUsers />, label: '1 Lakh+ Patients Served' },

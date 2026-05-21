@@ -22,6 +22,11 @@ const hospitalSlugMap: Record<number, string> = {
   11: 'cureplus-hospital-handpost',
   12: 'cureplus-hospital-hosuru',
   13: 'cureplus-hospital-halli-mysuru',
+  14: 'Cureplus-hospital-Arakere',
+  15: 'Cureplus-hospital-Huliyurudurga',
+  16: 'Cureplus-hospital-Udayagiri',
+  17: 'Cureplus-hospital-Talakadu',
+  18: 'Cureplus-hospital-Yelandur'
 };
 
 
@@ -68,6 +73,11 @@ const HospitalsPage = () => {
     { id: 11, name: 'CurePlus Hospital Handpost ', image: '/hospital/Handpost.png' ,phone:'8228257300' },
     { id: 12, name: 'CurePlus Hospital Hosur ', image: '/hospital/hosur.png' ,phone:'9035193777' },
     { id: 13, name: 'CurePlus Hospital Halli Mysore ', image: '/hospital/Halli Mysore.png' ,phone:'08175-273114' },
+    { id: 14, name: 'CurePlus Hospital Arakere', image: '/hospital/Halli Mysore.png' ,phone:'+9182363253703' },
+    { id: 15, name: 'CurePlus Hospital Huliyurudurga', image: '/hospital/Halli Mysore.png' ,phone:'' },
+    { id: 16, name: 'CurePlus Hospital Udayagiri', image: '/hospital/Halli Mysore.png' ,phone:'08212454979' },
+    { id: 17, name: 'CurePlus Hospital Talakadu', image: '/hospital/Halli Mysore.png' ,phone:'' },
+    { id: 18, name: 'CurePlus Hospital Yelandur', image: '/hospital/Halli Mysore.png' ,phone:'+918226200522' },
   ];
 
   const locations = [
@@ -125,7 +135,7 @@ const HospitalsPage = () => {
             transition={{ delay: 0.6, duration: 0.8 }}
           >
             CurePlus Hospitals & Pharmas provides world-class healthcare, emergency services,
-            and affordable medication at 15+ state-of-the-art facilities across Karnataka.
+            and affordable medication at 19+ state-of-the-art facilities across Karnataka.
           </motion.p>
         </div>
       </motion.div>
