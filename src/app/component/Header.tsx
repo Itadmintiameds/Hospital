@@ -32,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({ navLinks }) => {
   />
 
   <Image
-    src="/second-logo.jpeg"
+    src="/second-logo.png"
     alt="Second Logo"
     width={80}
     height={90}
