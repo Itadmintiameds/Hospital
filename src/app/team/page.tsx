@@ -71,13 +71,7 @@ const teamMembers = [
     image: '/managment/Sandeep.jpeg',
     description : 'Sandeep is an efficient administrator ensuring smooth operations and support services. He plays a crucial role in coordinating various administrative functions, including human resources, facilities management, and procurement. Sandeep’s attention to detail and organizational skills contribute significantly to the overall efficiency of the organization.',
   },
-  {
-    name: 'Krishnadas',
-    role: 'Hospital Administrator',
-    bio: 'Skilled administrator managing hospital operations and patient care.',
-    image: '/managment/krishnadas.JPG',
-    description : 'Krishnadas is a skilled administrator managing hospital operations and patient care. He is responsible for overseeing all aspects of hospital management, including staffing, budgeting, and compliance with healthcare regulations. Krishnadas is committed to providing high-quality care and ensuring that patients receive the best possible experience during their stay.',
-  },
+  
 
 ];
 
