@@ -426,14 +426,33 @@ export const hospitals: Hospital[] = [
     infrastructure: 'Equipped with cutting-edge medical equipment and a modern facility to support high-volume surgeries and patient care.',
     contact: { address: 'Sy No. 74/2, P & T Road, Sathyanagara, Udayagiri, Mysuru, Karnataka 570029', phone: '0821-2454798', mapIcon: 'FaMapMarkerAlt', phoneIcon: 'FaPhoneAlt', googleMapUrl: 'https://maps.app.goo.gl/dy7C5qmGBcSH9ZFc7?g_st=iw', embedMapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.0703604877826!2d76.66271789275443!3d12.321056510411317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf70682842cf77%3A0x4782cda918bb7056!2sDISHA%20Hospital!5e0!3m2!1sen!2sin!4v1756897229616!5m2!1sen!2sin' },
     seo: {
-      title: "Best 24/7 Hospital in Mysore | CurePlus Udayagiri",
-      description: "CurePlus Udayagiri is the best multispeciality hospital in Mysore, offering expert maternity care, gynecology, orthopedics, skin treatments & 24x7 emergency services. Visit the top hospital near you in Mysore.",
-      h1: "CurePlus Udayagiri Hospital",
-      h2: "Best Multispeciality Hospital in Mysore",
-      keywords: [ "Best Multispeciality Hospital in Mysore", "Hospital near me in N R Moholla", "Gandhinagar", "Maternity hospital near N R Moholla and Nazarbad", "Gynecologist near me in Shivaji Road and Rajendra Nagar", "Orthopedic hospital in R S Naidu Nagar and Udaygiri", "Emergency care near Mandi Moholla and Sathyanagara", "Best skin doctor in Nazarbad and Bannimantap", "Bone specialist in Mysore near Nagunhalli Road and Rajendra Nagar", "best 24/7 hospital near Mandi Moholla and R S Naidu Nagar", "24/7 hospital in Shivaji Road and Gandhinagar", "Pregnancy care clinic near Udaygiri and Nazarbad" ],
-      altTexts: [ "Cureplus Hospital modern X-ray Facilities in Mysore", "Best Multispeciality Hospital in Mysore with Reception Desk", "Cureplus Hospital Patient Consultation and Care centre in Mysore", "Best Multispeciality Hospital in Mysore with Modern Operation Theatre" ],
-      canonical: "https://cureplushospitals.com/our-hospitals/cureplus-disha"
-    },
+  title: "Trusted Multispeciality Hospital in Udayagiri | CurePlus Udayagiri",
+
+  description:
+    "CurePlus Udayagiri Hospital offers expert maternity, orthopedic, gynecology, pediatric, dermatology, and 24/7 emergency healthcare services in Mysuru.",
+
+  h1: "CurePlus Udayagiri Hospital",
+
+  h2: "24/7 Multispeciality Healthcare in Udayagiri",
+
+  keywords: [
+    "Multispeciality hospital in Udayagiri",
+    "24/7 hospital in Udayagiri",
+    "Maternity hospital in Mysuru",
+    "Orthopedic hospital in Udayagiri",
+    "Gynecology care in Udayagiri",
+    "Emergency hospital near Sathyanagara"
+  ],
+
+  altTexts: [
+    "CurePlus Udayagiri Hospital healthcare facilities",
+    "Patient care services at CurePlus Udayagiri Hospital",
+    "Modern treatment facilities at CurePlus Udayagiri Hospital",
+    "Emergency and diagnostic services at CurePlus Udayagiri Hospital"
+  ],
+
+  canonical: "https://cureplushospitals.com/our-hospitals/cureplus-udayagiri"
+},
     jsonLd: { "@context": "https://schema.org", "@type": "LocalBusiness", "name": "CurePlus Disha Hospital", "image": "https://cureplushospitals.com/cureplus/cureplus.png", "url": "https://cureplushospitals.com/our-hospitals/cureplus-disha", "telephone": "0821-2454798", "address": { "@type": "PostalAddress", "streetAddress": "4th Cross Rd, Gandhi Nagar, N R Mohalla, Mysuru, Karnataka", "addressLocality": "Mysore", "postalCode": "570007", "addressCountry": "IN" }, "geo": { "@type": "GeoCoordinates", "latitude": 12.3232669, "longitude": 76.6639977 }, "openingHoursSpecification": { "@type": "OpeningHoursSpecification", "dayOfWeek": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ], "opens": "00:00", "closes": "23:59" }, "sameAs": [ "https://www.facebook.com/cureplushospitals", "https://www.instagram.com/cureplus_hospitals", "https://www.youtube.com/@CurePlusHospitals", "https://cureplushospitals.com/" ] }
   },
   // 17. CurePlus Talakadu Hospital
@@ -450,14 +469,33 @@ export const hospitals: Hospital[] = [
     infrastructure: 'Equipped with cutting-edge medical equipment and a modern facility to support high-volume surgeries and patient care.',
     contact: { address: 'Old, Street Road, opposite Police Station, Talakad, Karnataka 571122', phone: '0821-2454798', mapIcon: 'FaMapMarkerAlt', phoneIcon: 'FaPhoneAlt', googleMapUrl: 'https://maps.app.goo.gl/dy7C5qmGBcSH9ZFc7?g_st=iw', embedMapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.0703604877826!2d76.66271789275443!3d12.321056510411317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf70682842cf77%3A0x4782cda918bb7056!2sDISHA%20Hospital!5e0!3m2!1sen!2sin!4v1756897229616!5m2!1sen!2sin' },
     seo: {
-      title: "Best 24/7 Hospital in Mysore | CurePlus Talakadu",
-      description: "CurePlus Talakadu is the best multispeciality hospital in Mysore, offering expert maternity care, gynecology, orthopedics, skin treatments & 24x7 emergency services. Visit the top hospital near you in Mysore.",
-      h1: "CurePlus Talakadu Hospital",
-      h2: "Best Multispeciality Hospital in Mysore",
-      keywords: [ "Best Multispeciality Hospital in Mysore", "Hospital near me in N R Moholla", "Gandhinagar", "Maternity hospital near N R Moholla and Nazarbad", "Gynecologist near me in Shivaji Road and Rajendra Nagar", "Orthopedic hospital in R S Naidu Nagar and Udaygiri", "Emergency care near Mandi Moholla and Sathyanagara", "Best skin doctor in Nazarbad and Bannimantap", "Bone specialist in Mysore near Nagunhalli Road and Rajendra Nagar", "best 24/7 hospital near Mandi Moholla and R S Naidu Nagar", "24/7 hospital in Shivaji Road and Gandhinagar", "Pregnancy care clinic near Udaygiri and Nazarbad" ],
-      altTexts: [ "Cureplus Hospital modern X-ray Facilities in Mysore", "Best Multispeciality Hospital in Mysore with Reception Desk", "Cureplus Hospital Patient Consultation and Care centre in Mysore", "Best Multispeciality Hospital in Mysore with Modern Operation Theatre" ],
-      canonical: "https://cureplushospitals.com/our-hospitals/cureplus-disha"
-    },
+  title: "Trusted Multispeciality Hospital in Talakadu | CurePlus Talakadu",
+
+  description:
+    "CurePlus Talakadu Hospital provides expert maternity, orthopedic, gynecology, pediatric, and 24/7 emergency healthcare services in Talakadu and nearby areas.",
+
+  h1: "CurePlus Talakadu Hospital",
+
+  h2: "24/7 Multispeciality Healthcare in Talakadu",
+
+  keywords: [
+    "Multispeciality hospital in Talakadu",
+    "24/7 hospital in Talakadu",
+    "Maternity hospital in Talakadu",
+    "Orthopedic hospital in Talakadu",
+    "Gynecology care in Talakadu",
+    "Emergency hospital near T Narasipura"
+  ],
+
+  altTexts: [
+    "CurePlus Talakadu Hospital healthcare facilities",
+    "Patient care services at CurePlus Talakadu Hospital",
+    "Modern treatment facilities at CurePlus Talakadu Hospital",
+    "Emergency and diagnostic services at CurePlus Talakadu Hospital"
+  ],
+
+  canonical: "https://cureplushospitals.com/our-hospitals/cureplus-talakadu"
+},
     jsonLd: { "@context": "https://schema.org", "@type": "LocalBusiness", "name": "CurePlus Disha Hospital", "image": "https://cureplushospitals.com/cureplus/cureplus.png", "url": "https://cureplushospitals.com/our-hospitals/cureplus-disha", "telephone": "0821-2454798", "address": { "@type": "PostalAddress", "streetAddress": "4th Cross Rd, Gandhi Nagar, N R Mohalla, Mysuru, Karnataka", "addressLocality": "Mysore", "postalCode": "570007", "addressCountry": "IN" }, "geo": { "@type": "GeoCoordinates", "latitude": 12.3232669, "longitude": 76.6639977 }, "openingHoursSpecification": { "@type": "OpeningHoursSpecification", "dayOfWeek": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ], "opens": "00:00", "closes": "23:59" }, "sameAs": [ "https://www.facebook.com/cureplushospitals", "https://www.instagram.com/cureplus_hospitals", "https://www.youtube.com/@CurePlusHospitals", "https://cureplushospitals.com/" ] }
   },
   // 18. CurePlus Yelandur Hospital
@@ -474,9 +512,59 @@ export const hospitals: Hospital[] = [
     infrastructure: 'Equipped with cutting-edge medical equipment and a modern facility to support high-volume surgeries and patient care.',
     contact: { address: 'No. 24/47, Chamarajanagar Main Road, Yelandur, Karnataka 571441', phone: '0821-2454798', mapIcon: 'FaMapMarkerAlt', phoneIcon: 'FaPhoneAlt', googleMapUrl: 'https://maps.app.goo.gl/dy7C5qmGBcSH9ZFc7?g_st=iw', embedMapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.0703604877826!2d76.66271789275443!3d12.321056510411317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf70682842cf77%3A0x4782cda918bb7056!2sDISHA%20Hospital!5e0!3m2!1sen!2sin!4v1756897229616!5m2!1sen!2sin' },
     seo: {
-      title: "Best 24/7 Hospital in Mysore | CurePlus Disha",
-      description: "CurePlus Disha is the best multispeciality hospital in Mysore, offering expert maternity care, gynecology, orthopedics, skin treatments & 24x7 emergency services. Visit the top hospital near you in Mysore.",
-      h1: "CurePlus Disha Hospital",
+  title: "Leading Multispeciality Hospital in Mysuru | CurePlus Disha Hospital",
+
+  description:
+    "CurePlus Disha Hospital is a trusted multispeciality hospital in Mysuru offering expert care in maternity, gynecology, orthopedics, dermatology, emergency medicine, and general healthcare services with 24/7 patient support.",
+
+  h1: "CurePlus Disha Hospital",
+
+  h2: "Trusted Multispeciality & Emergency Care Hospital in Mysuru",
+
+  keywords: [
+    "Multispeciality hospital in Mysuru",
+    "24/7 hospital in Mysuru",
+    "Emergency care hospital in Mysuru",
+    "Maternity hospital in Mysuru",
+    "Gynecology hospital in Mysuru",
+    "Orthopedic hospital in Mysuru",
+    "Dermatology treatment in Mysuru",
+    "Bone and joint care in Mysuru",
+    "Pregnancy care hospital in Mysuru",
+    "General medicine hospital in Mysuru",
+    "Healthcare services in N R Mohalla",
+    "Hospital near Nazarbad and Udayagiri"
+  ],
+
+  altTexts: [
+    "CurePlus Disha Hospital advanced diagnostic and X-ray facilities in Mysuru",
+    "Reception and patient care area at CurePlus Disha Hospital Mysuru",
+    "Patient consultation and treatment facilities at CurePlus Disha Hospital",
+    "Modern operation theatre at CurePlus Disha Hospital Mysuru"
+  ],
+
+  canonical:
+    "https://cureplushospitals.com/our-hospitals/cureplus-disha"
+},
+    jsonLd: { "@context": "https://schema.org", "@type": "LocalBusiness", "name": "CurePlus Disha Hospital", "image": "https://cureplushospitals.com/cureplus/cureplus.png", "url": "https://cureplushospitals.com/our-hospitals/cureplus-disha", "telephone": "0821-2454798", "address": { "@type": "PostalAddress", "streetAddress": "4th Cross Rd, Gandhi Nagar, N R Mohalla, Mysuru, Karnataka", "addressLocality": "Mysore", "postalCode": "570007", "addressCountry": "IN" }, "geo": { "@type": "GeoCoordinates", "latitude": 12.3232669, "longitude": 76.6639977 }, "openingHoursSpecification": { "@type": "OpeningHoursSpecification", "dayOfWeek": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ], "opens": "00:00", "closes": "23:59" }, "sameAs": [ "https://www.facebook.com/cureplushospitals", "https://www.instagram.com/cureplus_hospitals", "https://www.youtube.com/@CurePlusHospitals", "https://cureplushospitals.com/" ] }
+  },
+  // 19. CurePlus Martalli Hospital
+  {
+    id: 19,
+    name: 'CurePlus Martalli Hospital',
+    location: 'Mysuru',
+    icon: 'FaHospitalAlt',
+    description: `CurePlus Hospital Martalli is a trusted multispecialty healthcare center serving the people of Martalli and nearby regions with affordable and accessible medical care. Focused on delivering quality treatment with a patient first approach, the hospital provides specialized healthcare services in general medicine, orthopedics, women’s healthcare, maternity care, pediatrics, dermatology, and emergency medical support. Supported by experienced doctors, trained medical staff, and modern healthcare facilities, CurePlus Hospital Martalli continues to be a dependable healthcare destination for families across the region.Known for its compassionate patient care and reliable healthcare services, the hospital offers comprehensive treatment solutions for both routine and emergency medical needs. From preventive health checkups and maternity support to bone and joint care and general medical treatments, the hospital ensures quality healthcare services under one roof. Serving patients from nearby locations like Kollegala, Yelandur, Santhemarahalli, Chamarajanagar, Hanur, Cowdalli, Hoogyam, Mangala, Kunagalli, and surrounding villages around Martalli, CurePlus Hospital remains committed to making quality healthcare more accessible and dependable for every patient.**`,
+    imageUrl: '/hospital/martalli.jpeg',
+    gallery: [ '/cureplus/cureplus1.png', '/cureplus/cureplus2.png', '/cureplus/cureplus3.png', '/cureplus/cureplus4.png' ],
+    services: [ { label: 'General Surgery', icon: 'FaUserMd' }, { label: 'Orthopedics', icon: 'FaUserMd' }, { label: 'Gynecology', icon: 'FaUserMd' }, { label: 'Pediatrics', icon: 'FaUserMd' }, { label: 'Urology', icon: 'FaUserMd' }, { label: 'ENT', icon: 'FaUserMd' }, { label: 'General Medicine', icon: 'FaUserMd' }, { label: 'Dermatology', icon: 'FaUserMd' }, { label: 'Neurology', icon: 'FaUserMd' }, { label: 'Pathology', icon: 'FaUserMd' }, { label: 'Physiotherapy', icon: 'FaUserMd' }, { label: 'Emergency Medicine', icon: 'FaUserMd' } ],
+    facilities: [ { label: '40+ Beds', icon: 'FaBed' }, { label: '2 Operation Theatres', icon: 'FaXRay' }, { label: 'Medico-Social Welfare Desk', icon: 'FaHospitalAlt' }, { label: 'UCG Scanning', icon: 'FaXRay' }, { label: 'Physiotherapy', icon: 'FaXRay' }, { label: '24/7 Ambulance Service', icon: 'FaHospitalAlt' }, { label: '24/7 Pharmacy Services', icon: 'FaHospitalAlt' }, { label: 'Expert Care by Qualified Medical Practitioners', icon: 'FaHospitalAlt' }, { label: 'OPD & IPD Services', icon: 'FaXRay' }, { label: 'X-Ray and USG Scanning', icon: 'FaXRay' }, { label: 'Pathology Lab', icon: 'FaXRay' } ],
+    infrastructure: 'Equipped with cutting-edge medical equipment and a modern facility to support high-volume surgeries and patient care.',
+    contact: { address: 'Main road, Martalli, Hanur, Karnataka 571320', phone: '0821-2454798', mapIcon: 'FaMapMarkerAlt', phoneIcon: 'FaPhoneAlt', googleMapUrl: 'https://maps.app.goo.gl/dy7C5qmGBcSH9ZFc7?g_st=iw', embedMapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.0703604877826!2d76.66271789275443!3d12.321056510411317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf70682842cf77%3A0x4782cda918bb7056!2sDISHA%20Hospital!5e0!3m2!1sen!2sin!4v1756897229616!5m2!1sen!2sin' },
+    seo: {
+      title: "Best 24/7 Hospital in Mysore | CurePlus Martalli",
+      description: "CurePlus Martalli is the best multispeciality hospital in Mysore, offering expert maternity care, gynecology, orthopedics, skin treatments & 24x7 emergency services. Visit the top hospital near you in Mysore.",
+      h1: "CurePlus Martalli Hospital",
       h2: "Best Multispeciality Hospital in Mysore",
       keywords: [ "Best Multispeciality Hospital in Mysore", "Hospital near me in N R Moholla", "Gandhinagar", "Maternity hospital near N R Moholla and Nazarbad", "Gynecologist near me in Shivaji Road and Rajendra Nagar", "Orthopedic hospital in R S Naidu Nagar and Udaygiri", "Emergency care near Mandi Moholla and Sathyanagara", "Best skin doctor in Nazarbad and Bannimantap", "Bone specialist in Mysore near Nagunhalli Road and Rajendra Nagar", "best 24/7 hospital near Mandi Moholla and R S Naidu Nagar", "24/7 hospital in Shivaji Road and Gandhinagar", "Pregnancy care clinic near Udaygiri and Nazarbad" ],
       altTexts: [ "Cureplus Hospital modern X-ray Facilities in Mysore", "Best Multispeciality Hospital in Mysore with Reception Desk", "Cureplus Hospital Patient Consultation and Care centre in Mysore", "Best Multispeciality Hospital in Mysore with Modern Operation Theatre" ],
@@ -484,5 +572,4 @@ export const hospitals: Hospital[] = [
     },
     jsonLd: { "@context": "https://schema.org", "@type": "LocalBusiness", "name": "CurePlus Disha Hospital", "image": "https://cureplushospitals.com/cureplus/cureplus.png", "url": "https://cureplushospitals.com/our-hospitals/cureplus-disha", "telephone": "0821-2454798", "address": { "@type": "PostalAddress", "streetAddress": "4th Cross Rd, Gandhi Nagar, N R Mohalla, Mysuru, Karnataka", "addressLocality": "Mysore", "postalCode": "570007", "addressCountry": "IN" }, "geo": { "@type": "GeoCoordinates", "latitude": 12.3232669, "longitude": 76.6639977 }, "openingHoursSpecification": { "@type": "OpeningHoursSpecification", "dayOfWeek": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ], "opens": "00:00", "closes": "23:59" }, "sameAs": [ "https://www.facebook.com/cureplushospitals", "https://www.instagram.com/cureplus_hospitals", "https://www.youtube.com/@CurePlusHospitals", "https://cureplushospitals.com/" ] }
   },
-
 ];
