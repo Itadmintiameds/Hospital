@@ -97,7 +97,7 @@ import {
 } from 'react-icons/fa';
 
 const stats = [
-  { icon: <FaHospital />, label: '15+ Hospitals Across Karnataka', bg: 'bg-gradient-to-r from-purple-100 to-purple-200' },
+  { icon: <FaHospital />, label: '18+ Hospitals Across Karnataka', bg: 'bg-gradient-to-r from-purple-100 to-purple-200' },
   { icon: <FaAmbulance />, label: '24/7 Emergency Services', bg: 'bg-gradient-to-r from-sky-100 to-sky-200' },
   { icon: <FaUserMd />, label: '100+ Doctors & Specialists', bg: 'bg-gradient-to-r from-indigo-100 to-indigo-200' },
   { icon: <FaUsers />, label: '5 Lakh+ Patients Served', bg: 'bg-gradient-to-r from-pink-100 to-pink-200' },
