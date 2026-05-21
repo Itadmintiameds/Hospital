@@ -23,6 +23,11 @@ const HOSPITALS_LIST = [
   { id: 11, name: 'CurePlus Handpost Hospital', image: '/hospital/Handpost.png' },
   { id: 12, name: 'CurePlus Hosur Hospital', image: '/hospital/Hosur.png' },
   { id: 13, name: 'CurePlus Halli Mysore Hospital', image: '/hospital/Halli Mysore.png' },
+  { id: 14, name: 'CurePlus Hospital Arakere', image: '/hospital/arakere.jpeg' },
+  { id: 15, name: 'CurePlus Hospital Huliyurudurga', image: '/hospital/huliyurudurga.jpeg' },
+  { id: 16, name: 'CurePlus Hospital Udayagiri', image: '/hospital/udayagiri.jpeg' },
+  { id: 17, name: 'CurePlus Hospital Talakadu', image: '/hospital/talkakadu.jpeg' },
+  { id: 18, name: 'CurePlus Hospital Yelandur', image: '/hospital/yelandur.jpeg' },
 ];
 
 // UNIQUE DATA - No duplication

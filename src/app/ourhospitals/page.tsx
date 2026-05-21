@@ -22,11 +22,11 @@ const hospitalSlugMap: Record<number, string> = {
   11: 'cureplus-hospital-handpost',
   12: 'cureplus-hospital-hosuru',
   13: 'cureplus-hospital-halli-mysuru',
-  14: 'Cureplus-hospital-Arakere',
-  15: 'Cureplus-hospital-Huliyurudurga',
-  16: 'Cureplus-hospital-Udayagiri',
-  17: 'Cureplus-hospital-Talakadu',
-  18: 'Cureplus-hospital-Yelandur'
+  14: 'Cureplus-hospital-arakere',
+  15: 'Cureplus-hospital-huliyurudurga',
+  16: 'Cureplus-hospital-udayagiri',
+  17: 'Cureplus-hospital-talakadu',
+  18: 'Cureplus-hospital-yelandur'
 };
 
 
@@ -73,11 +73,11 @@ const HospitalsPage = () => {
     { id: 11, name: 'CurePlus Hospital Handpost ', image: '/hospital/Handpost.png' ,phone:'8228257300' },
     { id: 12, name: 'CurePlus Hospital Hosur ', image: '/hospital/hosur.png' ,phone:'9035193777' },
     { id: 13, name: 'CurePlus Hospital Halli Mysore ', image: '/hospital/Halli Mysore.png' ,phone:'08175-273114' },
-    { id: 14, name: 'CurePlus Hospital Arakere', image: '/hospital/Halli Mysore.png' ,phone:'+9182363253703' },
-    { id: 15, name: 'CurePlus Hospital Huliyurudurga', image: '/hospital/Halli Mysore.png' ,phone:'' },
-    { id: 16, name: 'CurePlus Hospital Udayagiri', image: '/hospital/Halli Mysore.png' ,phone:'08212454979' },
-    { id: 17, name: 'CurePlus Hospital Talakadu', image: '/hospital/Halli Mysore.png' ,phone:'' },
-    { id: 18, name: 'CurePlus Hospital Yelandur', image: '/hospital/Halli Mysore.png' ,phone:'+918226200522' },
+    { id: 14, name: 'CurePlus Hospital Arakere', image: '/hospital/arakere.jpeg' ,phone:'+9182363253703' },
+    { id: 15, name: 'CurePlus Hospital Huliyurudurga', image: '/hospital/huliyurudurga.jpeg' ,phone:'' },
+    { id: 16, name: 'CurePlus Hospital Udayagiri', image: '/hospital/udayagiri.jpeg' ,phone:'08212454979' },
+    { id: 17, name: 'CurePlus Hospital Talakadu', image: '/hospital/talkakadu.jpeg' ,phone:'' },
+    { id: 18, name: 'CurePlus Hospital Yelandur', image: '/hospital/yelandur.jpeg' ,phone:'+918226200522' },
   ];
 
   const locations = [
@@ -170,7 +170,7 @@ const HospitalsPage = () => {
             <motion.div variants={fadeUp}>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                 Cureplus Hospitals is a growing network of healthcare facilities across the districts
-                of Mysore, Chamarajanagar, and Kodagu, committed to providing accessible, affordable,
+                of Mysore, Chamarajanagar, Hassan, Tumkuru, Mandya and Kodagu, committed to providing accessible, affordable,
                 and high-quality medical care.
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
@@ -191,7 +191,7 @@ const HospitalsPage = () => {
               </h3>
               <ul className="space-y-3">
                 {[
-                  "Over 15+ state-of-the-art facilities",
+                  "Over 19+ state-of-the-art facilities",
                   "NABH accredited flagship hospital",
                   "Affordable generic medicines",
                   "Modern diagnostic services",

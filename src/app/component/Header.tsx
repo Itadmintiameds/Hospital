@@ -22,18 +22,23 @@ const Header: React.FC<HeaderProps> = ({ navLinks }) => {
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
         
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="/CUREPLUS HOSPITALS.png"
-            alt="CurePlus Hospitals Logo"
-            width={90}
-            height={100}
-            className="rounded-full object-cover scale-120"
-          />
-          {/* <span className="text-xl font-semibold text-purple-800 hidden sm:block">
-            CurePlus Hospitals
-          </span> */}
-        </Link>
+<Link href="/" className="flex items-center gap-4">
+  <Image
+    src="/CUREPLUS HOSPITALS.png"
+    alt="CurePlus Hospitals Logo"
+    width={100}
+    height={110}
+    className="rounded-full object-cover h-auto"
+  />
+
+  <Image
+    src="/second-logo.jpeg"
+    alt="Second Logo"
+    width={80}
+    height={90}
+    className="object-contain h-auto"
+  />
+</Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8 text-gray-800 font-medium text-lg">
