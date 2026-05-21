@@ -23,6 +23,7 @@ const HOSPITALS_LIST = [
   { id: 11, name: 'CurePlus Handpost Hospital', image: '/hospital/Handpost.png' },
   { id: 12, name: 'CurePlus Hosur Hospital', image: '/hospital/Hosur.png' },
   { id: 13, name: 'CurePlus Halli Mysore Hospital', image: '/hospital/Halli Mysore.png' },
+  
 ];
 
 // UNIQUE DATA - No duplication
