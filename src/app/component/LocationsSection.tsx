@@ -42,6 +42,12 @@ const hospitals = [
   { id: 11, name: 'CurePlus  Hospital  Handpost', location: 'H.D. Kote, Mysore', tags: ['24x7', ' orthopedic', 'General Medicine'] },
   { id: 12, name: 'CurePlus  Hospital Hosur', location: 'Saligrama Taluk, Mysore', tags: ['24x7', 'Emergency', 'Orthopedics', 'General Medicine'] },
   { id: 13, name: 'CurePlus Hospital Halli Mysuru', location: 'Halli Mysuru', tags: ['Orthopedics', 'General Medicine'] },
+  { id: 14, name: 'CurePlus Hospital Arakere', location: 'Mandya', tags: ['Orthopedics', 'General Medicine'] },
+  { id: 15, name: 'CurePlus Hospital Huliyurudurga', location: 'Tumkuru', tags: ['Orthopedics', 'General Medicine'] },
+  { id: 16, name: 'CurePlus Hospital Udayagiri', location: 'Mysore', tags: ['Pediatrics',  'Gynecology', 'General Medicine'] },
+  { id: 17, name: 'CurePlus Hospital Talakadu', location: 'Mysore', tags: ['Pediatrics', 'Orthopedics', 'Gynecology', 'General Medicine'] },
+  { id: 18, name: 'CurePlus Hospital Yelandur', location: 'Chamarajnagar', tags: ['Orthopedics', 'General Medicine'] },
+  { id: 19, name: 'CurePlus Hospital Martalli', location: 'Chamarajnagar', tags: ['Pediatrics', 'Orthopedics', 'Gynecology', 'General Medicine'] },
 ];
 
 const HospitalsWithMap = () => {

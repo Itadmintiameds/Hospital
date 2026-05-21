@@ -296,7 +296,7 @@ export const hospitals: Hospital[] = [
     description: `CurePlus Handpost Hospital, located in H.D. Kote, Mysore, is a trusted name in quality rural healthcare bringing expert, affordable, and compassionate medical services to the heart of the community. Recognized as the best hospital in Handpost, it offers specialized care in orthopedics, general medicine, and women’s health, making it a reliable choice for anyone searching for a hospital near me in Handpost. With a well-equipped 20-bed best 24/7 hospital near H.D. Kote. The facility provides comprehensive care from experienced bone specialists in Handpost and skilled gynecologists in Handpost. From pregnancy care near H.D. Kote to expert attention at our maternity hospital near Handpost, patients receive personalized, patient-first care every step of the way. The hospital also ensures access to cost-effective treatment with its wide range of generic medicines and is available round-the-clock, making it a trusted 24/7 hospital near Sargur and a preferred choice for emergency care near Handpost. Whether you're in need of advanced orthopedics in Handpost or general health support, CurePlus Handpost Hospital continues to lead with care, delivering healing with heart to every doorstep.`,
     imageUrl: '/handPost/handpost1.png',
     gallery: [
-    '/handPost/handpost2.png',
+    '/handPost/handpost1.png',
     '/handPost/handpost3.png',
     '/handPost/handpost4.png',
     '/handPost/handpost5.png'
