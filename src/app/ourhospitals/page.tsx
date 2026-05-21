@@ -22,11 +22,12 @@ const hospitalSlugMap: Record<number, string> = {
   11: 'cureplus-hospital-handpost',
   12: 'cureplus-hospital-hosuru',
   13: 'cureplus-hospital-halli-mysuru',
-  14: 'Cureplus-hospital-arakere',
-  15: 'Cureplus-hospital-huliyurudurga',
-  16: 'Cureplus-hospital-udayagiri',
-  17: 'Cureplus-hospital-talakadu',
-  18: 'Cureplus-hospital-yelandur'
+  14: 'cureplus-hospital-arakere',
+  15: 'cureplus-hospital-huliyurudurga',
+  16: 'cureplus-hospital-udayagiri',
+  17: 'cureplus-hospital-talakadu',
+  18: 'cureplus-hospital-yelandur',
+  19: 'cureplus-hospital-martalli'
 };
 
 

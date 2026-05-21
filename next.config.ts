@@ -31,6 +31,7 @@ const nextConfig: NextConfig = {
       { source: '/cureplus-hospital-udayagiri', destination: '/hospital/16' },
       { source: '/cureplus-hospital-talakadu', destination: '/hospital/17' },
       { source: '/cureplus-hospital-yelandur', destination: '/hospital/18' },
+      { source: '/cureplus-hospital-martalli', destination: '/hospital/19' },
     ];
   },
 };

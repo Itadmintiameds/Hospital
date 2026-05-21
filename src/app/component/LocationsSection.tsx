@@ -25,6 +25,7 @@ const hospitalSlugMap: Record<number, string> = {
   16: 'cureplus-hospital-udayagiri',
   17: 'cureplus-hospital-talakadu',
   18: 'cureplus-hospital-yelandur',
+  19: 'cureplus-hospital-martalli',
 };
 
 const hospitals = [
