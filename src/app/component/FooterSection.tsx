@@ -25,7 +25,7 @@ const Footer = () => (
           CurePlus Hospitals
         </h3>
         <p>
-          Delivering accessible healthcare across Karnataka with 15+ hospitals,
+          Delivering accessible healthcare across Karnataka with 18+ hospitals,
           integrated pharma services, and specialized care, 24/7.
         </p>
       </div>

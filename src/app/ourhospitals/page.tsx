@@ -180,7 +180,7 @@ const HospitalsPage = () => {
               </h3>
               <ul className="space-y-3">
                 {[
-                  "Over 15+ state-of-the-art facilities",
+                  "Over 18+ state-of-the-art facilities",
                   "NABH accredited flagship hospital",
                   "Affordable generic medicines",
                   "Modern diagnostic services",
