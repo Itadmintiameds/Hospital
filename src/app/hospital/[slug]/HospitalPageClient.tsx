@@ -37,6 +37,12 @@ const HOSPITALS_LIST = [
   { id: 11, name: 'CurePlus Hospital Handpost', image: '/handPost/handpost1.png' },
   { id: 12, name: 'CurePlus Hospital Hosur', image: '/hosur/hosur.png' },
   { id: 13, name: 'CurePlus Hospital Halli Mysore', image: '/halli/halli.png' },
+  { id: 14, name: 'CurePlus Hospital Arakere', image: '/hospital/arakere.jpeg' },
+  { id: 15, name: 'CurePlus Hospital Huliyurudurga', image: '/hospital/huliyurudurga.jpeg' },
+  { id: 16, name: 'CurePlus Hospital Udayagiri', image: '/hospital/udayagiri.jpeg' },
+  { id: 17, name: 'CurePlus Hospital Talakadu', image: '/hospital/talkakadu.jpeg' },
+  { id: 18, name: 'CurePlus Hospital Yelandur', image: '/hospital/yelandur.jpeg' },
+  { id: 19, name: 'CurePlus Hospital Martalli', image: '/hospital/martalli.jpeg' },
 ];
 
 // Style Constants (non-hook)

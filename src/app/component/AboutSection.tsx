@@ -102,7 +102,7 @@ const stats = [
   { icon: <FaUserMd />, label: '100+ Doctors & Specialists', bg: 'bg-gradient-to-r from-indigo-100 to-indigo-200' },
   { icon: <FaUsers />, label: '5 Lakh+ Patients Served', bg: 'bg-gradient-to-r from-pink-100 to-pink-200' },
   { icon: <FaBullseye />, label: 'Goal: 200+ Hospitals by 2028', bg: 'bg-gradient-to-r from-orange-100 to-orange-200' },
-  { icon: <FaMapMarkedAlt />, label: 'Serving 5 Districts in Karnataka', bg: 'bg-gradient-to-r from-teal-100 to-teal-200' },
+  { icon: <FaMapMarkedAlt />, label: 'Serving 6 Districts in Karnataka', bg: 'bg-gradient-to-r from-teal-100 to-teal-200' },
 ];
 
 const fadeInVariants: Variants = {
