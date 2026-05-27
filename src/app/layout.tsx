@@ -14,20 +14,57 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-
 export const metadata: Metadata = {
-  title: "CurePlus Hospitals | Advanced Multispeciality Healthcare You Can Trust ",
-  description: "CurePlus Hospitals delivers expert medical care across multiple specialties with state-of-the-art facilities, experienced doctors, and compassionate service. Your health, our priority. "
+  title: "Best Hospital in Mysore | CurePlus Multispeciality Hospitals",
+
+  description:
+    "CurePlus Hospitals offers advanced multispeciality healthcare, emergency services, diagnostics, and expert doctors across Mysore & Karnataka.",
+
+  alternates: {
+    canonical: "https://www.cureplushospitals.com/",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  icons: {
+    icon: "/CUREPLUS HOSPITALS.png",
+  },
+
+  openGraph: {
+    title: "Best Hospital in Mysore | CurePlus Multispeciality Hospitals",
+
+    description:
+      "CurePlus Hospitals offers advanced multispeciality healthcare, emergency services, diagnostics, and expert doctors across Mysore & Karnataka.",
+
+    url: "https://www.cureplushospitals.com/",
+
+    siteName: "CurePlus Hospitals",
+
+    locale: "en_IN",
+
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+
+    title: "Best Hospital in Mysore | CurePlus Multispeciality Hospitals",
+
+    description:
+      "CurePlus Hospitals offers advanced multispeciality healthcare, emergency services, diagnostics, and expert doctors across Mysore & Karnataka.",
+  },
 };
 
-
 const customNavLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'About Us', href: '/about' },
-  { name: 'Team', href: '/team' },
-  { name: 'Our Hospitals', href: '/ourhospitals' },
-  { name: 'Our Specialities', href: '/services' },
-  { name: 'Contact Us', href: '/contact' },
+  { name: "Home", href: "/" },
+  { name: "About Us", href: "/about" },
+  { name: "Team", href: "/team" },
+  { name: "Our Hospitals", href: "/ourhospitals" },
+  { name: "Our Specialities", href: "/services" },
+  { name: "Contact Us", href: "/contact" },
 ];
 
 export default function RootLayout({
@@ -37,13 +74,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-       <head>
-          <link rel='icon' href='/CUREPLUS HOSPITALS.png' />
-        </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-       
         <Header navLinks={customNavLinks} />
         {children}
         <ChatBot />
