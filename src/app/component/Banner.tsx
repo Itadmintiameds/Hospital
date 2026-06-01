@@ -104,9 +104,9 @@ const Banner = () => {
           custom={0}
           className="text-center lg:text-left"
         >
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white md:text-purple-600 leading-tight mb-6">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-white md:text-purple-600 leading-tight mb-6">
             Introducing CurePlus Arogya Card
-          </h1>
+          </h2>
           <p className="text-lg md:text-xl text-white md:text-purple-600 max-w-xl mx-auto lg:mx-0 mb-8">
             Exclusive healthcare plans offering comprehensive coverage with a special 25% discount on all services.
           </p>
