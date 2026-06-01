@@ -1,4 +1,6 @@
 'use client';
+
+import Script from "next/script";
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiPhone, FiMail, FiMapPin, FiSend } from 'react-icons/fi';
@@ -20,16 +22,24 @@ const ContactUs = () => {
     subject: '',
     message: '',
   });
+
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     setLoading(true);
     setStatusMessage('');
 
@@ -42,12 +52,19 @@ const ContactUs = () => {
 
       if (res.ok) {
         setStatusMessage('Message sent successfully!');
-        setFormData({ name: '', email: '', subject: '', message: '' });
+
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
       } else {
         setStatusMessage('Failed to send. Please try again.');
       }
     } catch (error) {
       console.error('Error sending message:', error);
+
       setStatusMessage('Error occurred. Please try again later.');
     } finally {
       setLoading(false);
@@ -56,8 +73,54 @@ const ContactUs = () => {
 
   return (
     <>
+      {/* Schema */}
+      <Script
+        id="hospital-contact-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Hospital",
+            "name": "CurePlus Hospitals",
+            "url": "https://www.cureplushospitals.com/contact",
+            "logo": "https://www.cureplushospitals.com/logo.png",
+            "image": "https://www.cureplushospitals.com/og-image.jpg",
+            "description":
+              "CurePlus Hospitals provides multispeciality healthcare, diagnostics, emergency care, and affordable treatment across Karnataka.",
+            "telephone": "+91 90351 93777",
+            "email": "contact@cureplushospitals.com",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Mysore",
+              "addressRegion": "Karnataka",
+              "addressCountry": "India"
+            },
+            "areaServed": "Karnataka",
+            "availableLanguage": [
+              "English",
+              "Kannada"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+91 90351 93777",
+              "contactType": "customer support",
+              "areaServed": "IN",
+              "availableLanguage": [
+                "English",
+                "Kannada"
+              ]
+            },
+            "sameAs": [
+              "https://www.facebook.com/",
+              "https://www.instagram.com/"
+            ]
+          }),
+        }}
+      />
+
       <section className="min-h-screen bg-gray-50 py-20 px-6">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
+
           {/* Contact Info */}
           <motion.div
             className="space-y-8"
@@ -66,30 +129,45 @@ const ContactUs = () => {
             variants={fadeVariant}
             custom={0}
           >
-            <h2 className="text-4xl font-bold text-purple-600">Let’s Connect</h2>
+            <h1 className="text-4xl font-bold text-purple-600">
+              Contact CurePlus Hospitals
+            </h1>
+
             <p className="text-gray-600">
-              Whether you have a question, need support, or just want to say hello — we&apos;re here to help.
+              Contact CurePlus Hospitals for appointments, emergency care,
+              and healthcare support across Karnataka. Call us anytime
+              for assistance.
             </p>
+
             <div className="space-y-6">
+
               <div className="flex items-start gap-4">
                 <FiPhone className="text-blue-600 w-6 h-6 mt-1" />
+
                 <div>
-                  {/* <h4 className="text-lg font-semibold text-gray-700">Phone</h4> */}
-                  <p className="text-gray-700">+91 90351 93777</p>
+                  <p className="text-gray-700">
+                    +91 90351 93777
+                  </p>
                 </div>
               </div>
+
               <div className="flex items-start gap-4">
                 <FiMail className="text-green-600 w-6 h-6 mt-1" />
+
                 <div>
-                  {/* <h4 className="text-lg font-semibold text-gray-700">Email</h4> */}
-                  <p className="text-gray-700">info@cureplushospitals.com</p>
+                  <p className="text-gray-700">
+                    info@cureplushospitals.com
+                  </p>
                 </div>
               </div>
+
               <div className="flex items-start gap-4">
                 <FiMapPin className="text-red-600 w-6 h-6 mt-1" />
+
                 <div>
-                  {/* <h4 className="text-lg font-semibold text-gray-700">Address</h4> */}
-                  <p className="text-gray-700">Mysuru, Karnataka, India</p>
+                  <p className="text-gray-700">
+                    Mysuru, Karnataka, India
+                  </p>
                 </div>
               </div>
             </div>
@@ -103,9 +181,14 @@ const ContactUs = () => {
             variants={fadeVariant}
             custom={1}
           >
-            <h3 className="text-2xl font-bold mb-6 text-purple-600">Send a Message</h3>
+            <h2 className="text-2xl font-bold mb-6 text-purple-600">
+              Send a Message
+            </h2>
+
             <form className="space-y-6" onSubmit={handleSubmit}>
+
               <div className="grid sm:grid-cols-2 gap-6">
+
                 <input
                   name="name"
                   type="text"
@@ -115,6 +198,7 @@ const ContactUs = () => {
                   required
                   className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
+
                 <input
                   name="email"
                   type="email"
@@ -125,6 +209,7 @@ const ContactUs = () => {
                   className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
               </div>
+
               <input
                 name="subject"
                 type="text"
@@ -133,6 +218,7 @@ const ContactUs = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-zinc-900"
               />
+
               <textarea
                 name="message"
                 rows={5}
@@ -142,19 +228,27 @@ const ContactUs = () => {
                 required
                 className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-zinc-900"
               ></textarea>
+
               <button
                 type="submit"
                 disabled={loading}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-900 transition"
               >
                 <FiSend className="w-5 h-5" />
+
                 {loading ? 'Sending...' : 'Submit'}
               </button>
-              {statusMessage && <p className="text-sm mt-2 text-green-600">{statusMessage}</p>}
+
+              {statusMessage && (
+                <p className="text-sm mt-2 text-green-600">
+                  {statusMessage}
+                </p>
+              )}
             </form>
           </motion.div>
         </div>
       </section>
+
       <Footer />
     </>
   );

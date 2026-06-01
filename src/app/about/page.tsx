@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import type { Metadata } from "next";
+import Script from "next/script";
 import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
 import { FaHospital, FaHeartbeat, FaAmbulance, FaEye, FaBullseye } from 'react-icons/fa';
@@ -8,6 +10,7 @@ import { MdOutlineLocalPharmacy } from 'react-icons/md';
 import { FiArrowRight, FiTarget } from 'react-icons/fi';
 import Footer from '../component/FooterSection';
 import Link from 'next/link';
+
 
 const HOSPITALS_LIST = [
   { id: 1, name: 'CurePlus Disha Hospital', image: '/hospital/cure+.png' },
@@ -147,14 +150,14 @@ const HospitalCard = ({ hospital, index }: { hospital: typeof HOSPITALS_LIST[0];
   <ContentCard 
     index={index} 
     className="bg-white border overflow-hidden" 
-    link={`/${`hospital-${hospital.id}`}`} // UNIQUE slug pattern
+    link={`/${`hospital-${hospital.id}`}`}
     hover={true}
   >
     <div className="group">
       <div className="relative h-48 overflow-hidden">
         <Image 
           src={hospital.image} 
-          alt={hospital.name} 
+          alt="CurePlus Hospitals Mysore"
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -191,6 +194,38 @@ const PageSection = ({ title, desc, children }: {
 
 const AboutPage = () => (
   <>
+    {/* Schema */}
+    <Script
+      id="hospital-schema"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Hospital",
+          "name": "CurePlus Hospitals",
+          "url": "https://www.cureplushospitals.com/about",
+          "description": "CurePlus Hospitals is a trusted multispeciality healthcare provider offering emergency care, diagnostics, and expert medical services across Karnataka.",
+          "telephone": "+91-9035193777",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Mysore",
+            "addressRegion": "Karnataka",
+            "addressCountry": "IN"
+          },
+          "medicalSpecialty": [
+            "Orthopedics",
+            "Gynecology",
+            "General Medicine",
+            "Emergency Care"
+          ],
+          "sameAs": [
+            "https://www.instagram.com/",
+            "https://www.facebook.com/"
+          ]
+        }),
+      }}
+    />
+
     <div className="relative max-w-7xl mx-auto px-4 py-12 md:py-20 text-gray-800">
       {/* Hero */}
       <motion.div {...getMotionProps(0)} className="text-center mb-12 md:mb-20">
@@ -214,6 +249,25 @@ const AboutPage = () => (
           ))}
         </div>
       </motion.div>
+
+      {/* Internal Links */}
+      <div className="flex flex-wrap justify-center gap-4 mb-16">
+        <Link href="/team" className="px-5 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+          Doctors
+        </Link>
+
+        <Link href="/services" className="px-5 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+          Services
+        </Link>
+
+        <Link href="/contact" className="px-5 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+          Contact Page
+        </Link>
+
+        <Link href="/ourhospitals" className="px-5 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+          Branch Locations
+        </Link>
+      </div>
 
       {/* Vision Mission Goal */}
       <div className={`${PAGE_STYLES.gridBase} ${PAGE_STYLES.grid3} md:gap-8 ${PAGE_STYLES.spacing}`}>
