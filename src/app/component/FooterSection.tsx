@@ -48,7 +48,7 @@ const Footer = () => (
         <div className="space-y-4">
           <p className="flex items-center gap-3">
             <FaPhoneAlt className="text-white" /> 
-            <a href="tel:+918904338604" className="text-white">+91 90351 93777</a>
+            <a href="tel:+919035193777" className="text-white">+91 90351 93777</a>
           </p>
           <p className="flex items-center gap-3">
             <FaEnvelope className="text-white" /> info@cureplushospitals.com
