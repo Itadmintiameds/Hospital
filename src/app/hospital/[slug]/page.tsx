@@ -126,9 +126,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const keywords =
     seo?.keywords ||
     [hospital.name, hospital.location, 'hospital', 'healthcare'];
-  const canonical =
-  seo?.canonical ||
-  `https://www.cureplushospitals.com/ourhospitals/${hospital.id}`;
+  const canonical = seo?.canonical
 
   return {
     title,

@@ -62,7 +62,7 @@ const customNavLinks = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
   { name: "Team", href: "/team" },
-  { name: "Our Hospitals", href: "/ourhospitals" },
+  { name: "Our Hospitals", href: "/hospitals" },
   { name: "Our Specialities", href: "/services" },
   { name: "Contact Us", href: "/contact" },
 ];
