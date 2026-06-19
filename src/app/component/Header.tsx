@@ -1,8 +1,9 @@
-'use client';
-import { useState } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
+
+import { useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
+import Image from "next/image";
+import Link from "next/link";
 
 interface NavLink {
   name: string;
@@ -10,60 +11,64 @@ interface NavLink {
 }
 
 interface HeaderProps {
-  navLinks: NavLink[];
+  navLinks?: NavLink[];
 }
 
-const Header: React.FC<HeaderProps> = ({ navLinks }) => {
+const Header: React.FC<HeaderProps> = ({ navLinks = [] }) => {
   const [isOpen, setIsOpen] = useState(false);
+
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-md transition-all duration-300">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-        
         {/* Logo */}
-<Link href="/" className="flex items-center gap-4">
-  <Image
-    src="/CUREPLUS HOSPITALS.png"
-    alt="CurePlus Hospitals Logo"
-    width={100}
-    height={110}
-    className="rounded-full object-cover h-auto"
-  />
+        <Link href="/" className="flex items-center gap-4">
+          <Image
+            src="/CUREPLUS HOSPITALS.png"
+            alt="CurePlus Hospitals Logo"
+            width={100}
+            height={110}
+            className="rounded-full object-cover h-auto"
+          />
 
-  <Image
-    src="/second-logo.png"
-    alt="Second Logo"
-    width={80}
-    height={90}
-    className="object-contain h-auto"
-  />
-</Link>
+          <Image
+            src="/second-logo.png"
+            alt="40 Years of Excellence Logo"
+            width={80}
+            height={90}
+            className="object-contain h-auto"
+          />
+        </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8 text-gray-800 font-medium text-lg">
-          {navLinks.map((link) => (
-            <Link key={link.name} href={link.href}>
-              <p className="hover:text-purple-600 hover:underline underline-offset-4 transition-all duration-200">
-                {link.name}
-              </p>
-            </Link>
-          ))}
-        </nav>
+        {navLinks.length > 0 && (
+          <nav className="hidden md:flex space-x-8 text-gray-800 font-medium text-lg">
+            {navLinks.map((link) => (
+              <Link key={link.name} href={link.href}>
+                <p className="hover:text-purple-600 hover:underline underline-offset-4 transition-all duration-200">
+                  {link.name}
+                </p>
+              </Link>
+            ))}
+          </nav>
+        )}
 
-        {/* Hamburger Menu Icon */}
-        <button
-          className="md:hidden text-gray-800 focus:outline-none"
-          onClick={toggleMenu}
-          aria-label="Toggle Menu"
-        >
-          {isOpen ? <FaTimes size={26} /> : <FaBars size={26} />}
-        </button>
+        {/* Mobile Menu Button */}
+        {navLinks.length > 0 && (
+          <button
+            className="md:hidden text-gray-800 focus:outline-none"
+            onClick={toggleMenu}
+            aria-label="Toggle Menu"
+          >
+            {isOpen ? <FaTimes size={26} /> : <FaBars size={26} />}
+          </button>
+        )}
       </div>
 
       {/* Mobile Navigation */}
-      {isOpen && (
-        <div className="md:hidden bg-white/90 backdrop-blur-md z-40 w-full px-6 py-6 space-y-4 shadow-md">
+      {isOpen && navLinks.length > 0 && (
+        <div className="md:hidden bg-white/90 backdrop-blur-md w-full px-6 py-6 space-y-4 shadow-md">
           {navLinks.map((link) => (
             <Link key={link.name} href={link.href}>
               <p
