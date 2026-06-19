@@ -58,7 +58,7 @@ const scaleIn: Variants = {
 
 const HospitalsPage = () => {
   const hospitals = [
-    { id: 1, name: 'CurePlus  Disha Hospital', image: '/hospital/cure+.png',phone:'0821-2454798' },
+    { id: 1, name: 'CurePlus  Disha Hospital', image: '/cureplus/cureplus5.png',phone:'0821-2454798' },
     { id: 2, name: 'CurePlus  Dharani Hospital', image: '/hospital/dharni.png',phone:'08226-297298' },
     { id: 3, name: 'CurePlus  Kaveri Hospital', image: '/hospital/kaveri.png' ,phone:'08276 298998' },
     { id: 4, name: 'CurePlus  Krishna Hospital', image: '/hospital/krishna.png' ,phone:'08223-275798' },

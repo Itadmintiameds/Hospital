@@ -248,13 +248,13 @@ const HospitalPageClient = ({ hospital }: HospitalPageClientProps) => {
             <div className={`${STYLES.card} relative w-full h-96 overflow-hidden`}>
               {hospital.imageUrl && (
                 <Image 
-                  src={hospital.imageUrl} 
-                  alt={seo?.h1 || name || 'Hospital Image'} 
-                  fill 
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 1000px" 
-                  className="object-cover" 
-                  priority 
-                />
+  src={hospital.imageUrl} 
+  alt={seo?.h1 || name || 'Hospital Image'} 
+  fill 
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 1000px" 
+  className="object-cover" 
+  priority 
+/>
               )}
             </div>
             <div className="mt-6 flex flex-col sm:flex-row justify-between items-start gap-4">
