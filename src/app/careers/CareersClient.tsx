@@ -220,56 +220,6 @@ const jobs: Job[] = [
   },
 
   {
-    id: 4,
-    title: "Lab Technician",
-    description:
-      "The hospital is seeking a skilled and detail-oriented Lab Technician to perform diagnostic testing procedures accurately.",
-    qualification: "DMLT / BMLT",
-    experience:
-      "Freshers and candidates with 0–3 years of experience can apply",
-    responsibilities: [
-      "Collect and process patient samples",
-      "Perform laboratory tests and diagnostic procedures",
-      "Prepare and maintain laboratory reports",
-      "Operate and maintain laboratory equipment",
-      "Follow laboratory safety and infection control protocols",
-      "Maintain records and inventory",
-    ],
-    requirements: [
-      "Knowledge of pathology, hematology, microbiology, and biochemistry testing",
-      "Ability to handle diagnostic equipment and samples",
-      "Basic computer skills for documentation and reporting",
-    ],
-    skills: [
-      "Sample collection and processing",
-      "Laboratory testing and analysis",
-      "Documentation and reporting",
-      "Attention to detail and accuracy",
-      "Communication and teamwork",
-    ],
-    locations: [
-  // "Yelandur Taluk",
-  // "Ramapura",
-  // "Terakanambi",
-  // "Yelandur",
-  // "Somwarpet Taluk",
-  "Shanivarasanthe",
-  // "Chinakurali",
-  // "Pandavapura Taluk",
-  "Arakere",
-  // "Mysuru",
-  // "Piriyapatna Taluk",
-  // "Saligrama Taluk",
-  // "T. Narasipura",
-  // "H.D. Kote",
-  // "Halli Mysuru",
-  // "Talakadu",
-  "Huliyurudurga",
-  // "Hassan Region"
-],
-  },
-
-  {
     id: 5,
     title: "Hospital Assistant Manager",
     description:
