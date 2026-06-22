@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Script from "next/script";
 
 type Job = {
   id: number;
@@ -218,20 +219,112 @@ const jobs: Job[] = [
 export default function CareersClient() {
 const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "CurePlus Hospitals",
+  url: "https://www.cureplushospitals.com",
+  logo: "https://www.cureplushospitals.com/logo.png",
+  description:
+    "CurePlus Hospitals is a growing healthcare network in Karnataka providing quality medical care and career opportunities.",
+  sameAs: [
+    "https://www.facebook.com/cureplushospitals",
+    "https://www.instagram.com/cureplushospitals",
+  ],
+};
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Careers at CurePlus Hospitals",
+  url: "https://www.cureplushospitals.com/careers",
+  description:
+    "Explore healthcare jobs in Karnataka at CurePlus Hospitals. Apply for doctor, nurse, technician and administrative positions.",
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.cureplushospitals.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Careers",
+      item: "https://www.cureplushospitals.com/careers",
+    },
+  ],
+};
+
 return (
-<> <section className="relative py-20 bg-gradient-to-br from-purple-50 via-white to-purple-100 min-h-screen overflow-hidden">
+<> <Script
+  id="organization-schema"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(organizationSchema),
+  }}
+/>
+
+<Script
+  id="webpage-schema"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(webPageSchema),
+  }}
+/>
+
+<Script
+  id="breadcrumb-schema"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(breadcrumbSchema),
+  }}
+/>
+ <section className="relative py-20 bg-gradient-to-br from-purple-50 via-white to-purple-100 min-h-screen overflow-hidden">
 
   <div className="absolute top-0 left-0 w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-20" />
 <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-300 rounded-full blur-3xl opacity-20" />
   <div className="max-w-7xl mx-auto px-6 relative z-10"> <div className="text-center mb-12"> 
-    <h1 className="text-4xl font-bold text-purple-700 mb-4">
-Careers at CurePlus </h1>
+    <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-purple-800 to-purple-500 bg-clip-text text-transparent mb-6">
+  Careers at CurePlus Hospitals
+</h1>
 
-        <p className="text-gray-600 max-w-3xl mx-auto">
-          Join our mission of saving lives and making healthcare accessible.
-          Explore our current openings and become part of our growing team.
-        </p>
+        <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+  Join CurePlus Hospitals and build a rewarding healthcare career.
+  Explore opportunities for doctors, nurses, technicians, and
+  healthcare professionals across Karnataka.
+</p>
       </div>
+
+    <nav
+  aria-label="breadcrumb"
+  className="mb-10 flex justify-center"
+>
+  <ol className="flex items-center gap-2 text-sm text-gray-600">
+    <li>
+      <a
+        href="/"
+        className="hover:text-purple-700 transition-colors"
+      >
+        Home
+      </a>
+    </li>
+
+    <li>/</li>
+
+    <li
+      aria-current="page"
+      className="font-medium text-purple-700"
+    >
+      Careers
+    </li>
+  </ol>
+</nav>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
         {jobs.map((job) => (
