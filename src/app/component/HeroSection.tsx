@@ -420,7 +420,7 @@ const HeroSection = () => {
       <Head>
         <title>
           Best Hospital in Mysore | CurePlus Multispeciality Hospitals
-        </title>
+      </title>
 
         <meta
           name="description"

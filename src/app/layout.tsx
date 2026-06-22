@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./component/Header";
 import ChatBot from "./component/ChatBot";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -75,9 +76,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+  <Script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-1L05LV3S1T"
+  />
+
+  <Script id="google-analytics">
+    {`
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1L05LV3S1T');
+    `}
+  </Script>
+
+  <body
+    className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+  >
         <Header navLinks={customNavLinks} />
         {children}
         <ChatBot />
