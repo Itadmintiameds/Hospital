@@ -69,7 +69,7 @@ const jobs: Job[] = [
     id: 2,
     title: "Staff Nurse",
     description:
-      "Cure+ Hospitals is looking for compassionate and skilled Nursing Staff to join our dedicated healthcare team.",
+      "CurePlus Hospitals is looking for compassionate and skilled Nursing Staff to join our dedicated healthcare team.",
     qualification: "ANM / GNM / B.Sc Nursing / GAD Nursing",
     experience: "Freshers and candidates with 0–3 years of experience can apply",
     responsibilities: [
@@ -219,7 +219,12 @@ export default function CareersClient() {
 const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
 return (
-<> <section className="py-16 bg-gray-50 min-h-screen"> <div className="max-w-6xl mx-auto px-4"> <div className="text-center mb-12"> <h1 className="text-4xl font-bold text-purple-700 mb-4">
+<> <section className="relative py-20 bg-gradient-to-br from-purple-50 via-white to-purple-100 min-h-screen overflow-hidden">
+
+  <div className="absolute top-0 left-0 w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-20" />
+<div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-300 rounded-full blur-3xl opacity-20" />
+  <div className="max-w-7xl mx-auto px-6 relative z-10"> <div className="text-center mb-12"> 
+    <h1 className="text-4xl font-bold text-purple-700 mb-4">
 Careers at CurePlus </h1>
 
         <p className="text-gray-600 max-w-3xl mx-auto">
@@ -228,51 +233,105 @@ Careers at CurePlus </h1>
         </p>
       </div>
 
-      <div className="grid gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
         {jobs.map((job) => (
-          <div
-            key={job.id}
-            className="bg-white rounded-xl shadow-md border p-6"
+<div
+  key={job.id}
+  className="group relative overflow-hidden rounded-3xl bg-white border border-purple-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+>
+  {/* Top Accent */}
+  <div className="h-2 bg-gradient-to-r from-purple-700 via-purple-500 to-purple-400" />
+
+  <div className="p-6 flex flex-col h-full">
+
+    {/* Job Title */}
+    <div className="mb-5">
+      <div className="w-14 h-14 rounded-2xl bg-purple-100 flex items-center justify-center mb-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-7 h-7 text-purple-700"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5"
+          />
+        </svg>
+      </div>
+
+      <h2 className="text-2xl font-bold text-gray-900">
+        {job.title}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <p className="text-gray-600 text-sm leading-relaxed mb-5 line-clamp-4">
+      {job.description}
+    </p>
+
+    {/* Info Cards */}
+    <div className="space-y-3 mb-5">
+
+      <div className="bg-purple-50 rounded-xl p-3">
+        <p className="text-xs uppercase tracking-wide text-purple-600 font-semibold mb-1">
+          Qualification
+        </p>
+        <p className="text-sm text-gray-700">
+          {job.qualification}
+        </p>
+      </div>
+
+      <div className="bg-gray-50 rounded-xl p-3">
+        <p className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-1">
+          Experience
+        </p>
+        <p className="text-sm text-gray-700">
+          {job.experience}
+        </p>
+      </div>
+    </div>
+
+    {/* Locations */}
+    <div className="mb-6">
+      <p className="text-sm font-semibold text-gray-700 mb-2">
+        Available Locations
+      </p>
+
+      <div className="flex flex-wrap gap-2">
+        {job.locations.slice(0, 3).map((location) => (
+          <span
+            key={location}
+            className="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-medium"
           >
-            <h2 className="text-2xl font-semibold text-purple-700 mb-3">
-              {job.title}
-            </h2>
+            {location}
+          </span>
+        ))}
 
-            <p className="text-gray-600 mb-4">
-  {job.description}
-</p>
+        {job.locations.length > 3 && (
+          <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-xs font-medium">
+            +{job.locations.length - 3} more
+          </span>
+        )}
+      </div>
+    </div>
 
-<div className="space-y-2 mb-4 text-sm">
-  <p>
-    <span className="font-semibold">Qualification:</span>{" "}
-    {job.qualification}
-  </p>
+    {/* Bottom */}
+    <div className="mt-auto pt-4 border-t border-gray-100">
 
-  <p>
-    <span className="font-semibold">Experience:</span>{" "}
-    {job.experience}
-  </p>
+      <button
+        onClick={() => setSelectedJob(job)}
+        className="w-full rounded-xl bg-gradient-to-r from-purple-700 to-purple-600 hover:from-purple-800 hover:to-purple-700 text-white py-3 font-semibold transition-all duration-300"
+      >
+        View Details & Apply
+      </button>
+
+    </div>
+  </div>
 </div>
-
-<div className="flex flex-wrap gap-2 mb-6">
-  {job.locations.map((location) => (
-    <span
-      key={location}
-      className="px-3 py-1 bg-purple-50 text-purple-700 text-sm rounded-full"
-    >
-      {location}
-    </span>
-  ))}
-</div>
-            <div className="flex justify-end">
-              <button
-                onClick={() => setSelectedJob(job)}
-                className="bg-purple-700 hover:bg-purple-800 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-              >
-                Apply Now
-              </button>
-            </div>
-          </div>
         ))}
       </div>
     </div>

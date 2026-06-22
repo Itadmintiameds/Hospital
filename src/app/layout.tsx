@@ -65,6 +65,7 @@ const customNavLinks = [
   { name: "Our Hospitals", href: "/hospitals" },
   { name: "Our Specialities", href: "/services" },
   { name: "Contact Us", href: "/contact" },
+  { name: "Careers", href: "/careers" },
 ];
 
 export default function RootLayout({
