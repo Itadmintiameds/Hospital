@@ -291,7 +291,8 @@ return (
 />
  <section className="relative py-20 bg-gradient-to-br from-purple-50 via-white to-purple-100 min-h-screen overflow-hidden">
 
-  <div className="absolute top-0 left-0 w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-20" />
+ <div className="absolute top-0 left-0 w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-20" />
+
 <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-300 rounded-full blur-3xl opacity-20" />
   <div className="max-w-7xl mx-auto px-6 relative z-10"> <div className="text-center mb-12"> 
     <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-purple-800 to-purple-500 bg-clip-text text-transparent mb-6">
@@ -436,7 +437,7 @@ return (
 
   {selectedJob && (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-      <div className="bg-white rounded-xl w-full max-w-xl p-6 relative max-h-[90vh] overflow-y-auto">
+      <div className="bg-white text-gray-900 rounded-xl w-full max-w-xl p-6 relative max-h-[90vh] overflow-y-auto">
         <button
           onClick={() => setSelectedJob(null)}
           className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-gray-700"
@@ -448,7 +449,7 @@ return (
           Apply for {selectedJob.title}
         </h2>
 
-       <div className="bg-gray-50 rounded-lg p-4 mb-6">
+       <div className="bg-gray-50 rounded-lg p-4 mb-6 text-gray-900">
   <p className="mb-3">
     <span className="font-semibold">Qualification:</span>{" "}
     {selectedJob.qualification}
@@ -461,7 +462,7 @@ return (
 
   <div className="mb-3">
     <h3 className="font-semibold mb-2">Key Responsibilities</h3>
-    <ul className="list-disc pl-5 space-y-1 text-sm">
+    <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
       {selectedJob.responsibilities.map((item, index) => (
         <li key={index}>{item}</li>
       ))}
@@ -470,7 +471,7 @@ return (
 
   <div className="mb-3">
     <h3 className="font-semibold mb-2">Requirements</h3>
-    <ul className="list-disc pl-5 space-y-1 text-sm">
+    <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
       {selectedJob.requirements.map((item, index) => (
         <li key={index}>{item}</li>
       ))}
@@ -478,8 +479,8 @@ return (
   </div>
 
   <div>
-    <h3 className="font-semibold mb-2">Skills</h3>
-    <ul className="list-disc pl-5 space-y-1 text-sm">
+    <h3 className="font-semibold mb-2 text-gray-900">Skills</h3>
+    <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
       {selectedJob.skills.map((item, index) => (
         <li key={index}>{item}</li>
       ))}
