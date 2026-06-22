@@ -218,6 +218,108 @@ const jobs: Job[] = [
   // "Hassan Region"
 ],
   },
+
+  {
+    id: 4,
+    title: "Lab Technician",
+    description:
+      "The hospital is seeking a skilled and detail-oriented Lab Technician to perform diagnostic testing procedures accurately.",
+    qualification: "DMLT / BMLT",
+    experience:
+      "Freshers and candidates with 0–3 years of experience can apply",
+    responsibilities: [
+      "Collect and process patient samples",
+      "Perform laboratory tests and diagnostic procedures",
+      "Prepare and maintain laboratory reports",
+      "Operate and maintain laboratory equipment",
+      "Follow laboratory safety and infection control protocols",
+      "Maintain records and inventory",
+    ],
+    requirements: [
+      "Knowledge of pathology, hematology, microbiology, and biochemistry testing",
+      "Ability to handle diagnostic equipment and samples",
+      "Basic computer skills for documentation and reporting",
+    ],
+    skills: [
+      "Sample collection and processing",
+      "Laboratory testing and analysis",
+      "Documentation and reporting",
+      "Attention to detail and accuracy",
+      "Communication and teamwork",
+    ],
+    locations: [
+  // "Yelandur Taluk",
+  // "Ramapura",
+  // "Terakanambi",
+  // "Yelandur",
+  // "Somwarpet Taluk",
+  "Shanivarasanthe",
+  // "Chinakurali",
+  // "Pandavapura Taluk",
+  "Arakere",
+  // "Mysuru",
+  // "Piriyapatna Taluk",
+  // "Saligrama Taluk",
+  // "T. Narasipura",
+  // "H.D. Kote",
+  // "Halli Mysuru",
+  // "Talakadu",
+  "Huliyurudurga",
+  // "Hassan Region"
+],
+  },
+
+  {
+    id: 5,
+    title: "Hospital Assistant Manager",
+    description:
+      "Responsible for overseeing day-to-day hospital operations and ensuring operational excellence.",
+    qualification:
+      "Bachelor's Degree in Management, Healthcare Administration, or related field. BMLT/DMLT candidates with administrative experience may be considered.",
+    experience:
+      "0–3 years in hospital administration or healthcare operations",
+    responsibilities: [
+      "Manage day-to-day hospital operations",
+      "Coordinate medical, nursing, pharmacy, and support departments",
+      "Handle staffing, scheduling, and workforce coordination",
+      "Ensure NABH compliance and quality standards",
+      "Monitor operational performance and prepare reports",
+      "Manage patient grievances and administrative activities",
+    ],
+    requirements: [
+      "Knowledge of hospital operations and healthcare regulations",
+      "Understanding of NABH standards",
+      "Basic budgeting and reporting skills",
+      "Willingness to travel between branches if required",
+    ],
+    skills: [
+      "Hospital administration",
+      "Team leadership and coordination",
+      "Communication and problem-solving",
+      "Reporting and operational management",
+    ],
+    locations: [
+  // "Yelandur Taluk",
+  // "Ramapura",
+  "Udaygiri",
+  // "Terakanambi",
+  // "Yelandur",
+  // "Somwarpet Taluk",
+  // "Shanivarasanthe",
+  // "Chinakurali",
+  // "Pandavapura Taluk",
+  // "Arakere",
+  // "Mysuru",
+  // "Piriyapatna Taluk",
+  // "Saligrama Taluk",
+  // "T. Narasipura",
+  // "H.D. Kote",
+  // "Halli Mysuru",
+  // "Talakadu",
+  // "Huliyurudurga",
+  // "Hassan Region"
+],
+  },
 ];
 
 export default function CareersClient() {
