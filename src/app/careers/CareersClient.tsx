@@ -341,7 +341,7 @@ return (
     __html: JSON.stringify(breadcrumbSchema),
   }}
 />
- <section className="relative py-20 bg-gradient-to-br from-purple-50 via-white to-purple-100 min-h-screen overflow-hidden">
+ <section className="relative py-20 bg-gradient-to-br from-purple-50 via-white to-purple-100 min-h-screen overflow-hidden font-sans">
 
  <div className="absolute top-0 left-0 w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-20" />
 
@@ -387,7 +387,7 @@ return (
         {jobs.map((job) => (
 <div
   key={job.id}
-  className="group relative overflow-hidden rounded-3xl bg-white border border-purple-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+  className="group relative overflow-hidden rounded-3xl bg-white border border-purple-100 transition-all duration-300"
 >
   {/* Top Accent */}
   <div className="h-2 bg-gradient-to-r from-purple-700 via-purple-500 to-purple-400" />
@@ -396,23 +396,6 @@ return (
 
     {/* Job Title */}
     <div className="mb-5">
-      <div className="w-14 h-14 rounded-2xl bg-purple-100 flex items-center justify-center mb-4">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-7 h-7 text-purple-700"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5"
-          />
-        </svg>
-      </div>
-
       <h2 className="text-2xl font-bold text-gray-900">
         {job.title}
       </h2>
@@ -488,19 +471,27 @@ return (
   </section>
 
   {selectedJob && (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-      <div className="bg-white text-gray-900 rounded-xl w-full max-w-xl p-6 relative max-h-[90vh] overflow-y-auto">
-        <button
-          onClick={() => setSelectedJob(null)}
-          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-gray-700"
-        >
-          ×
-        </button>
+    <div
+  className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4"
+  onClick={() => setSelectedJob(null)}
+>
+      <div
+  className="bg-white text-gray-900 rounded-xl w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden"
+  onClick={(e) => e.stopPropagation()}
+>
+        <div className="sticky top-0 z-20 bg-white border-b px-6 py-4 flex items-center justify-between">
+  <h2 className="text-2xl font-bold text-purple-700">
+    Apply for {selectedJob.title}
+  </h2>
 
-        <h2 className="text-2xl font-bold text-purple-700 mb-2">
-          Apply for {selectedJob.title}
-        </h2>
-
+  <button
+    onClick={() => setSelectedJob(null)}
+    className="text-3xl text-gray-500 hover:text-gray-700"
+  >
+    ×
+  </button>
+</div>
+<div className="flex-1 overflow-y-auto p-6">
        <div className="bg-gray-50 rounded-lg p-4 mb-6 text-gray-900">
   <p className="mb-3">
     <span className="font-semibold">Qualification:</span>{" "}
@@ -622,6 +613,7 @@ return (
             Submit Application
           </button>
         </form>
+     </div>
       </div>
     </div>
   )}
