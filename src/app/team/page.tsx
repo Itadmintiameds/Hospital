@@ -16,7 +16,7 @@ const teamMembers: TeamMember[] = [
     name: 'Dr. Sini',
     role: 'Managing Director',
     bio: 'Expert in healthcare management and patient care, ensuring quality services.',
-    image: '/managment/sinimam.jpg',
+    image: '/images/team/dr-sini-arjun-720.jpg',
     description:
       'Dr. Sini is an expert in healthcare management and patient care, ensuring quality services across all facilities. With years of experience in clinical practice and administration, she is committed to maintaining high standards of care and implementing best practices in healthcare delivery. Dr. Sini is also a strong advocate for patient rights and community health initiatives.',
   },
@@ -27,6 +27,14 @@ const teamMembers: TeamMember[] = [
     image: '/managment/captain.png',
     description:
       'Capt. Raghu is a strategic planner with a focus on operational excellence and efficiency. His military background has instilled in him a strong sense of discipline and leadership, which he applies to managing the day-to-day operations of the organization. Capt. Raghu is dedicated to optimizing processes and ensuring that all teams work cohesively towards common goals.',
+  },
+  {
+    name: 'Ram Hebbale Hiriyanna',
+    role: 'Senior Vice President',
+    bio: 'Drives operational efficiency, strategic decisions and sustainable growth across the group.',
+    image: '/images/team/ram-hebbale-hiriyanna-720.jpg',
+    description:
+      'With over 15 years of experience in business development, marketing strategy, and operations, he brings strong expertise in B2B growth, process excellence, and quality management. As Senior Vice President at Sudhanand Group, he drives operational efficiency, strategic decision-making, and sustainable organizational growth, with a strong focus on collaboration and continuous improvement.',
   },
   {
     name: 'Abhinandan S Rao',
@@ -64,17 +72,9 @@ const teamMembers: TeamMember[] = [
     name: 'Manjunath P.',
     role: 'Senior Manager – Purchase & Procurement',
     bio: 'Oversees purchase and procurement across the organisation and supports the Pharma business.',
-    image: '/managment/Manjunath P-Photoroom.png',
+    image: '/images/team/manjunath-p-720.jpg',
     description:
-      "Manjunath P is responsible for overseeing purchase and procurement activities across the organisation, coordinating the sourcing and timely availability of varied requirements. Working closely with Sr. Operations Manager – Srinivas, he supports efficient procurement processes, vendor coordination, cost management, and timely fulfilment of organisational needs. In addition to his procurement responsibilities, Manjunath is also involved in managing and supporting the company's Pharma business, contributing to its day-to-day operations, coordination, and business requirements.",
-  },
-  {
-    name: 'Sandeep',
-    role: 'Administrative Manager',
-    bio: 'Efficient administrator ensuring smooth operations and support services.',
-    image: '/managment/Sandeep.jpeg',
-    description:
-      'Sandeep is an efficient administrator ensuring smooth operations and support services. He plays a crucial role in coordinating various administrative functions, including human resources, facilities management, and procurement. Sandeep’s attention to detail and organizational skills contribute significantly to the overall efficiency of the organization.',
+      "Manjunath P is responsible for overseeing purchase and procurement activities across the organisation, coordinating the sourcing and timely availability of varied requirements. Working closely with Sr. Operations Manager – Srinivas, he supports efficient procurement processes, vendor coordination, cost management, and timely fulfilment of organisational needs. In addition to his procurement responsibilities, Manjunath is also involved in managing and supporting the company's Pharma business, contributing to its day-to-day operations, coordination, and business requirements. His role combines procurement expertise, cross-functional coordination, and practical execution to support the organisation's operational and business objectives.",
   },
 ];
 

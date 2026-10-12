@@ -5,7 +5,8 @@ Reads assets/source/*.png (see extract-pdf-images.py) and writes web-ready files
   hospitals/<name>-800.webp|.jpg      800x500
   hospitals/<name>-600.webp|.jpg      600x375
   facilities/<name>.*                 same 16:10 treatment
-  team/<name>.webp|.jpg + -240        square, face-centred portraits (480 / 240)
+  team/<name>.webp|.jpg + -720/-240   square, face-centred portraits (480; 720 for /team; 240)
+Sources named doc_image<N>.png come from the client's Google Doc (see extract-docx-images.py).
 Every file is kept under ~200 KB. Run:  python scripts/optimize-images.py
 """
 import json
@@ -27,6 +28,9 @@ HOSPITALS = [
     ("ramapura-hospital", "p2_i3_x14.png", (0.5, 0.35), None),
     # portrait source: keep the CurePlus signboard + shop front, drop the sky and the neighbouring "Yashashvi" sign
     ("shanivarasanthe-hospital", "p2_i4_x15.png", (0.5, 0.5), (0, 560, 1101, 560 + 688)),
+    # from the updated Google Doc (extract-docx-images.py): doc_image12 = Bherya, doc_image18 = Narasegowda Memorial
+    ("bherya-hospital", "doc_image12.png", (0.5, 0.2), None),
+    ("narasegowda-memorial-hospital", "doc_image18.png", (0.5, 0.3), None),
 ]
 # Existing site photos for hospitals the client did not supply new pictures for. Same photo, re-cropped to the
 # shared 16:10 frame and compressed so every card/hero is identical in size and ratio.
@@ -34,8 +38,6 @@ HOSPITALS = [
 RETAINED = [
     ("disha-hospital", "public/cureplus/cureplus5.png", (0.5, 0.5)),
     ("kaveri-hospital", "public/kaveri/kaveri1.png", (0.5, 0.5)),
-    ("narasegowda-memorial-hospital", "public/narasegowda/narasaregoda1.png", (0.5, 0.5)),
-    ("bherya-hospital", "public/bheraya/bheraya.png", (0.5, 0.0)),
     ("t-narasipura-hospital", "public/Narasipura/Narasipura.png", (0.5, 0.5)),
     ("handpost-hospital", "public/HandPost/Handpost1.png", (0.5, 0.5)),
     ("arakere-hospital", "public/arakere/arakere.jpeg", (0.5, 0.62)),
@@ -57,6 +59,12 @@ FACILITIES = [
 TEAM = [
     ("ram-hebbale-hiriyanna", "p5_i1_x29.png", (0.5, 0.0), 900),
     ("manjunath-p", "p5_i2_x30.png", (0.5, 0.03), 1086),
+    # updated portrait of Dr. Sini from the Google Doc (extract-docx-images.py: doc_image3)
+    ("dr-sini-arjun", "doc_image3.png", (0.5, 0.0), 1236),
+]
+# Portraits that only exist on the old site (no new photo in the client's doc): full path, square side
+RETAINED_TEAM = [
+    ("dr-arjun-sachidanand", "public/managment/DR ARJUN-Photoroom.png", (0.5, 0.0), 2380),
 ]
 
 
@@ -116,14 +124,15 @@ for name, f, anchor in FACILITIES:
         "800": save_pair(c, f"{OUT}/facilities/{name}-800", (800, 500)),
         "600": save_pair(c, f"{OUT}/facilities/{name}-600", (600, 375)),
     }
-for name, f, anchor, side in TEAM:
-    im = Image.open(os.path.join(SRC, f)).convert("RGB")
+for name, f, anchor, side in [(n, os.path.join(SRC, f), a, s) for n, f, a, s in TEAM] + RETAINED_TEAM:
+    im = Image.open(f).convert("RGB")
     w, h = im.size
     left = round((w - side) * anchor[0])
     top = round((h - side) * anchor[1]) if h > side else 0
     c = im.crop((left, top, left + side, top + side))
     manifest[name] = {
-        "480": save_pair(c, f"{OUT}/team/{name}", (480, 480)),
+        "720": save_pair(c, f"{OUT}/team/{name}-720", (720, 720)),  # /team cards + profile dialog
+        "480": save_pair(c, f"{OUT}/team/{name}", (480, 480)),  # About page leadership
         "240": save_pair(c, f"{OUT}/team/{name}-240", (240, 240)),
     }
 

@@ -1,4 +1,4 @@
-// Site-wide constants: contact details, navigation, stats, licences, Super Hub facts.
+// Site-wide constants: contact details, navigation, stats, Super Hub facts.
 // Edit here and every page / the footer / JSON-LD picks the change up.
 
 export const SITE_URL = 'https://www.cureplushospitals.com';
@@ -71,19 +71,6 @@ export const MISSION =
 
 export const VISION =
   'To reach underserved communities through a network of 200+ hospitals by 2030, ensuring quality, affordable and inclusive healthcare of the highest standard is within reach of every community.';
-
-// TODO: confirm with client — the licence/approval labels below were supplied in the content document
-// (highlighted red). Do not add licence numbers or expiry dates until the client confirms them.
-export const LICENCES: string[] = [
-  'KPME',
-  'KSPCB',
-  'Drug License',
-  'Fire NOC',
-  'AERB',
-  'MTP',
-  'Tubectomy',
-  'PC&PNDT',
-];
 
 export const SUPER_HUB = {
   name: 'CurePlus Super Hub',

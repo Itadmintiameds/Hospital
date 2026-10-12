@@ -4,7 +4,6 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/f
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { HOSPITAL_COUNT } from '../data/Hospital';
 import { NAV_LINKS, SITE, SOCIAL } from '../data/site';
-import LicenceStrip from './LicenceStrip';
 
 const socials = [
   { label: 'Facebook', href: SOCIAL.facebook, Icon: FaFacebookF },
@@ -15,9 +14,9 @@ const socials = [
 
 const Footer = () => (
   <footer className="on-dark bg-footerbackground text-brand-100" aria-label="Site footer">
-    <div className="container-page grid gap-8 py-9 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:py-12">
+    <div className="container-page grid gap-8 py-9 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr] lg:py-12">
       {/* Brand */}
-      <div>
+      <div className="sm:col-span-2 lg:col-span-1">
         <Image
           src="/CUREPLUS HOSPITALS WHITE.png"
           alt="CurePlus Hospitals"
@@ -86,9 +85,6 @@ const Footer = () => (
           </li>
         </ul>
       </div>
-
-      {/* Licences */}
-      <LicenceStrip variant="inline" className="sm:col-span-2 lg:col-span-1" />
     </div>
 
     <div className="border-t border-white/15">

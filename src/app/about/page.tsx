@@ -5,7 +5,6 @@ import { HOSPITAL_COUNT, districts, hospitals } from '../data/Hospital';
 import { MISSION, SITE, SITE_URL, TARGET_YEAR, VISION, OG_IMAGES } from '../data/site';
 import Gallery, { type GalleryItem } from '../component/Gallery';
 import JsonLd from '../component/JsonLd';
-import LicenceStrip from '../component/LicenceStrip';
 import PageHero from '../component/PageHero';
 import Photo from '../component/Photo';
 import StatsGrid from '../component/StatsGrid';
@@ -36,16 +35,16 @@ const VALUE_PROPS = [
 
 const LEADERS = [
   {
-    name: 'Ram Hebbale Hiriyanna',
-    role: 'Senior Vice President',
-    photo: '/images/team/ram-hebbale-hiriyanna',
-    bio: 'With over 15 years of experience in business development, marketing strategy, and operations, he brings strong expertise in B2B growth, process excellence, and quality management. As Senior Vice President at Sudhanand Group, he drives operational efficiency, strategic decision-making, and sustainable organizational growth, with a strong focus on collaboration and continuous improvement.',
+    name: 'Dr. Arjun Sachidanand',
+    role: 'Founder & Chairman',
+    photo: '/images/team/dr-arjun-sachidanand',
+    bio: 'Dr. Arjun is a visionary leader with a passion for healthcare and community service. He has dedicated his career to improving healthcare access and quality for underserved populations. With a background in medicine and public health, he brings a unique perspective to the management team, ensuring that patient care remains at the forefront of all initiatives.',
   },
   {
-    name: 'Manjunath P',
-    role: 'Senior Manager – Purchase & Procurement',
-    photo: '/images/team/manjunath-p',
-    bio: "Manjunath P is responsible for overseeing purchase and procurement activities across the organisation, coordinating the sourcing and timely availability of varied requirements. Working closely with Sr. Operations Manager – Srinivas, he supports efficient procurement processes, vendor coordination, cost management, and timely fulfilment of organisational needs. In addition to his procurement responsibilities, Manjunath is also involved in managing and supporting the company's Pharma business, contributing to its day-to-day operations, coordination, and business requirements. His role combines procurement expertise, cross-functional coordination, and practical execution to support the organisation's operational and business objectives.",
+    name: 'Dr. Sini Arjun',
+    role: 'Managing Director',
+    photo: '/images/team/dr-sini-arjun',
+    bio: 'Dr. Sini is an expert in healthcare management and patient care, ensuring quality services across all facilities. With years of experience in clinical practice and administration, she is committed to maintaining high standards of care and implementing best practices in healthcare delivery. She is also a strong advocate for patient rights and community health initiatives.',
   },
 ];
 
@@ -194,8 +193,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <LicenceStrip />
-
       {/* Leadership */}
       <section className="section" aria-labelledby="leadership-heading">
         <div className="container-page">
@@ -203,8 +200,8 @@ export default function AboutPage() {
             <p className="eyebrow justify-center">Leadership</p>
             <h2 id="leadership-heading">The people steering CurePlus</h2>
             <p>
-              Experienced leaders keeping our hospitals efficient, well supplied and focused on patients. Meet the rest of our
-              team on the{' '}
+              The founders who started CurePlus to bring affordable, quality healthcare closer to every community. Meet the
+              rest of our team on the{' '}
               <Link href="/team" className="font-semibold text-brand-800 underline underline-offset-4">
                 team page
               </Link>

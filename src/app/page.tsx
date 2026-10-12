@@ -2,7 +2,6 @@ import AboutSection from './component/AboutSection'
 import Banner from './component/Banner'
 import ContactSection from './component/ContactSection'
 import HeroSection from './component/HeroSection'
-import LicenceStrip from './component/LicenceStrip'
 import LocationsSection from './component/LocationsSection'
 import ServicesSection from './component/ServicesSection'
 import SuperHubTeaser from './component/SuperHubTeaser'
@@ -20,7 +19,6 @@ const page = () => {
       <VideoSection />
       <Banner />
       <Testimonial />
-      <LicenceStrip />
       <ContactSection />
     </>
   )

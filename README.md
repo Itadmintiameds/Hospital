@@ -18,17 +18,16 @@ No environment variables are needed. There is no contact form: the Contact page 
 | What | File |
 | --- | --- |
 | **All hospital content** (names, addresses, pincodes, map links, `is24x7`, photos, SEO) | `src/app/data/Hospital.ts` |
-| Site constants: phone, social links, nav, stats, mission/vision, licences, Super Hub facts, video ids | `src/app/data/site.ts` |
+| Site constants: phone, social links, nav, stats, mission/vision, Super Hub facts, video ids | `src/app/data/site.ts` |
 | Public hospital URLs (`/cureplus-…`) and redirects (URL of the removed hospital → `/hospitals`) | `next.config.ts` |
 | Design tokens (colours, type scale, buttons, cards, badges, forms) | `tailwind.config.ts` + `src/app/globals.css` |
-| Shared components (header, footer, hospital card, licence strip, gallery, video facade, team dialog) | `src/app/component/` |
+| Shared components (header, footer, hospital card, gallery, video facade, team dialog) | `src/app/component/` |
 | Sitemap / robots | `src/app/sitemap.ts`, `src/app/robots.ts` (generated from the hospital data) |
 
 ### Common edits
 
 - **Add / change a hospital** – edit its entry in `Hospital.ts`; add a rewrite for its URL in `next.config.ts`. Cards, filters, the contact-page phone directory, JSON-LD, sitemap and counts update automatically.
 - **24x7 badge** – set `is24x7: true` only for hospitals that are really open 24x7.
-- **Licences** – edit the `LICENCES` array in `site.ts` (labels only; no numbers are published).
 - **Home / Super Hub videos** – edit `STORY_VIDEOS` in `site.ts` (the first one is shown large). Videos load on click from `youtube-nocookie.com`. To add the new hospital video, add its YouTube id to that list.
 - **Milestones on the Super Hub timeline** – `SUPER_HUB.milestones` in `site.ts` (marked TODO: confirm with client).
 
