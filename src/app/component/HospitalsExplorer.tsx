@@ -21,7 +21,7 @@ const norm = (s: string) => s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9 
  * browser, so there is no page reload; the filters are mirrored into the URL so a link keeps its state.
  */
 export default function HospitalsExplorer({ items, cards }: { items: ExplorerItem[]; cards: Record<number, React.ReactNode> }) {
-  const districts = useMemo(() => Array.from(new Set(items.map((h) => h.district))).sort(), [items]);
+  const districts = useMemo(() => Array.from(new Set(items.map((h) => h.district))).sort((a, b) => a.localeCompare(b)), [items]);
 
   // Specialties that appear on at least two hospitals, most common first
   const specialties = useMemo(() => {

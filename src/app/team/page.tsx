@@ -2,81 +2,9 @@ import { SITE_URL } from '../data/site';
 import JsonLd from '../component/JsonLd';
 import PageHero from '../component/PageHero';
 import TeamGrid, { type TeamMember } from '../component/TeamGrid';
+import teamData from '../data/team.json';
 
-const teamMembers: TeamMember[] = [
-  {
-    name: 'Dr. Arjun',
-    role: 'Founder & Chairman',
-    bio: 'Visionary leader with a passion for healthcare and community service.',
-    image: '/managment/DR ARJUN-Photoroom.png',
-    description:
-      'Dr. Arjun is a visionary leader with a passion for healthcare and community service. He has dedicated his career to improving healthcare access and quality for underserved populations. With a background in medicine and public health, Dr. Arjun brings a unique perspective to the management team, ensuring that patient care remains at the forefront of all initiatives.',
-  },
-  {
-    name: 'Dr. Sini',
-    role: 'Managing Director',
-    bio: 'Expert in healthcare management and patient care, ensuring quality services.',
-    image: '/images/team/dr-sini-arjun-720.jpg',
-    description:
-      'Dr. Sini is an expert in healthcare management and patient care, ensuring quality services across all facilities. With years of experience in clinical practice and administration, she is committed to maintaining high standards of care and implementing best practices in healthcare delivery. Dr. Sini is also a strong advocate for patient rights and community health initiatives.',
-  },
-  {
-    name: 'Capt. Raghu Das',
-    role: 'Chief Operating Officer',
-    bio: 'Strategic planner with a focus on operational excellence and efficiency.',
-    image: '/managment/captain.png',
-    description:
-      'Capt. Raghu is a strategic planner with a focus on operational excellence and efficiency. His military background has instilled in him a strong sense of discipline and leadership, which he applies to managing the day-to-day operations of the organization. Capt. Raghu is dedicated to optimizing processes and ensuring that all teams work cohesively towards common goals.',
-  },
-  {
-    name: 'Ram Hebbale Hiriyanna',
-    role: 'Senior Vice President',
-    bio: 'Drives operational efficiency, strategic decisions and sustainable growth across the group.',
-    image: '/images/team/ram-hebbale-hiriyanna-720.jpg',
-    description:
-      'With over 15 years of experience in business development, marketing strategy, and operations, he brings strong expertise in B2B growth, process excellence, and quality management. As Senior Vice President at Sudhanand Group, he drives operational efficiency, strategic decision-making, and sustainable organizational growth, with a strong focus on collaboration and continuous improvement.',
-  },
-  {
-    name: 'Abhinandan S Rao',
-    role: 'VP - New Initiatives & Investments',
-    bio: 'Innovative thinker driving new projects and investments for growth.',
-    image: '/managment/Abhinandan S-Photoroom.png',
-    description:
-      'Abhinandan is an innovative thinker driving new projects and investments for growth. With a keen eye for market trends and opportunities, he is responsible for identifying and developing new initiatives that align with the organization’s mission. Abhinandan’s strategic approach to investments ensures that resources are allocated effectively to maximize impact.',
-  },
-  {
-    name: 'Keshav Murthy C.',
-    role: 'VP - Internal Audit & Finance',
-    bio: 'Financial strategist ensuring fiscal responsibility and transparency.',
-    image: '/managment/Keshav murthy.png',
-    description:
-      'Keshavmurthy is a financial strategist ensuring fiscal responsibility and transparency. He oversees the organization’s financial operations, including budgeting, auditing, and compliance. With a strong background in finance and accounting, Keshavmurthy is committed to maintaining the highest standards of financial integrity and accountability.',
-  },
-  {
-    name: 'Diwakar M. N.',
-    role: 'Senior Operations Manager',
-    bio: 'Experienced manager overseeing daily operations and team performance.',
-    image: '/managment/Divakar SIR-Photoroom.png',
-    description:
-      'Diwakar is an experienced manager overseeing daily operations and team performance. He is responsible for ensuring that all departments work efficiently and effectively to meet organizational goals. Diwakar’s leadership style emphasizes collaboration and communication, fostering a positive work environment for all staff members.',
-  },
-  {
-    name: 'Srinivas C.',
-    role: 'Senior Operations Manager',
-    bio: 'Dedicated manager focused on operational efficiency and patient satisfaction.',
-    image: '/managment/SRINIVAC C-Photoroom.png',
-    description:
-      'Srinivas is a dedicated manager focused on operational efficiency and patient satisfaction. He works closely with clinical and administrative teams to streamline processes and enhance the patient experience. Srinivas is passionate about continuous improvement and regularly seeks feedback from staff and patients to identify areas for enhancement.',
-  },
-  {
-    name: 'Manjunath P.',
-    role: 'Senior Manager – Purchase & Procurement',
-    bio: 'Oversees purchase and procurement across the organisation and supports the Pharma business.',
-    image: '/images/team/manjunath-p-720.jpg',
-    description:
-      "Manjunath P is responsible for overseeing purchase and procurement activities across the organisation, coordinating the sourcing and timely availability of varied requirements. Working closely with Sr. Operations Manager – Srinivas, he supports efficient procurement processes, vendor coordination, cost management, and timely fulfilment of organisational needs. In addition to his procurement responsibilities, Manjunath is also involved in managing and supporting the company's Pharma business, contributing to its day-to-day operations, coordination, and business requirements. His role combines procurement expertise, cross-functional coordination, and practical execution to support the organisation's operational and business objectives.",
-  },
-];
+const teamMembers: TeamMember[] = teamData;
 
 const teamJsonLd = {
   '@context': 'https://schema.org',

@@ -17,7 +17,8 @@ No environment variables are needed. There is no contact form: the Contact page 
 
 | What | File |
 | --- | --- |
-| **All hospital content** (names, addresses, pincodes, map links, `is24x7`, photos, SEO) | `src/app/data/Hospital.ts` |
+| **All hospital content** (names, addresses, pincodes, map links, `is24x7`, photos, SEO) | `src/app/data/hospitals.json` (typed by `src/app/data/Hospital.ts`) |
+| Team members shown on `/team` | `src/app/data/team.json` |
 | Site constants: phone, social links, nav, stats, mission/vision, Super Hub facts, video ids | `src/app/data/site.ts` |
 | Public hospital URLs (`/cureplus-…`) and redirects (URL of the removed hospital → `/hospitals`) | `next.config.ts` |
 | Design tokens (colours, type scale, buttons, cards, badges, forms) | `tailwind.config.ts` + `src/app/globals.css` |
@@ -26,7 +27,7 @@ No environment variables are needed. There is no contact form: the Contact page 
 
 ### Common edits
 
-- **Add / change a hospital** – edit its entry in `Hospital.ts`; add a rewrite for its URL in `next.config.ts`. Cards, filters, the contact-page phone directory, JSON-LD, sitemap and counts update automatically.
+- **Add / change a hospital** – edit its entry in `hospitals.json`; add a rewrite for its URL in `next.config.ts`. Cards, filters, the contact-page phone directory, JSON-LD, sitemap and counts update automatically.
 - **24x7 badge** – set `is24x7: true` only for hospitals that are really open 24x7.
 - **Home / Super Hub videos** – edit `STORY_VIDEOS` in `site.ts` (the first one is shown large). Videos load on click from `youtube-nocookie.com`. To add the new hospital video, add its YouTube id to that list.
 - **Milestones on the Super Hub timeline** – `SUPER_HUB.milestones` in `site.ts` (marked TODO: confirm with client).
@@ -36,8 +37,9 @@ No environment variables are needed. There is no contact form: the Contact page 
 Photos are pre-optimised (16:10, WebP + JPEG fallback, 600 / 800 / 1200 px, each under ~200 KB) into `public/images/`.
 
 ```bash
-python scripts/extract-pdf-images.py "docs/CurePlus Hospitals Website.pdf" assets/source   # raw extraction (git-ignored)
-python scripts/optimize-images.py                                                         # crop + compress -> public/images
+python scripts/extract-pdf-images.py    # docs/CurePlus Hospitals Website.pdf -> assets/source (git-ignored)
+python scripts/extract-docx-images.py   # assets/source/CurePlus Hospitals Website.docx -> assets/source (updated Google Doc)
+python scripts/optimize-images.py       # crop + compress -> public/images
 ```
 
 Requires Python with `pymupdf` and `pillow`. To change a crop, edit the anchor for that image at the top of `optimize-images.py`.

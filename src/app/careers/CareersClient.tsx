@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Script from "next/script";
 import Link from "next/link";
 
@@ -276,6 +276,16 @@ const jobs: Job[] = [
 export default function CareersClient() {
 const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
+// Keyboard users close the job dialog with Escape (the dimmed backdrop is click-only)
+useEffect(() => {
+  if (!selectedJob) return;
+  const closeOnEscape = (e: KeyboardEvent) => {
+    if (e.key === "Escape") setSelectedJob(null);
+  };
+  document.addEventListener("keydown", closeOnEscape);
+  return () => document.removeEventListener("keydown", closeOnEscape);
+}, [selectedJob]);
+
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -473,19 +483,27 @@ return (
 
   {selectedJob && (
     <div
+  role="presentation"
   className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4"
-  onClick={() => setSelectedJob(null)}
+  onClick={(e) => {
+    // only a click on the backdrop itself closes the dialog, not clicks inside it
+    if (e.target === e.currentTarget) setSelectedJob(null);
+  }}
 >
       <div
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="job-dialog-title"
   className="bg-white text-gray-900 rounded-xl w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden"
-  onClick={(e) => e.stopPropagation()}
 >
         <div className="sticky top-0 z-20 bg-white border-b px-6 py-4 flex items-center justify-between">
-  <h2 className="text-2xl font-bold text-purple-700">
+  <h2 id="job-dialog-title" className="text-2xl font-bold text-purple-700">
     Apply for {selectedJob.title}
   </h2>
 
   <button
+    type="button"
+    aria-label="Close"
     onClick={() => setSelectedJob(null)}
     className="text-3xl text-gray-500 hover:text-gray-700"
   >

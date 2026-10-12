@@ -98,6 +98,10 @@ export default function TeamGrid({ members }: { members: TeamMember[] }) {
           // a click on the dimmed backdrop lands on the <dialog> element itself
           if (event.target === event.currentTarget) dialogRef.current?.close();
         }}
+        onKeyDown={(event) => {
+          // the browser closes a modal <dialog> on Escape already; this is the keyboard twin of the backdrop click
+          if (event.key === 'Escape') dialogRef.current?.close();
+        }}
         className="m-auto max-h-[calc(100vh-2rem)] w-[min(44rem,calc(100vw-1.5rem))] overflow-hidden rounded-panel border-0 bg-white p-0 text-ink shadow-pop backdrop:bg-brand-950/60 backdrop:backdrop-blur-[2px] open:animate-riseIn"
       >
         {active && (

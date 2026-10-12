@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
   },
 
   // Public hospital URLs -> the hospital page route (/hospital/<id>).
-  // Keep in sync with `slug` / `id` in src/app/data/Hospital.ts.
+  // Keep in sync with `slug` / `id` in src/app/data/hospitals.json.
   async rewrites() {
     return [
       { source: '/cureplus-disha-hospital', destination: '/hospital/1' },
