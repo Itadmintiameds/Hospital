@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  // Public hospital URLs -> the hospital page route (/hospital/<id>).
+  // Keep in sync with `slug` / `id` in src/app/data/Hospital.ts.
   async rewrites() {
     return [
       { source: '/cureplus-disha-hospital', destination: '/hospital/1' },
@@ -24,7 +26,6 @@ const nextConfig: NextConfig = {
       { source: '/cureplus-hospital-bherya', destination: '/hospital/9' },
       { source: '/cureplus-hospital-t-narasipura', destination: '/hospital/10' },
       { source: '/cureplus-hospital-handpost', destination: '/hospital/11' },
-      { source: '/cureplus-hospital-hosuru', destination: '/hospital/12' },
       { source: '/cureplus-hospital-halli-mysuru', destination: '/hospital/13' },
       { source: '/cureplus-hospital-arakere', destination: '/hospital/14' },
       { source: '/cureplus-hospital-huliyurudurga', destination: '/hospital/15' },
@@ -32,6 +33,24 @@ const nextConfig: NextConfig = {
       { source: '/cureplus-hospital-talakadu', destination: '/hospital/17' },
       { source: '/cureplus-hospital-yelandur', destination: '/hospital/18' },
       { source: '/cureplus-hospital-martalli', destination: '/hospital/19' },
+    ];
+  },
+
+  // The Hosur hospital page was removed: permanently redirect every old URL to the hospitals listing.
+  async redirects() {
+    return [
+      { source: '/cureplus-hospital-hosuru', destination: '/hospitals', permanent: true },
+      { source: '/cureplus-hospital-hosur', destination: '/hospitals', permanent: true },
+      { source: '/hospital/12', destination: '/hospitals', permanent: true },
+    ];
+  },
+
+  async headers() {
+    return [
+      {
+        source: '/images/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=86400' }],
+      },
     ];
   },
 };

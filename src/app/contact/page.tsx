@@ -1,257 +1,138 @@
-'use client';
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Ambulance, ArrowRight, Mail, MapPin, Phone } from 'lucide-react';
+import { districts, hospitals, telHref } from '../data/Hospital';
+import { SITE, SITE_URL, OG_IMAGES } from '../data/site';
+import JsonLd from '../component/JsonLd';
+import PageHero from '../component/PageHero';
+import WrapEmail from '../component/WrapEmail';
 
-import Script from "next/script";
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FiPhone, FiMail, FiMapPin, FiSend } from 'react-icons/fi';
-import Footer from '../component/FooterSection';
+const TITLE = 'Contact CurePlus Hospitals | Phone, Email & Hospital Directory';
+const DESCRIPTION =
+  'Contact CurePlus Hospitals for appointments, emergency care, and healthcare support across Karnataka. Call us anytime for assistance.';
 
-const fadeVariant = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (custom: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: custom * 0.2 },
-  }),
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: '/contact' },
+  robots: { index: true, follow: true },
+  openGraph: { title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/contact`, siteName: SITE.name, locale: 'en_IN', type: 'website', images: OG_IMAGES },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: OG_IMAGES.map((i) => i.url) },
 };
 
-const ContactUs = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
+const contactJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: TITLE,
+  url: `${SITE_URL}/contact`,
+  mainEntity: {
+    '@type': 'MedicalOrganization',
+    name: SITE.name,
+    url: SITE_URL,
+    logo: `${SITE_URL}/CUREPLUS%20HOSPITALS.png`,
+    image: `${SITE_URL}/images/hospitals/halli-mysuru-hospital.jpg`,
+    telephone: '+91-9035193777',
+    email: SITE.emailContact,
+    address: { '@type': 'PostalAddress', addressLocality: 'Mysuru', addressRegion: 'Karnataka', addressCountry: 'IN' },
+    areaServed: 'Karnataka',
+    availableLanguage: ['English', 'Kannada'],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+91-9035193777',
+      contactType: 'customer support',
+      areaServed: 'IN',
+      availableLanguage: ['English', 'Kannada'],
+    },
+  },
+};
 
-  const [loading, setLoading] = useState(false);
-  const [statusMessage, setStatusMessage] = useState('');
+const channels = [
+  { icon: Phone, title: 'Call us', value: SITE.phoneDisplay, href: SITE.phoneHref },
+  { icon: Mail, title: 'Email', value: SITE.emailContact, href: `mailto:${SITE.emailContact}` },
+  { icon: MapPin, title: 'Head office', value: SITE.region, href: 'https://maps.google.com/?q=Mysuru,Karnataka,India' },
+];
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    setLoading(true);
-    setStatusMessage('');
-
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      if (res.ok) {
-        setStatusMessage('Message sent successfully!');
-
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: '',
-        });
-      } else {
-        setStatusMessage('Failed to send. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error sending message:', error);
-
-      setStatusMessage('Error occurred. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
+export default function ContactPage() {
   return (
     <>
-      {/* Schema */}
-      <Script
-        id="hospital-contact-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Hospital",
-            "name": "CurePlus Hospitals",
-            "url": "https://www.cureplushospitals.com/contact",
-            "logo": "https://www.cureplushospitals.com/logo.png",
-            "image": "https://www.cureplushospitals.com/og-image.jpg",
-            "description":
-              "CurePlus Hospitals provides multispeciality healthcare, diagnostics, emergency care, and affordable treatment across Karnataka.",
-            "telephone": "+91 90351 93777",
-            "email": "contact@cureplushospitals.com",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Mysore",
-              "addressRegion": "Karnataka",
-              "addressCountry": "India"
-            },
-            "areaServed": "Karnataka",
-            "availableLanguage": [
-              "English",
-              "Kannada"
-            ],
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": "+91 90351 93777",
-              "contactType": "customer support",
-              "areaServed": "IN",
-              "availableLanguage": [
-                "English",
-                "Kannada"
-              ]
-            },
-            "sameAs": [
-              "https://www.facebook.com/",
-              "https://www.instagram.com/"
-            ]
-          }),
-        }}
+      <JsonLd data={contactJsonLd} />
+      <PageHero
+        eyebrow="Contact us"
+        title="Contact CurePlus Hospitals"
+        lead="For appointments, emergency care and healthcare support across Karnataka, call us anytime."
+        crumbs={[{ name: 'Contact Us' }]}
       />
 
-      <section className="min-h-screen bg-gray-50 py-20 px-6">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
-
-          {/* Contact Info */}
-          <motion.div
-            className="space-y-8"
-            initial="hidden"
-            animate="visible"
-            variants={fadeVariant}
-            custom={0}
-          >
-            <h1 className="text-4xl font-bold text-purple-600">
-              Contact CurePlus Hospitals
-            </h1>
-
-            <p className="text-gray-600">
-              Contact CurePlus Hospitals for appointments, emergency care,
-              and healthcare support across Karnataka. Call us anytime
-              for assistance.
-            </p>
-
-            <div className="space-y-6">
-
-              <div className="flex items-start gap-4">
-                <FiPhone className="text-blue-600 w-6 h-6 mt-1" />
-
-                <div>
-                  <p className="text-gray-700">
-                    +91 90351 93777
-                  </p>
+      <section className="section" aria-label="Contact details">
+        <div className="container-page">
+          <ul className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+            {channels.map(({ icon: Icon, title, value, href }) => (
+              <li key={title} className="card flex min-w-0 items-center gap-4 p-5">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-100 text-brand-800">
+                  <Icon className="h-6 w-6" aria-hidden="true" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-ink-muted">{title}</p>
+                  <a href={href} className="block min-h-[2.25rem] break-words py-1 text-lg font-semibold text-brand-900 hover:underline">
+                    <WrapEmail value={value} />
+                  </a>
                 </div>
-              </div>
+              </li>
+            ))}
+          </ul>
 
-              <div className="flex items-start gap-4">
-                <FiMail className="text-green-600 w-6 h-6 mt-1" />
-
-                <div>
-                  <p className="text-gray-700">
-                    info@cureplushospitals.com
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <FiMapPin className="text-red-600 w-6 h-6 mt-1" />
-
-                <div>
-                  <p className="text-gray-700">
-                    Mysuru, Karnataka, India
-                  </p>
-                </div>
-              </div>
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="rounded-card bg-red-50 p-5 ring-1 ring-red-200">
+              <h2 className="flex items-center gap-2 text-lg font-bold text-red-900">
+                <Ambulance className="h-5 w-5" aria-hidden="true" />
+                In an emergency?
+              </h2>
+              <p className="mt-1 text-red-900/90">Please call us directly.</p>
+              <a href={SITE.phoneHref} className="btn btn-call mt-4">
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                Call {SITE.phoneDisplay}
+              </a>
             </div>
-          </motion.div>
 
-          {/* Contact Form */}
-          <motion.div
-            className="bg-white p-8 rounded-2xl shadow-xl border"
-            initial="hidden"
-            animate="visible"
-            variants={fadeVariant}
-            custom={1}
-          >
-            <h2 className="text-2xl font-bold mb-6 text-purple-600">
-              Send a Message
-            </h2>
-
-            <form className="space-y-6" onSubmit={handleSubmit}>
-
-              <div className="grid sm:grid-cols-2 gap-6">
-
-                <input
-                  name="name"
-                  type="text"
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
-
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
-              </div>
-
-              <input
-                name="subject"
-                type="text"
-                placeholder="Subject"
-                value={formData.subject}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-zinc-900"
-              />
-
-              <textarea
-                name="message"
-                rows={5}
-                placeholder="Your Message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-zinc-900"
-              ></textarea>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-900 transition"
-              >
-                <FiSend className="w-5 h-5" />
-
-                {loading ? 'Sending...' : 'Submit'}
-              </button>
-
-              {statusMessage && (
-                <p className="text-sm mt-2 text-green-600">
-                  {statusMessage}
-                </p>
-              )}
-            </form>
-          </motion.div>
+            <Link href="/hospitals" className="card card-hover flex items-center justify-between gap-4 p-5">
+              <span>
+                <span className="block text-lg font-bold text-brand-950">Find your nearest hospital</span>
+                <span className="text-sm text-ink-soft">Addresses, directions and phone numbers for all {hospitals.length} hospitals.</span>
+              </span>
+              <ArrowRight className="h-5 w-5 shrink-0 text-brand-700" aria-hidden="true" />
+            </Link>
+          </div>
         </div>
       </section>
 
-      <Footer />
+      <section className="section-tint border-t border-brand-100 py-9 md:py-12" aria-labelledby="directory-heading">
+        <div className="container-page">
+          <h2 id="directory-heading" className="mb-6 text-center text-h3 text-brand-950">
+            Call a hospital directly
+          </h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {districts.map((district) => (
+              <div key={district} className="card p-5">
+                <h3 className="text-lg font-bold text-brand-950">{district}</h3>
+                <ul className="mt-2 divide-y divide-brand-100">
+                  {hospitals
+                    .filter((h) => h.district === district)
+                    .map((h) => (
+                      <li key={h.id} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-0.5 py-2">
+                        <Link href={h.path} className="inline-flex min-h-[2.25rem] items-center text-[0.95rem] font-medium text-brand-800 hover:underline">
+                          {h.name}
+                        </Link>
+                        <a href={telHref(h.contact.phone)} className="inline-flex min-h-[2.25rem] items-center text-[0.95rem] font-semibold text-ink hover:underline">
+                          {h.contact.phone}
+                        </a>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
-};
-
-export default ContactUs;
+}

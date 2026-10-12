@@ -2,25 +2,283 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ------------------------------------------------------------------
+   Design tokens
+   ------------------------------------------------------------------ */
 :root {
+  color-scheme: light;
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1f1a2e;
   --footer-background: #311745;
+
+  --surface: #faf7fd; /* soft brand tint used for alternating sections */
+  --line: #e7dff0;
+
+  /* layout */
+  --header-h: 4.25rem;
+  --page-gutter: clamp(1rem, 4vw, 2rem);
+  --page-max: 80rem;
+  --space-section: clamp(2.5rem, 1.9rem + 2.6vw, 4.25rem);
+  --space-block: clamp(1.25rem, 0.9rem + 1.4vw, 2rem);
+
+  /* radii / shadows mirror tailwind.config.ts */
+  --radius-card: 1.125rem;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (min-width: 1024px) {
   :root {
-    --background: #ffffff;
-    --foreground: #ededed;
+    --header-h: 4.75rem;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  /* font-family: Arial, Helvetica, sans-serif; */
-  font-family: 'https://fonts.google.com/share?selection.family=Rubik:ital,wght@0,300..900;1,300..900'
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+    overflow-x: clip;
+  }
+
+  body {
+    margin: 0;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+      "Noto Sans Kannada", sans-serif;
+    line-height: 1.6;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img,
+  video,
+  svg,
+  iframe {
+    max-width: 100%;
+  }
+
+  img,
+  video {
+    height: auto;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+
+  p,
+  li {
+    overflow-wrap: break-word;
+  }
+
+  ::selection {
+    background: #e9d5ff;
+    color: #311745;
+  }
+
+  /* One consistent, visible keyboard focus ring everywhere */
+  :focus-visible {
+    outline: 3px solid #7e22ce;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: #ffffff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
+/* ------------------------------------------------------------------
+   Components
+   ------------------------------------------------------------------ */
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+  }
 
+  .section {
+    padding-block: var(--space-section);
+  }
 
+  .section-tint {
+    background: var(--surface);
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-brand-700;
+  }
+
+  .eyebrow-light {
+    @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-brand-200;
+  }
+
+  .section-heading {
+    @apply mx-auto mb-7 max-w-3xl text-center md:mb-9;
+  }
+
+  .section-heading h2 {
+    @apply mt-3 text-h2 text-brand-950;
+  }
+
+  .section-heading p {
+    @apply mt-3 text-lead text-ink-soft;
+  }
+
+  /* Buttons ------------------------------------------------------- */
+  .btn {
+    @apply inline-flex min-h-[2.75rem] items-center justify-center gap-2 rounded-full px-5 py-2.5 text-[0.95rem] font-semibold leading-tight transition duration-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-lg {
+    @apply min-h-[3.25rem] px-7 py-3 text-base;
+  }
+
+  .btn-primary {
+    @apply bg-brand-700 text-white shadow-card hover:bg-brand-800 hover:shadow-pop;
+  }
+
+  .btn-secondary {
+    @apply border border-brand-200 bg-white text-brand-800 hover:border-brand-300 hover:bg-brand-50;
+  }
+
+  .btn-light {
+    @apply bg-white text-brand-900 shadow-card hover:bg-brand-50;
+  }
+
+  .btn-outline-light {
+    @apply border border-white/70 bg-white/5 text-white backdrop-blur-sm hover:bg-white/15;
+  }
+
+  .btn-call {
+    @apply bg-emerald-700 text-white shadow-card hover:bg-emerald-800;
+  }
+
+  /* Cards --------------------------------------------------------- */
+  .card {
+    @apply rounded-card border border-brand-100 bg-white shadow-card;
+  }
+
+  .card-hover {
+    @apply transition duration-300 hover:-translate-y-1 hover:shadow-pop;
+  }
+
+  /* Badges --------------------------------------------------------
+     .chip        = specialty tag (soft purple, quiet)
+     .badge-247   = 24x7 availability (solid green + live dot, visually distinct from chips) */
+  .chip {
+    @apply inline-flex items-center rounded-full border border-brand-100 bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-800;
+  }
+
+  .badge-247 {
+    @apply inline-flex items-center gap-1.5 rounded-md bg-emerald-700 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-sm ring-2 ring-white/80;
+  }
+
+  .badge-soft {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-brand-100 px-3 py-1 text-xs font-semibold text-brand-900;
+  }
+
+  /* Forms --------------------------------------------------------- */
+  .field-label {
+    @apply mb-1.5 block text-sm font-semibold text-ink;
+  }
+
+  .field-input {
+    @apply block min-h-[2.9rem] w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-base text-ink placeholder:text-slate-500 transition focus:border-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-700/30;
+  }
+
+  .field-input[aria-invalid="true"] {
+    @apply border-red-700 focus:border-red-700 focus:ring-red-700/25;
+  }
+
+  .field-error {
+    @apply mt-1.5 text-sm font-medium text-red-700;
+  }
+
+  /* Image placeholder: a plain tint that shows until the photo paints over it (no animation). */
+  .skeleton {
+    @apply relative overflow-hidden bg-brand-100;
+  }
+
+  .photo-16x10 {
+    aspect-ratio: 16 / 10;
+  }
+
+  /* Big decorative step number: drawn with ::before so it is not text content. Usage: <span class="deco-number" data-n="01" /> */
+  .deco-number {
+    @apply pointer-events-none absolute right-5 top-4 select-none text-5xl font-extrabold leading-none text-brand-100;
+  }
+
+  .deco-number::before {
+    content: attr(data-n);
+  }
+
+  /* Prose-ish text blocks ----------------------------------------- */
+  .copy {
+    @apply text-base leading-relaxed text-ink-soft md:text-[1.05rem];
+  }
+}
+
+/* ------------------------------------------------------------------
+   Scroll reveal (driven by <ScrollEffects /> adding .is-visible).
+   Only active when JS has set <html class="js">, so content is never hidden without JS.
+   ------------------------------------------------------------------ */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.js [data-reveal="left"] {
+  transform: translate3d(-26px, 0, 0);
+}
+
+.js [data-reveal="right"] {
+  transform: translate3d(26px, 0, 0);
+}
+
+.js [data-reveal="scale"] {
+  transform: scale(0.96);
+}
+
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* iOS safe areas for the sticky mobile call bar */
+.safe-bottom {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}

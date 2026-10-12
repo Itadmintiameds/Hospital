@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CurePlus Hospitals website
 
-## Getting Started
+Next.js 16 (App Router) · React · Tailwind CSS 3 · TypeScript. A rural / semi-urban healthcare network in Karnataka: 18 hospitals, a Super Hub (in construction), contact details, careers.
 
-First, run the development server:
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build && npm start   # production build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+No environment variables are needed. There is no contact form: the Contact page lists phone, email, address and a phone directory of every hospital.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Where things live
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| What | File |
+| --- | --- |
+| **All hospital content** (names, addresses, pincodes, map links, `is24x7`, photos, SEO) | `src/app/data/Hospital.ts` |
+| Site constants: phone, social links, nav, stats, mission/vision, licences, Super Hub facts, video ids | `src/app/data/site.ts` |
+| Public hospital URLs (`/cureplus-…`) and redirects (URL of the removed hospital → `/hospitals`) | `next.config.ts` |
+| Design tokens (colours, type scale, buttons, cards, badges, forms) | `tailwind.config.ts` + `src/app/globals.css` |
+| Shared components (header, footer, hospital card, licence strip, gallery, video facade, team dialog) | `src/app/component/` |
+| Sitemap / robots | `src/app/sitemap.ts`, `src/app/robots.ts` (generated from the hospital data) |
 
-## Learn More
+### Common edits
 
-To learn more about Next.js, take a look at the following resources:
+- **Add / change a hospital** – edit its entry in `Hospital.ts`; add a rewrite for its URL in `next.config.ts`. Cards, filters, the contact-page phone directory, JSON-LD, sitemap and counts update automatically.
+- **24x7 badge** – set `is24x7: true` only for hospitals that are really open 24x7.
+- **Licences** – edit the `LICENCES` array in `site.ts` (labels only; no numbers are published).
+- **Home / Super Hub videos** – edit `STORY_VIDEOS` in `site.ts` (the first one is shown large). Videos load on click from `youtube-nocookie.com`. To add the new hospital video, add its YouTube id to that list.
+- **Milestones on the Super Hub timeline** – `SUPER_HUB.milestones` in `site.ts` (marked TODO: confirm with client).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Images
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Photos are pre-optimised (16:10, WebP + JPEG fallback, 600 / 800 / 1200 px, each under ~200 KB) into `public/images/`.
 
-## Deploy on Vercel
+```bash
+python scripts/extract-pdf-images.py "docs/CurePlus Hospitals Website.pdf" assets/source   # raw extraction (git-ignored)
+python scripts/optimize-images.py                                                         # crop + compress -> public/images
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Requires Python with `pymupdf` and `pillow`. To change a crop, edit the anchor for that image at the top of `optimize-images.py`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Quality checks run on this build
+
+Lighthouse (mobile, simulated 4G): accessibility, best-practices and SEO 100 on all key pages; performance 90–97 (median of 3–5 runs per page). axe-core: no WCAG 2 A/AA violations on any page. Also smoke-tested in Chrome, Edge, Firefox and WebKit (desktop + iPhone 13 profile). No horizontal scroll from 320 px to 1536 px.

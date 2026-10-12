@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { OG_IMAGES } from "../data/site";
 
 export const metadata: Metadata = {
-  title: "Meet Our Team | CurePlus Hospitals Mysore",
+  title: "Meet Our Team | CurePlus Hospitals Mysuru",
 
   description:
     "Meet the expert leadership and healthcare professionals driving quality patient care at CurePlus Hospitals across Karnataka",
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Meet Our Team | CurePlus Hospitals Mysore",
+    title: "Meet Our Team | CurePlus Hospitals Mysuru",
 
     description:
       "Meet the expert leadership and healthcare professionals driving quality patient care at CurePlus Hospitals across Karnataka",
@@ -28,15 +29,17 @@ export const metadata: Metadata = {
     locale: "en_IN",
 
     type: "website",
+    images: OG_IMAGES,
   },
 
   twitter: {
     card: "summary_large_image",
 
-    title: "Meet Our Team | CurePlus Hospitals Mysore",
+    title: "Meet Our Team | CurePlus Hospitals Mysuru",
 
     description:
       "Meet the expert leadership and healthcare professionals driving quality patient care at CurePlus Hospitals across Karnataka",
+    images: OG_IMAGES.map((i) => i.url),
   },
 };
 

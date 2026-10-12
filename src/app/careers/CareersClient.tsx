@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Script from "next/script";
+import Link from "next/link";
 
 type Job = {
   id: number;
@@ -364,12 +365,12 @@ return (
 >
   <ol className="flex items-center gap-2 text-sm text-gray-600">
     <li>
-      <a
+      <Link
         href="/"
         className="hover:text-purple-700 transition-colors"
       >
         Home
-      </a>
+      </Link>
     </li>
 
     <li>/</li>

@@ -1,317 +1,313 @@
-'use client';
-
-import React from 'react';
-import type { Metadata } from "next";
-import Script from "next/script";
-import Image from 'next/image';
-import { motion, Variants } from 'framer-motion';
-import { FaHospital, FaHeartbeat, FaAmbulance, FaEye, FaBullseye } from 'react-icons/fa';
-import { MdOutlineLocalPharmacy } from 'react-icons/md';
-import { FiArrowRight, FiTarget } from 'react-icons/fi';
-import Footer from '../component/FooterSection';
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ArrowRight, Eye, HeartPulse, Pill, Target, Flag, Ambulance } from 'lucide-react';
+import { HOSPITAL_COUNT, districts, hospitals } from '../data/Hospital';
+import { MISSION, SITE, SITE_URL, TARGET_YEAR, VISION, OG_IMAGES } from '../data/site';
+import Gallery, { type GalleryItem } from '../component/Gallery';
+import JsonLd from '../component/JsonLd';
+import LicenceStrip from '../component/LicenceStrip';
+import PageHero from '../component/PageHero';
+import Photo from '../component/Photo';
+import StatsGrid from '../component/StatsGrid';
 
+const TITLE = 'About CurePlus Hospitals | Mission, Vision & Leadership';
+const DESCRIPTION = `Learn about CurePlus Hospitals: our mission and vision, leadership team and a network of ${HOSPITAL_COUNT}+ hospitals bringing affordable multispeciality care across Karnataka.`;
 
-const HOSPITALS_LIST = [
-  { id: 1, name: 'CurePlus Disha Hospital', image: '/hospital/cure+.png' },
-  { id: 2, name: 'CurePlus Dharani Hospital', image: '/hospital/dharni.png' },
-  { id: 3, name: 'CurePlus Kaveri Hospital', image: '/hospital/kaveri.png' },
-  { id: 4, name: 'CurePlus Krishna Hospital', image: '/hospital/krishna.png' },
-  { id: 5, name: 'CurePlus Narasegowda Memorial Hospital', image: '/hospital/Narasegowda.png' },
-  { id: 6, name: 'CurePlus Shanivarasanthe Hospital', image: '/hospital/Shanivarasanth.png' },
-  { id: 7, name: 'CurePlus Ramapura Hospital', image: '/hospital/Ramapura.png' },
-  { id: 8, name: 'CurePlus Terakanambi Hospital', image: '/hospital/Terakanambi.png' },
-  { id: 9, name: 'CurePlus Bherya Hospital', image: '/hospital/Bherya.png' },
-  { id: 10, name: 'CurePlus T. Narasipura Hospital', image: '/hospital/T. Narasipura.png' },
-  { id: 11, name: 'CurePlus Handpost Hospital', image: '/hospital/Handpost.png' },
-  { id: 12, name: 'CurePlus Hosur Hospital', image: '/hospital/Hosur.png' },
-  { id: 13, name: 'CurePlus Halli Mysore Hospital', image: '/hospital/Halli Mysore.png' },
-  { id: 14, name: 'CurePlus Hospital Arakere', image: '/hospital/arakere.jpeg' },
-  { id: 15, name: 'CurePlus Hospital Huliyurudurga', image: '/hospital/huliyurudurga.jpeg' },
-  { id: 16, name: 'CurePlus Hospital Udayagiri', image: '/hospital/udayagiri.jpeg' },
-  { id: 17, name: 'CurePlus Hospital Talakadu', image: '/hospital/talkakadu.jpeg' },
-  { id: 18, name: 'CurePlus Hospital Yelandur', image: '/hospital/yelandur.jpeg' },
-  { id: 19, name: 'CurePlus Hospital Martalli', image: '/hospital/martalli.jpeg' },
-];
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: '/about' },
+  robots: { index: true, follow: true },
+  openGraph: { title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/about`, siteName: SITE.name, locale: 'en_IN', type: 'website', images: OG_IMAGES },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: OG_IMAGES.map((i) => i.url) },
+};
 
-// UNIQUE DATA - No duplication
-const VISION_MISSION_GOAL = [
-  { title: 'Vision', desc: 'To provide affordable, accessible, inclusive & quality healthcare services to five million rural and urban poor by 2030.', bg: 'bg-blue-50', icon: FaEye },
-  { title: 'Mission', desc: 'To serve the underserved in restoration and maintenance of their health through suitable healthcare schemes and integrated infrastructure.', bg: 'bg-green-50', icon: FiTarget },
-  { title: 'Goal', desc: '200+ hospitals across India by 2028 with focus on rural and underserved areas.', bg: 'bg-yellow-50', icon: FaBullseye },
+const STORY = [
+  'Founded in August 2013 by Dr. Arjun Sachidanand and Dr. Sini Arjun, Sudhanand Healthcare Solutions Pvt. Ltd. is dedicated to delivering high-quality healthcare services at subsidized rates.',
+  'The organization focuses on preventive care, diagnostics, telemedicine, and education to enhance healthcare accessibility.',
+  'With a growing CurePlus Hospital network across Karnataka, SHPL continues to improve rural and underserved healthcare outcomes.',
 ];
 
 const VALUE_PROPS = [
-  { title: '24/7 Medical Services', desc: 'Round-the-clock emergency and primary healthcare access.', icon: FaAmbulance },
-  { title: 'Advanced Diagnostics', desc: 'High-tech tools and accurate diagnostic support.', icon: FaHeartbeat },
-  { title: 'In-house CurePlus Pharma', desc: 'Affordable, quality medicines for every patient.', icon: MdOutlineLocalPharmacy },
+  { title: '24/7 Medical Services', desc: 'Round-the-clock emergency and primary healthcare access.', icon: Ambulance },
+  { title: 'Advanced Diagnostics', desc: 'High-tech tools and accurate diagnostic support.', icon: HeartPulse },
+  { title: 'In-house CurePlus Pharma', desc: 'Affordable, quality medicines for every patient.', icon: Pill },
 ];
 
-// Animation - UNIQUE config (different from HospitalPage)
-const PAGE_ANIMATION: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({ 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      delay: i * 0.1, 
-      type: 'spring', 
-      stiffness: 100, 
-      damping: 20 
-    } 
-  }),
+const LEADERS = [
+  {
+    name: 'Ram Hebbale Hiriyanna',
+    role: 'Senior Vice President',
+    photo: '/images/team/ram-hebbale-hiriyanna',
+    bio: 'With over 15 years of experience in business development, marketing strategy, and operations, he brings strong expertise in B2B growth, process excellence, and quality management. As Senior Vice President at Sudhanand Group, he drives operational efficiency, strategic decision-making, and sustainable organizational growth, with a strong focus on collaboration and continuous improvement.',
+  },
+  {
+    name: 'Manjunath P',
+    role: 'Senior Manager – Purchase & Procurement',
+    photo: '/images/team/manjunath-p',
+    bio: "Manjunath P is responsible for overseeing purchase and procurement activities across the organisation, coordinating the sourcing and timely availability of varied requirements. Working closely with Sr. Operations Manager – Srinivas, he supports efficient procurement processes, vendor coordination, cost management, and timely fulfilment of organisational needs. In addition to his procurement responsibilities, Manjunath is also involved in managing and supporting the company's Pharma business, contributing to its day-to-day operations, coordination, and business requirements. His role combines procurement expertise, cross-functional coordination, and practical execution to support the organisation's operational and business objectives.",
+  },
+];
+
+const FACILITIES = [
+  { file: 'facility-reception', label: 'Reception', alt: 'Reception desk with a receptionist at a CurePlus hospital' },
+  { file: 'facility-pharmacy', label: 'Pharmacy', alt: 'Fully stocked CurePlus pharmacy counter' },
+  { file: 'facility-consultation-room', label: 'Consultation room', alt: 'Doctor consultation room with examination couch' },
+  { file: 'facility-inpatient-ward', label: 'Inpatient ward', alt: 'Inpatient ward with hospital beds and curtains' },
+  { file: 'facility-examination-room', label: 'Examination room', alt: 'Examination room with the CurePlus logo wall' },
+  { file: 'facility-scan-room', label: 'Scan room', alt: 'Scan and ultrasound room with examination bed' },
+  { file: 'facility-lab-nurse-station', label: 'Lab & nursing station', alt: 'Nurses at the lab and nursing station' },
+];
+
+const facilityItems: GalleryItem[] = FACILITIES.map(({ file, alt }) => ({
+  id: file,
+  slideSrc: `/images/facilities/${file}.webp`,
+  alt,
+  thumb: <Photo src={`/images/facilities/${file}`} alt={alt} sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw" />,
+}));
+
+const aboutJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: TITLE,
+  url: `${SITE_URL}/about`,
+  description: DESCRIPTION,
+  mainEntity: {
+    '@type': 'MedicalOrganization',
+    name: SITE.name,
+    url: SITE_URL,
+    telephone: '+91-9035193777',
+    description: MISSION,
+    employee: LEADERS.map((l) => ({ '@type': 'Person', name: l.name, jobTitle: l.role })),
+  },
 };
 
-const getMotionProps = (i: number) => ({
-  variants: PAGE_ANIMATION,
-  custom: i,
-  initial: 'hidden' as const,
-  whileInView: 'visible' as const,
-  viewport: { once: true, margin: "-50px" },
-});
-
-// Consolidated Styles - UNIQUE naming
-const PAGE_STYLES = {
-  card: 'rounded-xl shadow-md hover:shadow-lg transition-all duration-300',
-  iconBox: 'p-2 bg-purple-100 rounded-lg flex-shrink-0',
-  iconLarge: 'w-8 h-8 text-purple-600',
-  iconMedium: 'w-5 h-5 text-purple-600',
-  titleMain: 'font-bold text-purple-700',
-  titleLarge: 'text-2xl',
-  titleMedium: 'text-xl',
-  titleLg: 'text-lg',
-  descMain: 'text-gray-600 text-sm',
-  descLarge: 'text-gray-700',
-  paragraph: 'text-lg leading-relaxed text-gray-700',
-  flex4: 'flex items-center gap-4',
-  flex3: 'flex items-center gap-3',
-  gridBase: 'grid gap-6',
-  grid2: 'sm:grid-cols-2',
-  grid3: 'md:grid-cols-3 lg:grid-cols-3',
-  spacing: 'mb-16 md:mb-20',
-} as const;
-
-interface ContentCardProps {
-  index: number;
-  children: React.ReactNode;
-  className?: string;
-  link?: string;
-  hover?: boolean;
-}
-
-const ContentCard = ({ index, children, className = '', link, hover = true }: ContentCardProps) => {
-  const content = (
-    <motion.div 
-      {...getMotionProps(index)} 
-      whileHover={hover ? { y: -5, scale: 1.02 } : {}}
-      className={`${PAGE_STYLES.card} ${className}`}
-    >
-      {children}
-    </motion.div>
-  );
-  return link ? <Link href={link}>{content}</Link> : content;
-};
-
-const InfoCard = ({ 
-  title, 
-  desc, 
-  icon: Icon, 
-  index, 
-  bg = 'bg-white', 
-  showIconBg = false, 
-  large = false 
-}: { 
-  title: string; 
-  desc: string; 
-  icon: React.ElementType; 
-  index: number; 
-  bg?: string; 
-  showIconBg?: boolean; 
-  large?: boolean;
-}) => (
-  <ContentCard index={index} className={`${bg} p-6 ${large ? 'border-none' : 'border'}`}>
-    <div className={`${PAGE_STYLES.flex4} mb-3`}>
-      {showIconBg ? (
-        <div className={PAGE_STYLES.iconBox}>
-          <Icon className={PAGE_STYLES.iconLarge} />
-        </div>
-      ) : (
-        <Icon className={PAGE_STYLES.iconLarge} />
-      )}
-      <h2 className={`${PAGE_STYLES.titleMain} ${large ? PAGE_STYLES.titleLarge : PAGE_STYLES.titleMedium}`}>
-        {title}
-      </h2>
-    </div>
-    <p className={large ? PAGE_STYLES.descLarge : PAGE_STYLES.descMain}>{desc}</p>
-  </ContentCard>
-);
-
-const HospitalCard = ({ hospital, index }: { hospital: typeof HOSPITALS_LIST[0]; index: number }) => (
-  <ContentCard 
-    index={index} 
-    className="bg-white border overflow-hidden" 
-    link={`/${`hospital-${hospital.id}`}`}
-    hover={true}
-  >
-    <div className="group">
-      <div className="relative h-48 overflow-hidden">
-        <Image 
-          src={hospital.image} 
-          alt="CurePlus Hospitals Mysore"
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
-      </div>
-      <div className={`${PAGE_STYLES.flex3} p-4`}>
-        <div className={PAGE_STYLES.iconBox}>
-          <FaHospital className={PAGE_STYLES.iconMedium} />
-        </div>
-        <h3 className={`group-hover:underline ${PAGE_STYLES.titleLg} ${PAGE_STYLES.titleMain.replace('text-purple-700', 'text-purple-800')}`}>
-          {hospital.name}
-        </h3>
-      </div>
-    </div>
-  </ContentCard>
-);
-
-const PageSection = ({ title, desc, children }: { 
-  title?: string; 
-  desc?: string; 
-  children: React.ReactNode 
-}) => (
-  <div className={PAGE_STYLES.spacing}>
-    {title && (
-      <div className="text-center mb-8">
-        <h2 className={`text-2xl md:text-3xl ${PAGE_STYLES.titleMain} mb-2`}>{title}</h2>
-        {desc && <p className={PAGE_STYLES.descMain}>{desc}</p>}
-      </div>
-    )}
-    {children}
-  </div>
-);
-
-const AboutPage = () => (
-  <>
-    {/* Schema */}
-    <Script
-      id="hospital-schema"
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Hospital",
-          "name": "CurePlus Hospitals",
-          "url": "https://www.cureplushospitals.com/about",
-          "description": "CurePlus Hospitals is a trusted multispeciality healthcare provider offering emergency care, diagnostics, and expert medical services across Karnataka.",
-          "telephone": "+91-9035193777",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Mysore",
-            "addressRegion": "Karnataka",
-            "addressCountry": "IN"
-          },
-          "medicalSpecialty": [
-            "Orthopedics",
-            "Gynecology",
-            "General Medicine",
-            "Emergency Care"
-          ],
-          "sameAs": [
-            "https://www.instagram.com/",
-            "https://www.facebook.com/"
-          ]
-        }),
-      }}
-    />
-
-    <div className="relative max-w-7xl mx-auto px-4 py-12 md:py-20 text-gray-800">
-      {/* Hero */}
-      <motion.div {...getMotionProps(0)} className="text-center mb-12 md:mb-20">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 text-purple-700 leading-tight">
-          Building Healthier Communities
-        </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          CurePlus Hospitals is committed to transforming rural healthcare across India.
-        </p>
-      </motion.div>
-
-      {/* About Text */}
-      <motion.div {...getMotionProps(1)} className={`${PAGE_STYLES.spacing} max-w-5xl mx-auto`}>
-        <div className="space-y-4">
-          {[
-            'Founded in August 2013 by Dr. Arjun Sachidanand and Dr. Sini Arjun, Sudhanand Healthcare Solutions Pvt. Ltd. is dedicated to delivering high-quality healthcare services at subsidized rates.',
-            'The organization focuses on preventive care, diagnostics, telemedicine, and education to enhance healthcare accessibility.',
-            'With a growing CurePlus Hospital network across Karnataka, SHPL continues to improve rural and underserved healthcare outcomes.'
-          ].map((text, i) => (
-            <p key={i} className={PAGE_STYLES.paragraph}>{text}</p>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* Internal Links */}
-      <div className="flex flex-wrap justify-center gap-4 mb-16">
-        <Link href="/team" className="px-5 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
-          Doctors
+export default function AboutPage() {
+  return (
+    <>
+      <JsonLd data={aboutJsonLd} />
+      <PageHero
+        eyebrow="About us"
+        title="Building Healthier Communities"
+        lead="CurePlus Hospitals is committed to transforming rural healthcare across India."
+        crumbs={[{ name: 'About Us' }]}
+      >
+        <Link href="/hospitals" className="btn btn-light btn-lg">
+          Our hospitals
+          <ArrowRight className="h-5 w-5" aria-hidden="true" />
         </Link>
-
-        <Link href="/services" className="px-5 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
-          Services
+        <Link href="/contact" className="btn btn-outline-light btn-lg">
+          Contact us
         </Link>
+      </PageHero>
 
-        <Link href="/contact" className="px-5 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
-          Contact Page
-        </Link>
+      {/* Story */}
+      <section className="section" aria-labelledby="story-heading">
+        <div className="container-page grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <div>
+            <p className="eyebrow">Who we are</p>
+            <h2 id="story-heading" className="mt-3 text-h2 text-brand-950">
+              Quality healthcare for every community
+            </h2>
+            <div className="mt-5 space-y-4">
+              {STORY.map((text) => (
+                <p key={text} className="copy">
+                  {text}
+                </p>
+              ))}
+            </div>
+            <ul className="mt-7 flex flex-wrap gap-3">
+              {[
+                { href: '/team', label: 'Our team' },
+                { href: '/services', label: 'Specialities' },
+                { href: '/hospitals', label: 'Hospital locations' },
+                { href: '/contact', label: 'Contact us' },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="btn btn-secondary">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <Link href="/hospitals" className="px-5 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
-          Branch Locations
-        </Link>
-      </div>
-
-      {/* Vision Mission Goal */}
-      <div className={`${PAGE_STYLES.gridBase} ${PAGE_STYLES.grid3} md:gap-8 ${PAGE_STYLES.spacing}`}>
-        {VISION_MISSION_GOAL.map((item, i) => (
-          <InfoCard key={item.title} {...item} icon={item.icon} index={i + 2} large />
-        ))}
-      </div>
-
-      {/* Value Props */}
-      <div className={`${PAGE_STYLES.gridBase} ${PAGE_STYLES.grid3} ${PAGE_STYLES.spacing}`}>
-        {VALUE_PROPS.map((item, i) => (
-          <InfoCard key={item.title} {...item} index={i + 5} showIconBg />
-        ))}
-      </div>
-
-      {/* Hospitals */}
-      <PageSection title="Hospitals Under SHPL" desc="Our growing network of healthcare facilities">
-        <div className={`${PAGE_STYLES.gridBase} ${PAGE_STYLES.grid2} ${PAGE_STYLES.grid3}`}>
-          {HOSPITALS_LIST.map((hospital, i) => (
-            <HospitalCard key={hospital.id} hospital={hospital} index={i + 10} />
-          ))}
+          <ul className="grid gap-4">
+            {VALUE_PROPS.map(({ title, desc, icon: Icon }) => (
+              <li key={title} className="card flex items-start gap-4 p-5">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-100 text-brand-800">
+                  <Icon className="h-6 w-6" aria-hidden="true" />
+                </span>
+                <div>
+                  <h3 className="text-lg font-semibold text-brand-950">{title}</h3>
+                  <p className="mt-1 text-ink-soft">{desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
-      </PageSection>
+      </section>
+
+      {/* Mission & Vision (wording supplied by the client – do not paraphrase) */}
+      <section className="section section-tint" aria-labelledby="mission-vision-heading">
+        <div className="container-page">
+          <div className="section-heading" data-reveal>
+            <p className="eyebrow justify-center">What drives us</p>
+            <h2 id="mission-vision-heading">Our mission &amp; vision</h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2">
+            <article data-reveal className="card relative overflow-hidden p-7 sm:p-9">
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 text-white shadow-card">
+                <Target className="h-7 w-7" aria-hidden="true" />
+              </span>
+              <h3 className="mt-5 text-h3 text-brand-950">Mission</h3>
+              <p className="mt-3 text-[1.05rem] leading-relaxed text-ink-soft">{MISSION}</p>
+            </article>
+            <article data-reveal style={{ ['--reveal-delay' as string]: '100ms' }} className="card relative overflow-hidden p-7 sm:p-9">
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 text-white shadow-card">
+                <Eye className="h-7 w-7" aria-hidden="true" />
+              </span>
+              <h3 className="mt-5 text-h3 text-brand-950">Vision</h3>
+              <p className="mt-3 text-[1.05rem] leading-relaxed text-ink-soft">{VISION}</p>
+            </article>
+          </div>
+          <div data-reveal className="mt-6 flex items-center gap-4 rounded-card bg-brand-950 p-5 text-white sm:p-6">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/15">
+              <Flag className="h-6 w-6" aria-hidden="true" />
+            </span>
+            <p className="text-[1.02rem] leading-snug">
+              <strong className="font-bold">Our goal:</strong> 200+ hospitals across India by {TARGET_YEAR}, with a focus on rural
+              and underserved areas.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="section" aria-labelledby="impact-heading">
+        <div className="container-page">
+          <div className="section-heading" data-reveal>
+            <p className="eyebrow justify-center">Our impact</p>
+            <h2 id="impact-heading">CurePlus at a glance</h2>
+          </div>
+          <StatsGrid className="grid-cols-2 lg:grid-cols-3" />
+        </div>
+      </section>
+
+      <LicenceStrip />
+
+      {/* Leadership */}
+      <section className="section" aria-labelledby="leadership-heading">
+        <div className="container-page">
+          <div className="section-heading" data-reveal>
+            <p className="eyebrow justify-center">Leadership</p>
+            <h2 id="leadership-heading">The people steering CurePlus</h2>
+            <p>
+              Experienced leaders keeping our hospitals efficient, well supplied and focused on patients. Meet the rest of our
+              team on the{' '}
+              <Link href="/team" className="font-semibold text-brand-800 underline underline-offset-4">
+                team page
+              </Link>
+              .
+            </p>
+          </div>
+          <ul className="grid gap-6 lg:grid-cols-2">
+            {LEADERS.map((leader, i) => (
+              <li
+                key={leader.name}
+                data-reveal
+                style={{ ['--reveal-delay' as string]: `${i * 100}ms` }}
+                className="card flex flex-col items-center gap-5 p-6 text-center sm:flex-row sm:items-start sm:p-8 sm:text-left"
+              >
+                <picture className="shrink-0">
+                  <source type="image/webp" srcSet={`${leader.photo}-240.webp 240w, ${leader.photo}.webp 480w`} sizes="144px" />
+                  <img
+                    src={`${leader.photo}.jpg`}
+                    srcSet={`${leader.photo}-240.jpg 240w, ${leader.photo}.jpg 480w`}
+                    sizes="144px"
+                    alt={`${leader.name}, ${leader.role}`}
+                    width={480}
+                    height={480}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-32 w-32 rounded-full border-4 border-brand-100 object-cover shadow-card sm:h-36 sm:w-36"
+                  />
+                </picture>
+                <div>
+                  <h3 className="text-h3 text-brand-950">{leader.name}</h3>
+                  <p className="mt-1 font-semibold text-brand-700">{leader.role}</p>
+                  <p className="copy mt-3">{leader.bio}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Facilities gallery */}
+      <section className="section section-tint" aria-labelledby="facilities-heading">
+        <div className="container-page">
+          <div className="section-heading" data-reveal>
+            <p className="eyebrow justify-center">Inside our hospitals</p>
+            <h2 id="facilities-heading">Our facilities</h2>
+            <p>Clean, modern spaces designed around patient comfort. Tap any photo to view it larger.</p>
+          </div>
+          <Gallery
+            items={facilityItems}
+            className="grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+            trailingClassName="md:col-span-2 lg:col-span-1"
+            trailing={
+              <div className="on-dark flex h-full min-h-[10rem] flex-col justify-center rounded-card bg-gradient-to-br from-brand-800 to-brand-950 p-5 text-white shadow-card">
+                <p className="text-lg font-bold leading-snug">Visit your nearest CurePlus hospital</p>
+                <Link href="/hospitals" className="btn btn-light mt-4 self-start">
+                  Find a hospital
+                </Link>
+              </div>
+            }
+          />
+        </div>
+      </section>
+
+      {/* Hospital list */}
+      <section className="section" aria-labelledby="under-shpl-heading">
+        <div className="container-page">
+          <div className="section-heading" data-reveal>
+            <p className="eyebrow justify-center">Hospitals under SHPL</p>
+            <h2 id="under-shpl-heading">Our growing network of {HOSPITAL_COUNT} hospitals</h2>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {districts.map((district) => (
+              <div key={district} className="card p-5">
+                <h3 className="text-lg font-bold text-brand-950">{district}</h3>
+                <ul className="mt-3 space-y-1">
+                  {hospitals
+                    .filter((h) => h.district === district)
+                    .map((h) => (
+                      <li key={h.id}>
+                        <Link href={h.path} className="inline-flex min-h-[2.75rem] items-center text-[0.95rem] font-medium text-brand-800 hover:underline sm:min-h-[2.25rem]">
+                          {h.name}
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* CTA */}
-      <motion.div {...getMotionProps(23)} className="text-center py-12 bg-gradient-to-r from-purple-700 to-purple-600 rounded-xl shadow-lg">
-        <h3 className="text-xl md:text-2xl font-semibold text-white mb-4">
-          Join Us In Building A Healthier Future
-        </h3>
-        <Link href="/careers">
-          <motion.button 
-            whileHover={{ scale: 1.05 }} 
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-6 md:px-8 py-3 bg-white text-purple-800 font-medium rounded-full shadow hover:bg-gray-50 transition-colors"
-          >
-            Explore Careers 
-            <FiArrowRight className="w-5 h-5" />
-          </motion.button>
-        </Link>
-      </motion.div>
-    </div>
-
-    <Footer />
-  </>
-);
-
-export default AboutPage;
+      <section className="pb-10 md:pb-14">
+        <div className="container-page">
+          <div className="on-dark rounded-panel bg-gradient-to-r from-brand-800 to-brand-950 px-6 py-9 text-center text-white sm:px-10">
+            <h2 className="text-h2 text-white">Join us in building a healthier future</h2>
+            <Link href="/careers" className="btn btn-light btn-lg mt-6">
+              Explore careers
+              <ArrowRight className="h-5 w-5" aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

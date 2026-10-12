@@ -1,11 +1,9 @@
-'use client';
+import { SITE_URL } from '../data/site';
+import JsonLd from '../component/JsonLd';
+import PageHero from '../component/PageHero';
+import TeamGrid, { type TeamMember } from '../component/TeamGrid';
 
-import Script from "next/script";
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Footer from '../component/FooterSection';
-
-const teamMembers = [
+const teamMembers: TeamMember[] = [
   {
     name: 'Dr. Arjun',
     role: 'Founder & Chairman',
@@ -64,11 +62,11 @@ const teamMembers = [
   },
   {
     name: 'Manjunath P.',
-    role: 'Senior Operations Manager',
-    bio: 'Expert in healthcare operations with a commitment to quality service.',
+    role: 'Senior Manager – Purchase & Procurement',
+    bio: 'Oversees purchase and procurement across the organisation and supports the Pharma business.',
     image: '/managment/Manjunath P-Photoroom.png',
     description:
-      'Manjunath is an expert in healthcare operations with a commitment to quality service. He has extensive experience in managing healthcare facilities and ensuring compliance with regulatory standards. Manjunath is dedicated to fostering a culture of excellence within the organization and is always looking for ways to enhance service delivery.',
+      "Manjunath P is responsible for overseeing purchase and procurement activities across the organisation, coordinating the sourcing and timely availability of varied requirements. Working closely with Sr. Operations Manager – Srinivas, he supports efficient procurement processes, vendor coordination, cost management, and timely fulfilment of organisational needs. In addition to his procurement responsibilities, Manjunath is also involved in managing and supporting the company's Pharma business, contributing to its day-to-day operations, coordination, and business requirements.",
   },
   {
     name: 'Sandeep',
@@ -80,145 +78,32 @@ const teamMembers = [
   },
 ];
 
-const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-
-  visible: { opacity: 1, y: 0 },
+const teamJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalOrganization',
+  name: 'CurePlus Hospitals',
+  url: `${SITE_URL}/team`,
+  description:
+    'Meet the leadership and healthcare professionals of CurePlus Hospitals delivering quality healthcare services across Karnataka.',
+  employee: teamMembers.map((m) => ({ '@type': 'Person', name: m.name, jobTitle: m.role })),
 };
 
-const TeamPage = () => {
-  return (
-    <>
-      {/* Schema */}
-      <Script
-        id="medical-organization-team-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'MedicalOrganization',
-            name: 'CurePlus Hospitals',
-            url: 'https://www.cureplushospitals.com/team',
-            description:
-              'Meet the leadership and healthcare professionals of CurePlus Hospitals delivering quality healthcare services across Karnataka.',
-            employee: [
-              {
-                '@type': 'Person',
-                name: 'Dr. Arjun',
-                jobTitle: 'Founder & Chairman',
-              },
-              {
-                '@type': 'Person',
-                name: 'Dr. Sini',
-                jobTitle: 'Managing Director',
-              },
-              {
-                '@type': 'Person',
-                name: 'Capt. Raghu Das',
-                jobTitle: 'Chief Operating Officer',
-              },
-            ],
-          }),
-        }}
-      />
+const TeamPage = () => (
+  <>
+    <JsonLd data={teamJsonLd} />
+    <PageHero
+      eyebrow="Our people"
+      title="Meet Our Team"
+      lead="Meet the expert leadership and healthcare professionals driving quality patient care at CurePlus Hospitals across Karnataka."
+      crumbs={[{ name: 'Team' }]}
+    />
 
-      <div className="max-w-7xl mx-auto px-6 py-20 text-gray-800">
-        {/* Hero Section */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={fadeIn}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl mb-4">
-            Meet <span className="text-purple-600">Our Team</span>
-          </h1>
-
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Meet the expert leadership and healthcare professionals driving
-            quality patient care at CurePlus Hospitals across Karnataka.
-          </p>
-        </motion.div>
-
-        {/* Team Members */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            visible: {
-              transition: {
-                staggerChildren: 0.1,
-              },
-            },
-          }}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
-        >
-          {teamMembers.map((member, i) => (
-            <motion.div
-              key={i}
-              variants={fadeIn}
-              className="relative bg-white rounded-xl shadow-md overflow-hidden group transition duration-300 ease-in-out hover:shadow-xl h-[380px] border border-gray-200"
-            >
-              {/* Default View */}
-              <motion.div
-                initial={{ opacity: 1 }}
-                whileHover={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="absolute inset-0 flex flex-col items-center justify-center p-6 z-10"
-              >
-                <div className="relative h-32 w-32 mb-4">
-                  <Image
-                    src={member.image}
-                    alt={`${member.name} - CurePlus Hospitals Leadership Team`}
-                    fill
-                    sizes="128px"
-                    className="rounded-full border-4 border-white shadow-md object-fill"
-                  />
-                </div>
-
-                <h2 className="text-xl font-bold text-purple-600 mb-1">
-                  {member.name}
-                </h2>
-
-                <p className="text-purple-600 font-bold mb-2">
-                  {member.role}
-                </p>
-
-                <p className="text-sm text-gray-700 text-center">
-                  {member.bio}
-                </p>
-              </motion.div>
-
-              {/* Hover View */}
-              <motion.div
-                initial={{ y: 50, opacity: 0 }}
-                whileHover={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, ease: 'easeOut' }}
-                className="absolute inset-0 flex flex-col items-center justify-center bg-white p-6 text-center z-20"
-              >
-                <div className="relative h-20 w-20 mb-4">
-                  <Image
-                    src={member.image}
-                    alt={`${member.name} - CurePlus Hospitals Leadership Team`}
-                    fill
-                    sizes="80px"
-                    className="rounded-full border-4 border-white shadow-md object-fill"
-                  />
-                </div>
-
-                <p className="text-sm text-gray-700 leading-relaxed">
-                  {member.description}
-                </p>
-              </motion.div>
-            </motion.div>
-          ))}
-        </motion.div>
+    <section className="section" aria-label="Leadership team">
+      <div className="container-page">
+        <TeamGrid members={teamMembers} />
       </div>
-
-      <Footer />
-    </>
-  );
-};
+    </section>
+  </>
+);
 
 export default TeamPage;

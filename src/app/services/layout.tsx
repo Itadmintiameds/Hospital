@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { OG_IMAGES } from "../data/site";
 
 export const metadata: Metadata = {
   title: "Best Multispeciality Hospital Services | CurePlus",
@@ -31,6 +32,7 @@ export const metadata: Metadata = {
     locale: "en_IN",
 
     type: "website",
+    images: OG_IMAGES,
   },
 
   twitter: {
@@ -40,6 +42,7 @@ export const metadata: Metadata = {
 
     description:
       "Explore expert healthcare services at CurePlus Hospitals including orthopedics, gynecology, pediatrics, diagnostics & emergency care.",
+    images: OG_IMAGES.map((i) => i.url),
   },
 };
 

@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Link from 'next/link';
-import Footer from '../component/FooterSection';
 
 const fadeIn = {
   hidden: { opacity: 0 },
@@ -59,7 +58,7 @@ const CureArogyaComingSoon = () => {
 const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Here you would typically send the data to your backend
-    console.log({ email, selectedPlan });
+    // TODO: the early-access sign-up is not sent anywhere yet (it used to be console.logged). Connect it to a mailing list or backend before launch.
     setSubmitted(true);
 };
 
@@ -82,8 +81,8 @@ const handleSubmit = (e: React.FormEvent) => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-purple-50 to-blue-50 py-20 border-b border-gray-200">
-        <div className="container mx-auto px-6 text-center">
+      <section className="relative bg-gradient-to-br from-purple-50 to-blue-50 py-12 sm:py-20 border-b border-gray-200">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -102,10 +101,10 @@ const handleSubmit = (e: React.FormEvent) => {
             <p className="text-xl text-gray-600 mb-8">
               We&apos;re building something special! Be the first to know when we launch our exclusive healthcare plans with <span className="font-semibold text-purple-600">25% savings</span>.
             </p>
-            <div className="bg-white rounded-xl shadow-md p-6 max-w-2xl mx-auto">
+            <div id="early-access" className="bg-white rounded-xl shadow-md p-6 max-w-2xl mx-auto scroll-mt-24">
               {!submitted ? (
                 <>
-                  <h3 className="text-lg font-semibold mb-4 text-gray-800">Get early access</h3>
+                  <h2 className="text-lg font-semibold mb-4 text-gray-800">Get early access</h2>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1 text-left">
@@ -195,7 +194,7 @@ const handleSubmit = (e: React.FormEvent) => {
       </section>
 
       {/* Plans Preview Section */}
-      <section className="py-16 container mx-auto px-6">
+      <section className="py-12 sm:py-16 container mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -284,7 +283,7 @@ const handleSubmit = (e: React.FormEvent) => {
 
       {/* Final CTA */}
       <section className="py-20 bg-purple-50 border-t border-gray-200">
-        <div className="container mx-auto px-6 text-center">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -295,7 +294,7 @@ const handleSubmit = (e: React.FormEvent) => {
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               Join our waiting list and we&apos;ll notify you as soon as applications open
             </p>
-            <Link href="#early-access">
+            <Link href="#early-access" className="inline-block">
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
@@ -307,7 +306,6 @@ const handleSubmit = (e: React.FormEvent) => {
           </motion.div>
         </div>
       </section>
-      <Footer />
     </div>
   );
 };
